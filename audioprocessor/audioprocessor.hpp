@@ -9,6 +9,12 @@
 #ifndef audioprocessor_hpp
 #define audioprocessor_hpp
 
-#include <stdio.h>
+namespace Cogi {
+    class AudioProcessor {
+        public:
+        AudioProcessor();
+        void helloWorld();
+    };
+}
 
 #endif /* audioprocessor_hpp */

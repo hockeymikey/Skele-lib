@@ -25,10 +25,11 @@ void AudioProcessorTest::SetUp() {};
 
 void AudioProcessorTest::TearDown() {};
 
-//TEST_F(AudioProcessorTest, ByDefaultBazTrueIsTrue) {
-//    Foo foo(m_bar);
+TEST_F(AudioProcessorTest, ByDefaultBazTrueIsTrue) {
+    Cogi::AudioProcessor ap;
+    ap.helloWorld();
 //    EXPECT_EQ(foo.baz(true), true);
-//}
+}
 //
 //TEST_F(FooTest, ByDefaultBazFalseIsFalse) {
 //    Foo foo(m_bar);

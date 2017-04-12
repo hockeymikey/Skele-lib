@@ -7,3 +7,13 @@
 //
 
 #include "audioprocessor.hpp"
+#include <iostream>
+
+namespace Cogi {
+    AudioProcessor::AudioProcessor() {
+        
+    }
+    void AudioProcessor::helloWorld() {
+        std::cout << "hello world" << std::endl;
+    }
+}
