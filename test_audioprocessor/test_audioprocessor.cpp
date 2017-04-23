@@ -26,8 +26,13 @@ void AudioProcessorTest::SetUp() {};
 void AudioProcessorTest::TearDown() {};
 
 TEST_F(AudioProcessorTest, ByDefaultBazTrueIsTrue) {
-    Cogi::AudioProcessor ap;
-    ap.helloWorld();
+    Cogi::AudioDescription ad;
+    ad.bitsPerChannel = 16;
+    ad.numberOfChannels = 1;
+    ad.sampleRate = 44110;
+    
+    Cogi::AudioProcessor ap(ad, "asdasd");
+//    ap.helloWorld();
 //    EXPECT_EQ(foo.baz(true), true);
 }
 //

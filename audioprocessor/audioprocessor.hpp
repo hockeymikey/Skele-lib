@@ -9,11 +9,24 @@
 #ifndef audioprocessor_hpp
 #define audioprocessor_hpp
 
+#include <iostream>
+
 namespace Cogi {
+    
+    struct AudioDescription {
+        float sampleRate;
+        int numberOfChannels;
+        int bitsPerChannel;
+    };
+    
     class AudioProcessor {
+        
+        AudioDescription audioDescription;
+        std::string filePathToStoreRawData;
+        
         public:
-        AudioProcessor();
-        void helloWorld();
+        AudioProcessor(AudioDescription, std::string);
+        void writeAudioSamples(char []);
     };
 }
 

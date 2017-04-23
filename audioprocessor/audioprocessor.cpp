@@ -8,12 +8,15 @@
 
 #include "audioprocessor.hpp"
 #include <iostream>
+//#include <boost>
 
 namespace Cogi {
-    AudioProcessor::AudioProcessor() {
-        
+    AudioProcessor::AudioProcessor(AudioDescription ad, std::string path) {
+        audioDescription = ad;
+        filePathToStoreRawData = path;
     }
-    void AudioProcessor::helloWorld() {
-        std::cout << "hello world" << std::endl;
+    
+    void AudioProcessor::writeAudioSamples(char samples[]) {
+        
     }
 }
