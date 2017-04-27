@@ -6,9 +6,9 @@
 //  Copyright © 2017 Cogi. All rights reserved.
 //
 
-#include "audioprocessor.hpp"
+#include "AudioProcessor.hpp"
 #include "test_audioprocessor.hpp"
-
+#include <boost/filesystem/path.hpp>
 
 using ::testing::Return;
 
@@ -25,15 +25,24 @@ void AudioProcessorTest::SetUp() {};
 
 void AudioProcessorTest::TearDown() {};
 
-TEST_F(AudioProcessorTest, ByDefaultBazTrueIsTrue) {
-    Cogi::AudioDescription ad;
-    ad.bitsPerChannel = 16;
-    ad.numberOfChannels = 1;
-    ad.sampleRate = 44110;
+TEST(AudioProcessorTest, FileDoesNotExist) {
+    Cogi::AudioDescription audiDescription(16, 1, 44110);
+    EXPECT_THROW(Cogi::AudioProcessor ap(audiDescription, "nonexistent/test_file"), std::runtime_error);
+}
+
+TEST(AudioProcessorTest, WriteAudioSamples) {
+    Cogi::AudioDescription audiDescription(16, 1, 44110);
+    boost::filesystem::path path("test_file");
+    boost::filesystem::ofstream stream(path);
+    Cogi::AudioProcessor ap(audiDescription, path.string());
+    int array[] = {1,2,3,4,5};
+    ap.writeAudioSamples(array, 5);
+    ap.close();
+    boost::filesystem::ifstream instream(path);
+    int num[5];
+//    std::streamsize read = instream.readsome(&num[0], 5 * sizeof(int));
     
-    Cogi::AudioProcessor ap(ad, "asdasd");
-//    ap.helloWorld();
-//    EXPECT_EQ(foo.baz(true), true);
+    
 }
 //
 //TEST_F(FooTest, ByDefaultBazFalseIsFalse) {

@@ -5,7 +5,7 @@ set(Boost_USE_STATIC_LIBS ON)
 #set(Boost_USE_MULTITHREADED OFF)
 #set(Boost_USE_STATIC_RUNTIME OFF)
 
-find_package(Boost REQUIRED COMPONENTS filesystem)
+find_package(Boost REQUIRED COMPONENTS system filesystem)
 include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
 
 # Download and unpack googletest at configure time
@@ -39,7 +39,3 @@ enable_testing()
 add_subdirectory(audioprocessor)
 add_subdirectory(test_audioprocessor)
 
-
-
-#add_library(audioProcessor STATIC  $<TARGET_OBJECTS:src>)
-#target_link_libraries(audioProcessor)
