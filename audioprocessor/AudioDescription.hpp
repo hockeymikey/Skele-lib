@@ -9,7 +9,7 @@ namespace CAP {
     
     struct AudioDescription {
     public:
-        float sampleRate;
+        int sampleRate;
         int numberOfChannels;
         int bitsPerChannel;
         AudioDescription(float, int, int);

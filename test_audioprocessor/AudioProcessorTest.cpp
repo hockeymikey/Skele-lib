@@ -32,7 +32,7 @@ TEST(AudioProcessorTest, WriteAudioSamples) {
     sws.push_back(sw1);
     CAP::AudioProcessor ap(sws);
     
-    while (true) {
+    while (false) {
         random_device rd;
         mt19937 mt(rd());
         uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);

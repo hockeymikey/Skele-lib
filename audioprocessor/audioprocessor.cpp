@@ -10,10 +10,8 @@ namespace CAP {
     }
     
     void AudioProcessor::writeAudioSamples(std::vector<int16_t> samples) {
-        for (int16_t sample : samples) {
-            for(StreamWriter streamWriter : streamWriters) {
-                streamWriter.write(sample);
-            }
+        for(StreamWriter streamWriter : streamWriters) {
+            streamWriter.write(samples.data(), samples.size());
         }
     }
     void AudioProcessor::close() {

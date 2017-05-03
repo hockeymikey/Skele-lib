@@ -14,8 +14,8 @@ namespace CAP {
     StreamWriter::StreamWriter(const StreamWriter& other) {
         
     }
-    void StreamWriter::write(int16_t sample) {
-        fileStream.write(reinterpret_cast<char *>(&sample), sizeof(int16_t));
+    void StreamWriter::write(int16_t samples[], int size) {
+        fileStream.write(reinterpret_cast<char *>(samples), size * sizeof(int16_t));
     }
     
     void StreamWriter::close() {

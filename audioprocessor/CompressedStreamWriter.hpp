@@ -12,10 +12,20 @@
 #include "StreamWriter.hpp"
 
 namespace CAP {
+    
     class CompressedStreamWriter: public StreamWriter {
     public:
+        
+        enum class Status {
+            Success,
+            CompressorInitializationError,
+            CompressorBufferTooSmall,
+            CompressorMemoryAllocationError,
+            CompressorPsychoAcousticError
+        };
+        
         CompressedStreamWriter(std::string, int);
-        void write(int16_t);
+        Status write(int16_t samples[], int size);
     protected:
         
     private:

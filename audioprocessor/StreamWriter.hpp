@@ -17,7 +17,7 @@ namespace CAP {
     public:
         StreamWriter(std::string);
         StreamWriter(const StreamWriter&);
-        void write(int16_t);
+        void write(int16_t[], int);
         void close();
     protected:
         
