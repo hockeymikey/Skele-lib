@@ -14,11 +14,12 @@
 namespace CAP {
     class CompressedStreamWriter: public StreamWriter {
     public:
+        CompressedStreamWriter(std::string, int);
         void write(int16_t);
     protected:
         
     private:
-        
+        int compressionQuality;
     };
 }
 

@@ -7,10 +7,17 @@
 //
 
 #include "CompressedStreamWriter.hpp"
+#include <lame/lame.h>
 
 namespace CAP {
-    
-    void StreamWriter::write(int16_t sample) {
+    CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath), compressionQuality(quality) {
+        
+    }
+    void CompressedStreamWriter::write(int16_t sample) {
+        lame_t lame = lame_init();
+        lame_set_quality(lame, compressionQuality);
+        lame_init_params(lame);
+        lame_encode_buffer(lame, <#const short *buffer_l#>, <#const short *buffer_r#>, <#const int nsamples#>, <#unsigned char *mp3buf#>, <#const int mp3buf_size#>)
 //        parent::write(sample);
     }
     

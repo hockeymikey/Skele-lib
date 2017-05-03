@@ -23,7 +23,6 @@ namespace CAP {
         
     private:
         std::ofstream fileStream;
-    
         StreamWriter();
         StreamWriter operator=(const StreamWriter&);
 
