@@ -1,6 +1,6 @@
 
-#include "AudioProcessor.hpp"
-#include "AudioProcessorTest.hpp"
+#include "audio_processor.hpp"
+#include "audio_processor_test.hpp"
 #include <vector>
 #include <random>
 

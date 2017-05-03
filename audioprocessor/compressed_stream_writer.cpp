@@ -6,7 +6,7 @@
 //
 //
 
-#include "CompressedStreamWriter.hpp"
+#include "compressed_stream_writer.hpp"
 #include <lame/lame.h>
 
 namespace CAP {

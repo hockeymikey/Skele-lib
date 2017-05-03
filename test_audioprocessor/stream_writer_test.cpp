@@ -7,8 +7,8 @@
 //
 
 #include <fstream>
-#include "StreamWriter.hpp"
-#include "StreamWriterTest.hpp"
+#include "stream_writer.hpp"
+#include "stream_writer_test.hpp"
 
 
 using namespace std;

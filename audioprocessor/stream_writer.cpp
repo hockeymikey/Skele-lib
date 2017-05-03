@@ -6,7 +6,7 @@
 //
 //
 
-#include "StreamWriter.hpp"
+#include "stream_writer.hpp"
 
 namespace CAP {
     StreamWriter::StreamWriter(std::string filePath): fileStream(filePath, std::ios_base::binary) {

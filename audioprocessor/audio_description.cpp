@@ -1,5 +1,5 @@
 
-#include "AudioDescription.hpp"
+#include "audio_description.hpp"
 
 namespace CAP {
     AudioDescription::AudioDescription(float sampleRate_, int numberOfChannels_, int bitsPerChannel_): sampleRate(sampleRate_), numberOfChannels(numberOfChannels_), bitsPerChannel(bitsPerChannel_) {

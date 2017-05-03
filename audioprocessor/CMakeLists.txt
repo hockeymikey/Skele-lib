@@ -1,12 +1,12 @@
 set(libap_SRCS
-    AudioProcessor.hpp
-    AudioProcessor.cpp
-    AudioDescription.hpp
-    AudioDescription.cpp
-    StreamWriter.hpp
-    StreamWriter.cpp
-    CompressedStreamWriter.hpp
-    CompressedStreamWriter.cpp
+    audio_processor.hpp
+    audio_processor.cpp
+    audio_description.hpp
+    audio_description.cpp
+    stream_writer.hpp
+    stream_writer.cpp
+    compressed_stream_writer.hpp
+    compressed_stream_writer.cpp
 )
 
 # Declare the library

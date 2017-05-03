@@ -2,7 +2,7 @@
 #ifndef audioprocessor_hpp
 #define audioprocessor_hpp
 
-#include "StreamWriter.hpp"
+#include "stream_writer.hpp"
 #include <fstream>
 #include <vector>
 #include <boost/filesystem/path.hpp>
