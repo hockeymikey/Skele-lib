@@ -3,6 +3,10 @@ set(libap_SRCS
     AudioProcessor.cpp
     AudioDescription.hpp
     AudioDescription.cpp
+    StreamWriter.hpp
+    StreamWriter.cpp
+    CompressedStreamWriter.hpp
+    CompressedStreamWriter.cpp
 )
 
 # Declare the library

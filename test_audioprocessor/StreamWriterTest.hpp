@@ -1,25 +1,26 @@
 //
-//  test_audioprocessor.hpp
-//  test
+//  StreamWriterTest.hpp
+//  AudioProcessor
 //
-//  Created by Aziz Usmanov on 4/11/17.
-//  Copyright © 2017 Cogi. All rights reserved.
+//  Created by Aziz Usmanov on 5/2/17.
 //
+//
+
+#ifndef StreamWriterTest_hpp
+#define StreamWriterTest_hpp
 
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
-//#include "mockbar.h"
 
 // The fixture for testing class Foo.
-class AudioProcessorTest : public ::testing::Test {
+class StreamWriterTest : public ::testing::Test {
     
 protected:
     
     // You can do set-up work for each test here.
-    AudioProcessorTest();
+    StreamWriterTest();
     
     // You can do clean-up work that doesn't throw exceptions here.
-    virtual ~AudioProcessorTest();
+    virtual ~StreamWriterTest();
     
     // If the constructor and destructor are not enough for setting up
     // and cleaning up each test, you can define the following methods:
@@ -33,5 +34,7 @@ protected:
     virtual void TearDown();
     
     // The mock bar library shaed by all tests
-//    MockBar m_bar;
+    //    MockBar m_bar;
 };
+
+#endif /* StreamWriterTest_hpp */

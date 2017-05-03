@@ -1,5 +1,5 @@
 
-ADD_EXECUTABLE(test_audioprocessor test_audioprocessor.cpp test_audioprocessor.hpp)
+ADD_EXECUTABLE(test_audioprocessor AudioProcessorTest.cpp AudioProcessorTest.hpp StreamWriterTest.cpp StreamWriterTest.hpp)
 
 TARGET_LINK_LIBRARIES(test_audioprocessor
     audioprocessor

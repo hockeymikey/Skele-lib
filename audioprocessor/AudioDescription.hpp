@@ -1,17 +1,11 @@
-//
-//  AudioDescription.hpp
-//  test
-//
-//  Created by Aziz Usmanov on 4/11/17.
-//  Copyright © 2017 Cogi. All rights reserved.
-//
+
 
 #ifndef audiodescription_hpp
 #define audiodescription_hpp
 
 
 
-namespace Cogi {
+namespace CAP {
     
     struct AudioDescription {
     public:

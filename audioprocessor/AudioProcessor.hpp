@@ -1,31 +1,29 @@
-//
-//  audioprocessor.hpp
-//
-//  Created by Aziz Usmanov on 4/11/17.
-//  Copyright © 2017 Cogi. All rights reserved.
-//
 
 #ifndef audioprocessor_hpp
 #define audioprocessor_hpp
 
-#include "AudioDescription.hpp"
-#include <iostream>
+#include "StreamWriter.hpp"
+#include <fstream>
+#include <vector>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/fstream.hpp>
 
-namespace Cogi {
+namespace CAP {
     class AudioProcessor {
         
     public:
-        AudioProcessor(AudioDescription, std::string);
-        void writeAudioSamples(int [], int);
+        AudioProcessor(std::vector<StreamWriter>);
+        void writeAudioSamples(std::vector<int16_t>);
         void close();
     protected:
     
     private:
-        AudioDescription audioDescription;
-        boost::filesystem::path rawAudioPath;
-        boost::filesystem::ofstream ofstream;
+        std::vector<StreamWriter> streamWriters;
+//        boost::filesystem::path rawAudioPath;
+//        boost::filesystem::path mp3AudioPath;
+//        std::ofstream rawAudioFileStream;
+////        boost::filesystem::ofstream compressedFileStream;
+        
         AudioProcessor();
         AudioProcessor(const AudioProcessor&);
         AudioProcessor operator=(const AudioProcessor&);
