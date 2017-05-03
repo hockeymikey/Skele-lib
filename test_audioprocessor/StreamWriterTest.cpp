@@ -29,7 +29,8 @@ void StreamWriterTest::TearDown() {};
 
 
 TEST(StreamWriterTest, WriteAudioSamplesBatch) {
-    CAP::StreamWriter streamWriter("test_file");
+    string filename = "WriteAudioSamplesBatch_test_file";
+    CAP::StreamWriter streamWriter(filename);
     
     int16_t testSamples[] = {30000, -12200, -12, 400, 5000};
     
@@ -61,6 +62,5 @@ TEST(StreamWriterTest, WriteAudioSamplesBatch) {
     outputSample = reinterpret_cast<int16_t&>(output);
     ASSERT_EQ(outputSample, 5000);
     
-    ASSERT_EQ(instream.read(&output, sizeof(int16_t)), 0);
 }
 
