@@ -1,11 +1,8 @@
 
-ADD_EXECUTABLE(test_audioprocessor audio_processor_test.cpp audio_processor_test.hpp stream_writer_test.cpp stream_writer_test.hpp)
+SET(target test_audioprocessor)
+ADD_EXECUTABLE(${target} audio_processor_test.cpp stream_writer_test.cpp  compressed_stream_writer_test.cpp)
 
-TARGET_LINK_LIBRARIES(test_audioprocessor
-    audioprocessor
-    gtest_main
-    gmock
-    ${Boost_LIBRARIES}
-)
 
-#add_test(NAME testfoo COMMAND testfoo)
+TARGET_LINK_LIBRARIES(${target} audioprocessor gtest_main gmock)
+
+#file(COPY test_wave.wav DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)

@@ -1,3 +1,4 @@
+set(target audioprocessor)
 set(libap_SRCS
     audio_processor.hpp
     audio_processor.cpp
@@ -9,13 +10,13 @@ set(libap_SRCS
     compressed_stream_writer.cpp
 )
 
+
 # Declare the library
-add_library(audioprocessor STATIC
-    ${libap_SRCS}
-)
+add_library(${target} STATIC ${libap_SRCS})
+
 
 # Specify here the include directories exported
 # by this library
-target_include_directories(audioprocessor PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR} ${Boost_LIBRARIES}
-)
+target_include_directories(${target} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+target_link_libraries(${target} mp3lame)

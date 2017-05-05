@@ -5,8 +5,7 @@
 #include "stream_writer.hpp"
 #include <fstream>
 #include <vector>
-#include <boost/filesystem/path.hpp>
-#include <boost/filesystem/fstream.hpp>
+
 
 namespace CAP {
     class AudioProcessor {
@@ -19,10 +18,6 @@ namespace CAP {
     
     private:
         std::vector<StreamWriter> streamWriters;
-//        boost::filesystem::path rawAudioPath;
-//        boost::filesystem::path mp3AudioPath;
-//        std::ofstream rawAudioFileStream;
-////        boost::filesystem::ofstream compressedFileStream;
         
         AudioProcessor();
         AudioProcessor(const AudioProcessor&);

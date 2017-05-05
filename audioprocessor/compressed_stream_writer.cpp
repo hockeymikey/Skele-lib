@@ -7,7 +7,7 @@
 //
 
 #include "compressed_stream_writer.hpp"
-#include <lame/lame.h>
+#include "lame.h"
 
 namespace CAP {
     CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath), compressionQuality(quality) {

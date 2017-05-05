@@ -2,8 +2,7 @@
 
 #include "audio_processor.hpp"
 #include <iostream>
-#include <boost/filesystem/fstream.hpp>
-#include <boost/filesystem/operations.hpp>
+
 
 namespace CAP {
     AudioProcessor::AudioProcessor(std::vector<StreamWriter> sw): streamWriters(sw) {
