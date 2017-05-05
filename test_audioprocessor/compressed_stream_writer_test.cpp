@@ -30,31 +30,35 @@ TEST(CompressedStreamWriterTest, TestNothingToWrite) {
     ASSERT_EQ(status, CompressedStreamWriter::Status::Success);
 }
 
-//TEST(CompressedStreamWriterTest, TestCompressing) {
-//
-//    random_device rd;
-//    mt19937 mt(rd());
-//    uniform_real_distribution<int16_t> dist(INT16_MIN, INT16_MAX);
-//    
-//    vector<int16_t> buffer;
-//    //generate 5 seconds worth of samples
-//    for (int i = 0; i < 5 * 44100; i++) {
-//        int16_t sample =  dist(mt);
-//        buffer.push_back(sample);
-//        
-//        if (i % 1050 == 0) {
-//            <#statements#>
+TEST(CompressedStreamWriterTest, TestCompressing) {
+    CompressedStreamWriter csr("CompressedStreamWriterTest_TestCompressing", 5);
+    
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+    
+    vector<int16_t> buffer;
+    //generate 5 seconds worth of samples
+    for (int i = 1; i <= 5 * 44100; i++) {
+        int16_t sample = (int16_t)dist(mt);
+        buffer.push_back(sample);
+
+        if (i % 1050 == 0) {
+            CompressedStreamWriter::Status status = csr.write(buffer.data(), buffer.size());
+            ASSERT_EQ(status, CompressedStreamWriter::Status::Success);
+            buffer.clear();
+        }
+    }
+    
+    csr.close();
+
+//    char output[1024];
+//    while (wav.read(output, 1024 * sizeof(char))) {
+//        streamsize bytes = wav.gcount();
+//        for (int i = 0; i < bytes; i++) {
+//            int16_t outputSample = reinterpret_cast<int16_t&>(output[i]);
 //        }
+//
 //    }
-//
-//
-////    char output[1024];
-////    while (wav.read(output, 1024 * sizeof(char))) {
-////        streamsize bytes = wav.gcount();
-////        for (int i = 0; i < bytes; i++) {
-////            int16_t outputSample = reinterpret_cast<int16_t&>(output[i]);
-////        }
-////
-////    }
-//    wav.close();
-//}
+    
+}
