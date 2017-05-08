@@ -7,20 +7,23 @@
 //
 
 #include "compressed_stream_writer.hpp"
-#include "lame.h"
+
 
 namespace CAP {
-    CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath), compressionQuality(quality) {
-        
+    CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath) {
+        lame = lame_init();
+        lame_set_quality(lame, quality);
     }
     CompressedStreamWriter::Status CompressedStreamWriter::write(int16_t samples[], int nsamples) {
         unsigned char compressedBuffer[nsamples];
         
-        lame_t lame = lame_init();
-        lame_set_quality(lame, compressionQuality);
-        if (lame_init_params(lame) == -1) {
-            return Status::CompressorInitializationError;
+        if (!compressorInitialized) {
+            compressorInitialized = true;
+            if (lame_init_params(lame) == -1) {
+                return Status::CompressorInitializationError;
+            }
         }
+        
         int output = lame_encode_buffer(lame, samples, samples, nsamples / 2, compressedBuffer, nsamples * sizeof(unsigned char));
         switch (output) {
             case -1:
@@ -39,6 +42,11 @@ namespace CAP {
         
         StreamWriter::write(reinterpret_cast<int16_t *>(compressedBuffer), output * sizeof(unsigned char));
         return Status::Success;
+    }
+    
+    void CompressedStreamWriter::close() {
+        lame_close(lame);
+        StreamWriter::close();
     }
     
 }

@@ -24,22 +24,25 @@ void CompressedStreamWriterTest::SetUp() {};
 void CompressedStreamWriterTest::TearDown() {};
 
 TEST(CompressedStreamWriterTest, TestNothingToWrite) {
-    CompressedStreamWriter csr("CompressedStreamWriterTest_TestNothingToWrite", 5);
+    CompressedStreamWriter csr("CompressedStreamWriterTest_TestNothingToWrite.mp3", 5);
     int16_t samples[] = {};
     CompressedStreamWriter::Status status = csr.write(samples, 0);
     ASSERT_EQ(status, CompressedStreamWriter::Status::Success);
 }
 
 TEST(CompressedStreamWriterTest, TestCompressing) {
-    CompressedStreamWriter csr("CompressedStreamWriterTest_TestCompressing", 5);
+    string filename = "CompressedStreamWriterTest_TestCompressing.mp3";
+    CompressedStreamWriter csr(filename, 5);
     
     random_device rd;
     mt19937 mt(rd());
     uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
     
     vector<int16_t> buffer;
+    int seconds = 5;
+    int nsamples = seconds * 44100;
     //generate 5 seconds worth of samples
-    for (int i = 1; i <= 5 * 44100; i++) {
+    for (int i = 1; i <= nsamples; i++) {
         int16_t sample = (int16_t)dist(mt);
         buffer.push_back(sample);
 
@@ -51,14 +54,17 @@ TEST(CompressedStreamWriterTest, TestCompressing) {
     }
     
     csr.close();
-
-//    char output[1024];
-//    while (wav.read(output, 1024 * sizeof(char))) {
-//        streamsize bytes = wav.gcount();
-//        for (int i = 0; i < bytes; i++) {
-//            int16_t outputSample = reinterpret_cast<int16_t&>(output[i]);
-//        }
-//
-//    }
     
+    
+    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+    
+    int bitrate = 128000;
+    int bytesPerSecond = bitrate / 8;
+    
+    int filesize = seconds * bytesPerSecond;
+    
+    ASSERT_NEAR(in.tellg(), filesize, 1000);
+    
+    
+    in.close();
 }

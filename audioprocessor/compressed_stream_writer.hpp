@@ -10,7 +10,7 @@
 #define CompressedStreamWriter_hpp
 
 #include "stream_writer.hpp"
-
+#include "lame.h"
 namespace CAP {
     
     class CompressedStreamWriter: public StreamWriter {
@@ -26,10 +26,13 @@ namespace CAP {
         
         CompressedStreamWriter(std::string, int);
         Status write(int16_t samples[], int size);
+        void close();
     protected:
         
     private:
-        int compressionQuality;
+        CompressedStreamWriter(std::string);
+        lame_t lame;
+        bool compressorInitialized = false;
     };
 }
 
