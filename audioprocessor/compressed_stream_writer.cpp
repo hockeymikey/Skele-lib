@@ -10,18 +10,21 @@
 
 
 namespace CAP {
-    CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath) {
-        lame = lame_init();
-        lame_set_quality(lame, quality);
+    CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath), compressionQuality(quality) {
+        
     }
     CompressedStreamWriter::Status CompressedStreamWriter::write(int16_t samples[], int nsamples) {
         unsigned char compressedBuffer[nsamples];
         
         if (!compressorInitialized) {
-            compressorInitialized = true;
-            if (lame_init_params(lame) == -1) {
+            lame = lame_init();
+            if (!lame) {
                 return Status::CompressorInitializationError;
             }
+            if (lame_set_quality(lame, compressionQuality) == -1 || lame_init_params(lame) == -1) {
+                return Status::CompressorInitializationError;
+            }
+            compressorInitialized = true;
         }
         
         int output = lame_encode_buffer(lame, samples, samples, nsamples / 2, compressedBuffer, nsamples * sizeof(unsigned char));

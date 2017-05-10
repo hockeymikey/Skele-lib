@@ -56,6 +56,7 @@ namespace CAP {
     private:
         CompressedStreamWriter(std::string);
         lame_t lame;
+        int compressionQuality;
         bool compressorInitialized = false;
     };
 }
