@@ -13,11 +13,39 @@
 #include <fstream>
 
 namespace CAP {
+    /**
+     Base class for writing raw audio samples to the file specified by the client.
+     **/
     class StreamWriter {
     public:
-        StreamWriter(std::string);
-        StreamWriter(const StreamWriter&);
-        void write(int16_t[], int);
+        /**
+         Constructor
+         
+         @param filepath
+            The file path where this object is gonna write samples to.
+         **/
+        StreamWriter(std::string filepath);
+        
+        /**
+         Copy constructor
+         @param other
+            Other stream writer object
+         **/
+        StreamWriter(const StreamWriter& other);
+        
+        /**
+         Writes array of samples to file.
+         
+         @param samples
+            Array of samples
+         @param nsamples
+            Number of samples in array
+         **/
+        void write(int16_t samples[], int nsamples);
+        
+        /**
+         Closes the file.
+         **/
         void close();
     protected:
         
