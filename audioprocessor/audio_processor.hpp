@@ -28,9 +28,9 @@ namespace CAP {
          If that turns out to be the case, will switch out to arrays.
          
          @param samples
-            A list of raw samples 
+            A reference to a list of raw samples 
          **/
-        void writeAudioSamples(std::vector<int16_t> samples);
+        void writeAudioSamples(std::vector<int16_t>& samples);
         
         /**
          Stops stream writers  
