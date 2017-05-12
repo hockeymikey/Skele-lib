@@ -7,14 +7,13 @@
 //
 
 #include "stream_writer.hpp"
-
 namespace CAP {
     StreamWriter::StreamWriter(std::string filePath): fileStream(filePath, std::ios_base::binary) {
     }
     StreamWriter::StreamWriter(const StreamWriter& other) {
         
     }
-    void StreamWriter::write(int16_t samples[], int size) {
+    void StreamWriter::write(int16_t samples[], size_t size) {
         fileStream.write(reinterpret_cast<char *>(samples), size * sizeof(int16_t));
     }
     

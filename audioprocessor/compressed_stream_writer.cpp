@@ -13,7 +13,7 @@ namespace CAP {
     CompressedStreamWriter::CompressedStreamWriter(std::string filePath, int quality): StreamWriter(filePath), compressionQuality(quality) {
         
     }
-    CompressedStreamWriter::Status CompressedStreamWriter::write(int16_t samples[], int nsamples) {
+    CompressedStreamWriter::Status CompressedStreamWriter::write(int16_t samples[], size_t nsamples) {
         unsigned char compressedBuffer[nsamples];
         
         if (!compressorInitialized) {

@@ -41,7 +41,7 @@ namespace CAP {
          @param nsamples
             Number of samples in array
          **/
-        void write(int16_t samples[], int nsamples);
+        void write(int16_t samples[], size_t nsamples);
         
         /**
          Closes the file.

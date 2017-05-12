@@ -45,7 +45,7 @@ namespace CAP {
             Number of samples in array
          @return CompressedStreamWriter.Status
          **/
-        Status write(int16_t samples[], int size);
+        Status write(int16_t samples[], size_t size);
         
         /**
          Overrides parent method, gracefully ends compression before closing the file. 
