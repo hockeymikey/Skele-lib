@@ -9,6 +9,7 @@
 
 #include <fstream>
 #include <future>
+#include <chrono>
 #include "stream_writer.hpp"
 #include "stream_writer_test.hpp"
 
@@ -43,6 +44,9 @@ TEST(StreamWriterTest, WriteAudioSamplesBatch) {
     future.get();
     streamWriter.closeStream();
     
+    
+    this_thread::sleep_for(chrono::seconds(0));
+    
     ifstream instream(filename, ios_base::binary);
 
     char output;
@@ -66,7 +70,7 @@ TEST(StreamWriterTest, WriteAudioSamplesBatch) {
     instream.read(&output, sizeof(int16_t));
     outputSample = reinterpret_cast<int16_t&>(output);
     ASSERT_EQ(outputSample, 5000);
-    
+
     ASSERT_EQ(instream.readsome(&output, sizeof(int16_t)), 0);
     instream.close();
 }

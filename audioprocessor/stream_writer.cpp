@@ -8,9 +8,9 @@
 
 #include "stream_writer.hpp"
 #include <thread>
-CAP::StreamWriter::StreamWriter(std::string filePath): fileStream(filePath, std::ios_base::binary) {
+CAP::StreamWriter::StreamWriter(std::string filePath): fileStream(filePath, std::ios_base::binary | std::ios_base::out) {
 }
-CAP::StreamWriter::StreamWriter(std::string filePath, Compressor cmp): fileStream(filePath, std::ios_base::binary), compressor(&cmp) {
+CAP::StreamWriter::StreamWriter(std::string filePath, Compressor cmp): fileStream(filePath, std::ios_base::binary | std::ios_base::out), compressor(&cmp) {
 }
 CAP::StreamWriter::StreamWriter(const StreamWriter& other) {
     
@@ -18,7 +18,7 @@ CAP::StreamWriter::StreamWriter(const StreamWriter& other) {
 
 void CAP::StreamWriter::closeStream() {
     fileStream.flush();
-    fileStream.close();
+    fileStream.close();    
 }
 
 void CAP::StreamWriter::enqueue(std::vector<int16_t>& buffer) {
