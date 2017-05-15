@@ -26,25 +26,25 @@ void AudioProcessorTest::TearDown() {};
 
 
 
-TEST(AudioProcessorTest, WriteAudioSamples) {
-    CAP::StreamWriter sw1("sw1");
-    vector<CAP::StreamWriter> sws;
-    sws.push_back(sw1);
-    CAP::AudioProcessor ap(sws);
-    
-    while (false) {
-        random_device rd;
-        mt19937 mt(rd());
-        uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
-        vector<int16_t> samples;
-        for(int i = 0; i < 1024; i++) {
-            samples.push_back((int16_t) dist(mt));
-        }
-        ap.writeAudioSamples(samples);
-        
-    }
-//
-}
+//TEST(AudioProcessorTest, WriteAudioSamples) {
+//    CAP::StreamWriter sw1("sw1");
+//    vector<CAP::StreamWriter> sws;
+//    sws.push_back(sw1);
+//    CAP::AudioProcessor ap(sws);
+//    
+//    while (false) {
+//        random_device rd;
+//        mt19937 mt(rd());
+//        uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+//        vector<int16_t> samples;
+//        for(int i = 0; i < 1024; i++) {
+//            samples.push_back((int16_t) dist(mt));
+//        }
+//        ap.writeAudioSamples(samples);
+//        
+//    }
+////
+//}
 //
 //TEST_F(FooTest, ByDefaultBazFalseIsFalse) {
 //    Foo foo(m_bar);

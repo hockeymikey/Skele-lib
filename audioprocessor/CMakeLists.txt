@@ -8,8 +8,9 @@ set(libap_SRCS
     stream_writer.cpp
     compressed_stream_writer.hpp
     compressed_stream_writer.cpp
-    task_queue.hpp
-    task_queue.cpp
+    compressor.hpp
+    mp3_compressor.hpp
+    mp3_compressor.cpp
 )
 
 

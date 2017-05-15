@@ -9,9 +9,15 @@
 #ifndef StreamWriter_hpp
 #define StreamWriter_hpp
 
+
+#include "compressor.hpp"
 #include <string>
 #include <fstream>
-
+#include <condition_variable>
+#include <queue>
+#include <mutex>
+#include <memory>
+#include <future>
 namespace CAP {
     /**
      Base class for writing raw audio samples to the file specified by the client.
@@ -27,33 +33,59 @@ namespace CAP {
         StreamWriter(std::string filepath);
         
         /**
+         Constructor
+         
+         @param filepath
+            The file path where this object is gonna write samples to.
+         @param compressor
+            Compressor to use before writing to file
+         **/
+        StreamWriter(std::string filepath, Compressor compressor);
+        
+        /**
          Copy constructor
          @param other
             Other stream writer object
          **/
         StreamWriter(const StreamWriter& other);
         
+        
         /**
-         Writes array of samples to file.
+         Places buffer in the queue for asynchronous processing
          
-         @param samples
+         @param     buffer
             Array of samples
-         @param nsamples
-            Number of samples in array
          **/
-        void write(int16_t samples[], size_t nsamples);
+        void enqueue(std::vector<int16_t>& buffer);
         
         /**
-         Closes the file.
+         Stops asynchronous processing.
          **/
-        void close();
-    protected:
+        std::future<void> stop();
         
+        /**
+         Starts asynchronous processing
+         **/
+        void start();
+        
+        /**
+         Closes the file
+         **/
+        void closeStream();
+        
+    protected:
     private:
-        std::ofstream fileStream;
+        std::promise<void> stopPromise;
+        std::queue<std::vector<int16_t>> bufferQueue;
         StreamWriter();
         StreamWriter operator=(const StreamWriter&);
-
+        std::mutex waitMutex;
+        std::mutex queueMutex;
+        std::condition_variable queueConditionVariable;
+        bool stopLoop = false;
+        std::ofstream fileStream;
+        void runLoop();
+        std::shared_ptr<Compressor> compressor;
     };
 }
 

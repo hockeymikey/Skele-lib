@@ -11,6 +11,7 @@
 
 #include "stream_writer.hpp"
 #include "lame.h"
+#include <vector>
 namespace CAP {
     /**
      Compresses audio samples to MP3 before writing compressed frames to file.
@@ -36,16 +37,6 @@ namespace CAP {
          **/
         CompressedStreamWriter(std::string filepath, int compressionQuality);
         
-        /**
-         Writes array of samples to file.
-         
-         @param samples
-            Array of samples
-         @param nsamples
-            Number of samples in array
-         @return CompressedStreamWriter.Status
-         **/
-        Status write(int16_t samples[], size_t size);
         
         /**
          Overrides parent method, gracefully ends compression before closing the file. 
@@ -58,6 +49,7 @@ namespace CAP {
         lame_t lame;
         int compressionQuality;
         bool compressorInitialized = false;
+        Status write(std::vector<int16_t> buffer);
     };
 }
 
