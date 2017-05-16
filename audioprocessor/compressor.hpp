@@ -19,7 +19,7 @@ namespace CAP {
         /**
          Needs to be implemented by derived class
          **/
-        virtual std::vector<int16_t> compress(std::vector<int16_t>) = 0;
+        virtual std::vector<int16_t> compress(std::vector<int16_t> const &) = 0;
         
         
     protected:

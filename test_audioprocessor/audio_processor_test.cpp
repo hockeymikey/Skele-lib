@@ -4,6 +4,7 @@
 #include "mp3_compressor.hpp"
 #include <vector>
 #include <random>
+#include <cstdio>
 
 using namespace CAP;
 using namespace std;
@@ -25,27 +26,39 @@ void AudioProcessorTest::TearDown() {};
 
 
 TEST(AudioProcessorTest, TestStream) {
-    shared_ptr<Mp3Compressor> compressor(new Mp3Compressor(5));
-    StreamWriter sw1("AudioProcessorTest_TestStream.bin");
-    StreamWriter sw2("AudioProcessorTest_TestStream.mp3", compressor);
+    auto compressor = make_shared<Mp3Compressor>(5);
+    remove("AudioProcessorTest_TestStream.bin");
+    remove("AudioProcessorTest_TestStream.mp3");
+    auto sw1 = make_shared<StreamWriter>("AudioProcessorTest_TestStream.bin");
+    auto sw2 = make_shared<StreamWriter>("AudioProcessorTest_TestStream.mp3", compressor);
     
-    vector<StreamWriter> sws;
+    vector<shared_ptr<StreamWriter>> sws;
     sws.push_back(sw1);
     sws.push_back(sw2);
     AudioProcessor ap(sws);
     
-    while (true) {
-        random_device rd;
-        mt19937 mt(rd());
-        uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
-        vector<int16_t> samples;
-        for(int i = 0; i < 1024; i++) {
-            samples.push_back((int16_t) dist(mt));
-        }
-        ap.writeAudioSamples(samples);
+    
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+    vector<int16_t> buffer;
+    int seconds = 5;
+    int nsamples = seconds * 44100;
+    //generate 5 seconds worth of samples
+    for (int i = 1; i <= nsamples; i++) {
+        int16_t sample = (int16_t)dist(mt);
+        buffer.push_back(sample);
         
+        if (i % 1050 == 0) {
+            ap.writeAudioSamples(buffer);
+            buffer.clear();
+        }
     }
-//
+    
+   
+    
+    ap.stop();
 }
+
 
 

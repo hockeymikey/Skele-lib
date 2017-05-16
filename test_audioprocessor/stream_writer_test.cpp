@@ -11,6 +11,7 @@
 #include <future>
 #include <chrono>
 #include <random>
+#include <cstdio>
 #include "stream_writer.hpp"
 #include "stream_writer_test.hpp"
 #include "mp3_compressor.hpp"
@@ -32,7 +33,8 @@ void StreamWriterTest::TearDown() {};
 
 TEST(StreamWriterTest, TestCompressing) {
     string filename = "StreamWriterTest_TestCompressing.mp3";
-    shared_ptr<Mp3Compressor> compressor( new Mp3Compressor(5));
+    remove(filename.c_str());
+    auto compressor = make_shared<Mp3Compressor>(5);
     
     StreamWriter streamWriter(filename, compressor);
     
@@ -56,16 +58,9 @@ TEST(StreamWriterTest, TestCompressing) {
         }
     }
 
-    auto future = streamWriter.stop();
-    
-    future.get();
-    
-    
-    
-    this_thread::sleep_for(chrono::seconds(0));
+    streamWriter.stop().get();
 
-
-    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+    std::ifstream in(filename, ifstream::ate | ifstream::binary);
 
     int bitrate = 128000;
     int bytesPerSecond = bitrate / 8;
@@ -76,22 +71,19 @@ TEST(StreamWriterTest, TestCompressing) {
 }
 
 TEST(StreamWriterTest, WriteRawAudioSamples) {
-    string filename = "WriteAudioSamplesBatch_test_file.bin";
-    
+    string filename = "StreamWriterTest_WriteRawAudioSamples.bin";
+    remove(filename.c_str());
     StreamWriter streamWriter(filename);
 
     vector<int16_t> testSamples = {30000, -12200, -12, 400, 5000};
     streamWriter.start();
     streamWriter.enqueue(testSamples);
-    auto future = streamWriter.stop();
     
-    future.get();
+    streamWriter.stop().get();
+    
 
     
-    this_thread::sleep_for(chrono::seconds(0));
-    
-    
-    ifstream instream(filename, ios_base::binary | ios_base::in);
+    ifstream instream(filename, ifstream::binary | ifstream::in);
     char output;
     instream.read(&output, sizeof(int16_t));
     int16_t outputSample = reinterpret_cast<int16_t&>(output);

@@ -22,7 +22,7 @@ namespace CAP {
          @param buffer
             An array or samples
          **/
-        std::vector<int16_t> compress(std::vector<int16_t> buffer);
+        std::vector<int16_t> compress(std::vector<int16_t> const& buffer);
         
         /**
          Constructor

@@ -13,15 +13,13 @@
 CAP::StreamWriter::StreamWriter(std::string filepath): filepath(filepath) {
 }
 CAP::StreamWriter::StreamWriter(std::string filepath, std::shared_ptr<Compressor> cmp): filepath(filepath), compressor(cmp) {
-}
-CAP::StreamWriter::StreamWriter(const StreamWriter& other) {
     
 }
 
 
-void CAP::StreamWriter::enqueue(std::vector<int16_t>& buffer) {
+void CAP::StreamWriter::enqueue(std::vector<int16_t> buffer) {
     // 1. Secure our queue access.
-    std::lock_guard<std::mutex> taskLock(queueMutex);
+    std::lock_guard<std::mutex> bufferLock(queueMutex);
     
     // 2. Insert new buffer.
     bufferQueue.push(buffer);
@@ -41,20 +39,23 @@ void CAP::StreamWriter::start() {
 }
 
 void CAP::StreamWriter::runLoop() {
-    std::ofstream fileStream(filepath, std::ios_base::binary | std::ios_base::out);
+    std::ofstream fileStream(filepath, std::ofstream::binary | std::ofstream::app);
     std::unique_lock<std::mutex> loopLock(waitMutex);
     while (true) {
         // 1. Wait for an event if the queue is empty.
         std::unique_lock<std::mutex> bufferLock(queueMutex);
-        auto queueSize = bufferQueue.size();
+        auto isEmpty = bufferQueue.empty();
         bufferLock.unlock();
         
-        if (queueSize == 0 && !stopLoop) {
-            queueConditionVariable.wait(loopLock);
-        } else if (queueSize == 0 && stopLoop) {
-            stopPromise.set_value();
-            return;
-        }        
+        if (isEmpty) {
+            if (stopLoop) {
+                stopPromise.set_value();
+                return;
+            } else {
+                queueConditionVariable.wait(loopLock);
+            }
+            continue;
+        }
         
         // 3. Get the next buffer.
         bufferLock.lock();
@@ -65,13 +66,14 @@ void CAP::StreamWriter::runLoop() {
         if (compressor != nullptr) {
             try {
                 buffer = compressor->compress(buffer);
+                fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
             } catch (std::runtime_error re) {
                 std::cerr << re.what() << std::endl;
             }
             
+        } else {
+            fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
         }
         
-        // 4. write
-        fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
     }
 }

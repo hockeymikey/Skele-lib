@@ -47,16 +47,16 @@ namespace CAP {
          @param other
             Other stream writer object
          **/
-        StreamWriter(const StreamWriter& other);
+        
         
         
         /**
          Places buffer in the queue for asynchronous processing
          
          @param     buffer
-            Array of samples
+            Array of samples, makes copy internally
          **/
-        void enqueue(std::vector<int16_t>& buffer);
+        void enqueue(std::vector<int16_t> buffer);
         
         /**
          Stops asynchronous processing.
@@ -70,6 +70,7 @@ namespace CAP {
         
     protected:
     private:
+        StreamWriter(const StreamWriter& other);
         std::string filepath;
         std::promise<void> stopPromise;
         std::queue<std::vector<int16_t>> bufferQueue;

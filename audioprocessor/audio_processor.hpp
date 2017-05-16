@@ -18,9 +18,9 @@ namespace CAP {
          Constructor
          
          @param streamWriters
-            A list of stream writers audio processor will be delegating write operation to.
+            A list of referenced to stream writers audio processor will be delegating write operation to.
          **/
-        AudioProcessor(std::vector<StreamWriter> streamWriters);
+        AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> streamWriters);
         
         /**
          Accepts raw samples and passes to available stream writers for processing.
@@ -32,14 +32,15 @@ namespace CAP {
          **/
         void writeAudioSamples(std::vector<int16_t>& samples);
         
+        
         /**
-         Stops stream writers  
+         Stops listening for incoming samples  
          **/
-        void close();
+        void stop();
     protected:
     
     private:
-        std::vector<StreamWriter> streamWriters;
+        std::vector<std::shared_ptr<StreamWriter>> streamWriters;
         
         AudioProcessor();
         AudioProcessor(const AudioProcessor&);

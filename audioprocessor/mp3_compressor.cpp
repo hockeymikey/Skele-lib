@@ -23,7 +23,7 @@ CAP::Mp3Compressor::~Mp3Compressor() {
     lame_close(lame);
 }
 
-std::vector<int16_t> CAP::Mp3Compressor::compress(std::vector<int16_t> buffer) {
+std::vector<int16_t> CAP::Mp3Compressor::compress(std::vector<int16_t> const& buffer) {
     unsigned char compressedBuffer[buffer.size()];
     
     int output = lame_encode_buffer(lame, buffer.data(), buffer.data(), buffer.size() / 2, compressedBuffer, buffer.size() * sizeof(unsigned char));
