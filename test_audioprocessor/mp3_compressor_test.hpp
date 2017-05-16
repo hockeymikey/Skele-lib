@@ -1,26 +1,25 @@
 //
-//  compressed_stream_writer_test.hpp
+//  mp3_compressor_test.hpp
 //  AudioProcessor
 //
-//  Created by Aziz Usmanov on 5/4/17.
+//  Created by Aziz Usmanov on 5/15/17.
 //
 //
 
-#ifndef compressed_stream_writer_test_hpp
-#define compressed_stream_writer_test_hpp
-
+#ifndef mp3_compressor_test_hpp
+#define mp3_compressor_test_hpp
 #include "gtest/gtest.h"
 
 // The fixture for testing class Foo.
-class CompressedStreamWriterTest : public ::testing::Test {
+class Mp3CompressorTest : public ::testing::Test {
     
 protected:
     
     // You can do set-up work for each test here.
-    CompressedStreamWriterTest();
+    Mp3CompressorTest();
     
     // You can do clean-up work that doesn't throw exceptions here.
-    virtual ~CompressedStreamWriterTest();
+    virtual ~Mp3CompressorTest();
     
     // If the constructor and destructor are not enough for setting up
     // and cleaning up each test, you can define the following methods:
@@ -37,4 +36,5 @@ protected:
     //    MockBar m_bar;
 };
 
-#endif /* compressed_stream_writer_test_hpp */
+
+#endif /* mp3_compressor_test_hpp */

@@ -19,6 +19,10 @@ CAP::Mp3Compressor::Mp3Compressor(int compressionQuality):  Compressor() {
     }
 }
 
+CAP::Mp3Compressor::~Mp3Compressor() {
+    lame_close(lame);
+}
+
 std::vector<int16_t> CAP::Mp3Compressor::compress(std::vector<int16_t> buffer) {
     unsigned char compressedBuffer[buffer.size()];
     
@@ -37,8 +41,7 @@ std::vector<int16_t> CAP::Mp3Compressor::compress(std::vector<int16_t> buffer) {
             break;
     }
     
-    auto compressed = reinterpret_cast<int16_t *>(compressedBuffer);
-    std::vector<int16_t> compressedVector(*compressed, output * sizeof(unsigned char));
-
-    return compressedVector;
+    auto compressedPointer = reinterpret_cast<int16_t *>(compressedBuffer);
+    
+    return std::vector<int16_t>(compressedPointer, compressedPointer + output );
 };

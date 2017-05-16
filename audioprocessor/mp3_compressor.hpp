@@ -14,7 +14,7 @@
 #include <vector>
 
 namespace CAP {
-    class Mp3Compressor: Compressor {
+    class Mp3Compressor: public Compressor {
     public:
         /**
          Compresses the buffer to MP3 format and returns it
@@ -31,6 +31,13 @@ namespace CAP {
          Compression quality. 0 is best (very slow), 9 is worst
          **/
         Mp3Compressor(int compressionQuality);
+        
+        
+        /**
+         Destructor
+         **/
+        ~Mp3Compressor();
+        
     protected:
     private:
         lame_t lame;        

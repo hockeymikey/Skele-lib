@@ -10,8 +10,10 @@
 #include <fstream>
 #include <future>
 #include <chrono>
+#include <random>
 #include "stream_writer.hpp"
 #include "stream_writer_test.hpp"
+#include "mp3_compressor.hpp"
 
 
 using namespace std;
@@ -26,14 +28,56 @@ void StreamWriterTest::SetUp() {};
 
 void StreamWriterTest::TearDown() {};
 
-//TEST(AudioProcessorTest, FileDoesNotExist) {
-//    
-//    EXPECT_THROW(CAP::StreamWriter streamWriter("nonexistent/test_file"), std::runtime_error);
-//}
 
 
-TEST(StreamWriterTest, WriteAudioSamplesBatch) {
+TEST(StreamWriterTest, TestCompressing) {
+    string filename = "StreamWriterTest_TestCompressing.mp3";
+    shared_ptr<Mp3Compressor> compressor( new Mp3Compressor(5));
+    
+    StreamWriter streamWriter(filename, compressor);
+    
+    streamWriter.start();
+    
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+
+    vector<int16_t> buffer;
+    int seconds = 5;
+    int nsamples = seconds * 44100;
+    //generate 5 seconds worth of samples
+    for (int i = 1; i <= nsamples; i++) {
+        int16_t sample = (int16_t)dist(mt);
+        buffer.push_back(sample);
+
+        if (i % 1050 == 0) {
+            streamWriter.enqueue(buffer);
+            buffer.clear();
+        }
+    }
+
+    auto future = streamWriter.stop();
+    
+    future.get();
+    
+    
+    
+    this_thread::sleep_for(chrono::seconds(0));
+
+
+    std::ifstream in(filename, std::ifstream::ate | std::ifstream::binary);
+
+    int bitrate = 128000;
+    int bytesPerSecond = bitrate / 8;
+
+    int filesize = seconds * bytesPerSecond;
+
+    ASSERT_NEAR(in.tellg(), filesize, 1000);
+}
+
+TEST(StreamWriterTest, WriteRawAudioSamples) {
     string filename = "WriteAudioSamplesBatch_test_file.bin";
+    
     StreamWriter streamWriter(filename);
 
     vector<int16_t> testSamples = {30000, -12200, -12, 400, 5000};
@@ -42,13 +86,12 @@ TEST(StreamWriterTest, WriteAudioSamplesBatch) {
     auto future = streamWriter.stop();
     
     future.get();
-    streamWriter.closeStream();
-    
+
     
     this_thread::sleep_for(chrono::seconds(0));
     
-    ifstream instream(filename, ios_base::binary);
-
+    
+    ifstream instream(filename, ios_base::binary | ios_base::in);
     char output;
     instream.read(&output, sizeof(int16_t));
     int16_t outputSample = reinterpret_cast<int16_t&>(output);
@@ -72,6 +115,5 @@ TEST(StreamWriterTest, WriteAudioSamplesBatch) {
     ASSERT_EQ(outputSample, 5000);
 
     ASSERT_EQ(instream.readsome(&output, sizeof(int16_t)), 0);
-    instream.close();
 }
 

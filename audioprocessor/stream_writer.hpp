@@ -40,7 +40,7 @@ namespace CAP {
          @param compressor
             Compressor to use before writing to file
          **/
-        StreamWriter(std::string filepath, Compressor compressor);
+        StreamWriter(std::string filepath, std::shared_ptr<Compressor> compressor);
         
         /**
          Copy constructor
@@ -68,13 +68,9 @@ namespace CAP {
          **/
         void start();
         
-        /**
-         Closes the file
-         **/
-        void closeStream();
-        
     protected:
     private:
+        std::string filepath;
         std::promise<void> stopPromise;
         std::queue<std::vector<int16_t>> bufferQueue;
         StreamWriter();
@@ -83,7 +79,6 @@ namespace CAP {
         std::mutex queueMutex;
         std::condition_variable queueConditionVariable;
         bool stopLoop = false;
-        std::ofstream fileStream;
         void runLoop();
         std::shared_ptr<Compressor> compressor;
     };
