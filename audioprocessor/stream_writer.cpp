@@ -53,26 +53,30 @@ void CAP::StreamWriter::runLoop() {
                 return;
             } else {
                 queueConditionVariable.wait(loopLock);
+                continue;
             }
-            continue;
         }
         
         // 3. Get the next buffer.
         bufferLock.lock();
-        auto buffer = bufferQueue.front();
+        auto bufferVector = bufferQueue.front();
         bufferQueue.pop();
         bufferLock.unlock();
         
+        if (bufferVector.size() == 0) {
+            continue;
+        }
+        
         if (compressor != nullptr) {
             try {
-                buffer = compressor->compress(buffer);
-                fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
+                bufferVector = compressor->compress(bufferVector);
+                fileStream.write(reinterpret_cast<char *>(bufferVector.data()), bufferVector.size() * sizeof(bufferVector[0]));
             } catch (std::runtime_error re) {
                 std::cerr << re.what() << std::endl;
             }
             
         } else {
-            fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
+            fileStream.write(reinterpret_cast<char *>(bufferVector.data()), bufferVector.size() * sizeof(bufferVector[0]));
         }
         
     }
