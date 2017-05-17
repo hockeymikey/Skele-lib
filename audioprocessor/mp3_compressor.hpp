@@ -21,6 +21,7 @@ namespace CAP {
          
          @param buffer
             An array or samples
+         @return compressed array of samples
          **/
         std::vector<int16_t> compress(std::vector<int16_t> const& buffer);
         

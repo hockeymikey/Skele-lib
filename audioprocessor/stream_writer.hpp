@@ -68,6 +68,14 @@ namespace CAP {
          **/
         void start();
         
+        /**
+         Compressor is attached or not
+         @return  boolean
+         **/
+        bool hasCompressor() const;
+        
+        std::size_t numberOfBuffersWritten();
+        
     protected:
     private:
         StreamWriter(const StreamWriter& other);
@@ -82,6 +90,9 @@ namespace CAP {
         bool stopLoop = false;
         void runLoop();
         std::shared_ptr<Compressor> compressor;
+        std::mutex buffersWrittenMutex;
+        std::size_t buffersWritten = 0;
+        void writeBufferToFileStream(std::vector<int16_t>&, std::ofstream&);
     };
 }
 

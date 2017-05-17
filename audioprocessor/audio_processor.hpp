@@ -15,7 +15,8 @@ namespace CAP {
         
     public:
         /**
-         Constructor
+         Constructor. Stream writer at index 0 has highest priority. 
+         Cannot have compressor attached to compressor with highest priority.
          
          @param streamWriters
             A list of referenced to stream writers audio processor will be delegating write operation to.
@@ -37,6 +38,12 @@ namespace CAP {
          Stops listening for incoming samples  
          **/
         void stop();
+        
+        /**
+         Must be run on separate thread
+         **/
+        void scheduleAudioPostProcessing(std::function<void ()>);
+        
     protected:
     
     private:

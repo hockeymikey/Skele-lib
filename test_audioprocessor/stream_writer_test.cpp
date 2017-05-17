@@ -29,7 +29,11 @@ void StreamWriterTest::SetUp() {};
 
 void StreamWriterTest::TearDown() {};
 
-
+TEST(StreamWriterTest, HasCompressor) {
+    auto compressor = make_shared<Mp3Compressor>(5);
+    ASSERT_FALSE(make_shared<StreamWriter>("")->hasCompressor());
+    ASSERT_TRUE(make_shared<StreamWriter>("", compressor)->hasCompressor());
+}
 
 TEST(StreamWriterTest, TestCompressing) {
     string filename = "StreamWriterTest_TestCompressing.mp3";

@@ -33,9 +33,19 @@ std::future<void> CAP::StreamWriter::stop() {
     queueConditionVariable.notify_one();
     return stopPromise.get_future();
 }
+
+std::size_t CAP::StreamWriter::numberOfBuffersWritten() {
+    std::lock_guard<std::mutex> buffersWrittenLock(buffersWrittenMutex);
+    return buffersWritten;
+}
+
 void CAP::StreamWriter::start() {
     stopLoop = false;
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
+}
+
+bool CAP::StreamWriter::hasCompressor() const {
+    return compressor != nullptr;
 }
 
 void CAP::StreamWriter::runLoop() {
@@ -43,9 +53,9 @@ void CAP::StreamWriter::runLoop() {
     std::unique_lock<std::mutex> loopLock(waitMutex);
     while (true) {
         // 1. Wait for an event if the queue is empty.
-        std::unique_lock<std::mutex> bufferLock(queueMutex);
+        std::unique_lock<std::mutex> queueLock(queueMutex);
         auto isEmpty = bufferQueue.empty();
-        bufferLock.unlock();
+        queueLock.unlock();
         
         if (isEmpty) {
             if (stopLoop) {
@@ -58,10 +68,10 @@ void CAP::StreamWriter::runLoop() {
         }
         
         // 3. Get the next buffer.
-        bufferLock.lock();
+        queueLock.lock();
         auto bufferVector = bufferQueue.front();
         bufferQueue.pop();
-        bufferLock.unlock();
+        queueLock.unlock();
         
         if (bufferVector.size() == 0) {
             continue;
@@ -70,14 +80,20 @@ void CAP::StreamWriter::runLoop() {
         if (compressor != nullptr) {
             try {
                 bufferVector = compressor->compress(bufferVector);
-                fileStream.write(reinterpret_cast<char *>(bufferVector.data()), bufferVector.size() * sizeof(bufferVector[0]));
+                writeBufferToFileStream(bufferVector, fileStream);
             } catch (std::runtime_error re) {
                 std::cerr << re.what() << std::endl;
             }
             
         } else {
-            fileStream.write(reinterpret_cast<char *>(bufferVector.data()), bufferVector.size() * sizeof(bufferVector[0]));
+            writeBufferToFileStream(bufferVector, fileStream);            
         }
         
     }
 }
+void CAP::StreamWriter::writeBufferToFileStream(std::vector<int16_t> &buffer, std::ofstream &stream) {
+    stream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(buffer[0]));
+    std::lock_guard<std::mutex> buffersWrittenLock(buffersWrittenMutex);
+    buffersWritten = buffersWritten + 1;
+}
+

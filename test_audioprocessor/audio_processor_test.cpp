@@ -22,7 +22,17 @@ void AudioProcessorTest::SetUp() {};
 
 void AudioProcessorTest::TearDown() {};
 
+TEST(AudioProcessorTest, NoStreamWriters) {
+    vector<shared_ptr<StreamWriter>> sws;
+    EXPECT_THROW(AudioProcessor ap(sws), runtime_error);
+}
 
+TEST(AudioProcessorTest, IllegalCompressor) {
+    vector<shared_ptr<StreamWriter>> sws;
+    auto sw2 = make_shared<StreamWriter>("AudioProcessorTest_TestStream.mp3", make_shared<Mp3Compressor>(5));
+    sws.push_back(sw2);
+    EXPECT_THROW(AudioProcessor ap(sws), runtime_error);
+}
 
 
 TEST(AudioProcessorTest, TestStream) {
@@ -54,8 +64,6 @@ TEST(AudioProcessorTest, TestStream) {
             buffer.clear();
         }
     }
-    
-   
     
     ap.stop();
 }

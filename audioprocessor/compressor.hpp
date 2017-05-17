@@ -14,12 +14,15 @@
 namespace CAP {
     class Compressor {
     public:
-        
-        
+                
         /**
          Needs to be implemented by derived class
+         
+         @param buffer
+            Reference to array of buffers
+         @return compressed array of buffers
          **/
-        virtual std::vector<int16_t> compress(std::vector<int16_t> const &) = 0;
+        virtual std::vector<int16_t> compress(std::vector<int16_t> const&  buffer) = 0;
         
         
     protected:
