@@ -23,9 +23,9 @@ CAP::Mp3Compressor::~Mp3Compressor() {
     lame_close(lame);
 }
 
-CAP::AudioBuffer CAP::Mp3Compressor::process(AudioBuffer audioBuffer) {
+CAP::AudioBuffer CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer) {
     unsigned char compressedBuffer[audioBuffer.size()];
-    int output = lame_encode_buffer(lame, audioBuffer.getSamples(), audioBuffer.getSamples(), audioBuffer.size() / 2, compressedBuffer, audioBuffer.size());
+    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size() / 2, compressedBuffer, audioBuffer.size());
  
     switch (output) {
         case -1:

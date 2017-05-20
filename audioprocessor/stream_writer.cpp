@@ -12,17 +12,9 @@
 #include <iostream>
 #include <memory>
 
-void CAP::StreamWriter::initDynamicFields() {
-    std::unique_ptr<std::mutex> waitMutex(new std::mutex());
-    std::unique_ptr<std::mutex> queueMutex(new std::mutex());
-    std::unique_ptr<std::mutex> buffersWrittenMutex(new std::mutex());
-    std::unique_ptr<std::condition_variable> queueConditionVariable(new std::condition_variable());
+CAP::StreamWriter::StreamWriter(std::string filepath): filepath(filepath), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
 }
-CAP::StreamWriter::StreamWriter(std::string filepath): filepath(filepath) {
-    initDynamicFields();
-}
-CAP::StreamWriter::StreamWriter(std::string filepath, std::shared_ptr<SignalProcessor> cmp): filepath(filepath), signalProcessor(cmp) {
-    initDynamicFields();
+CAP::StreamWriter::StreamWriter(std::string filepath, std::shared_ptr<SignalProcessor> cmp): filepath(filepath), signalProcessor(cmp), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {    
 }
 
 void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
@@ -109,7 +101,7 @@ void CAP::StreamWriter::runLoop() {
     }
 }
 void CAP::StreamWriter::writeAudioBufferToFileStream(AudioBuffer audioBuffer, std::ofstream& stream) {
-    stream.write(reinterpret_cast<char *>(audioBuffer.getSamples()), audioBuffer.size() * sizeof(audioBuffer.getSamples()));
+    stream.write(reinterpret_cast<const char *>(audioBuffer.getBuffer()), audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
     std::lock_guard<std::mutex> buffersWrittenLock(*buffersWrittenMutex);
     buffersWritten = buffersWritten + 1;
 }

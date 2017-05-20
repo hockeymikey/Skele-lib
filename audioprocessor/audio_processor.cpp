@@ -1,9 +1,9 @@
 
 #include "audio_processor.hpp"
+#include <array>
 
-
-CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &streamWriters): streamWriters(streamWriters) {
-    if (streamWriters.size()) {
+CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw): streamWriters(std::move(sw)) {
+    if (streamWriters.size() == 0) {
         throw std::runtime_error("At least one stream writer is expected");
     }
     for (auto &streamWriter: streamWriters) {
@@ -11,9 +11,9 @@ CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &streamWriters): s
     }
 }
 
-void CAP::AudioProcessor::process(const AudioBuffer& audioBuffer) {
+void CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
     for (auto &streamWriter: streamWriters) {
-        streamWriter.enqueue(audioBuffer);
+        streamWriter.enqueue(AudioBuffer(samples, nsamples));
     }
 }
 
@@ -23,9 +23,6 @@ void CAP::AudioProcessor::stop() {
     }
 }
 
-CAP::AudioProcessor::~AudioProcessor() {
-    
-}
 
 void CAP::AudioProcessor::scheduleAudioPostProcessing(std::function<void ()> callback) {
 //    auto priorityWrite = streamWriters[0]->numberOfBuffersWritten();

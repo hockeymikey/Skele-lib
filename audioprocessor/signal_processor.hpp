@@ -28,7 +28,7 @@ namespace CAP {
         virtual AudioBuffer process(const AudioBuffer& audioBuffer) = 0;
         
         SignalProcessor(const SignalProcessor& other) = delete;
-        SignalProcessor() = delete;
+        SignalProcessor() = default;
         
         SignalProcessor(SignalProcessor&&) = default;
         

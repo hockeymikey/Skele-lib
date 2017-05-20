@@ -35,7 +35,9 @@ TEST(AudioProcessorTest, TestStream) {
     StreamWriter sw1("AudioProcessorTest_TestStream.bin");
     StreamWriter sw2("AudioProcessorTest_TestStream.mp3", compressor);
     
-    vector<StreamWriter> sws = { std::move(sw1), std::move(sw2) };
+    vector<StreamWriter> sws;
+    sws.push_back(std::move(sw1));
+    sws.push_back(std::move(sw2));
     
     AudioProcessor ap(sws);
     
@@ -52,8 +54,7 @@ TEST(AudioProcessorTest, TestStream) {
         buffer[(i - 1) % 1050] = sample;
         
         if (i % 1050 == 0) {
-            AudioBuffer ab(buffer, 1050);
-            ap.process(std::move(ab));
+            ap.process(buffer, 1050);
         }
     }
     
@@ -61,50 +62,50 @@ TEST(AudioProcessorTest, TestStream) {
 }
 
 
-//TEST(AudioProcessorTest, TestStream2) {
-//    auto sampleRate = 44100;
-//    auto compressor = make_shared<Mp3Compressor>(0, sampleRate);
-//    remove("AudioProcessorTest_TestStream.bin");
-//    remove("AudioProcessorTest_TestStream.mp3");
-//    auto sw1 = make_shared<StreamWriter>("AudioProcessorTest_TestStream.bin");
-//    auto sw2 = make_shared<StreamWriter>("AudioProcessorTest_TestStream.mp3", compressor);
-//    
-//    vector<shared_ptr<StreamWriter>> sws;
-//    sws.push_back(sw1);
-//    sws.push_back(sw2);
-//    AudioProcessor ap(sws);
-//    
-//    
-//    random_device rd;
-//    mt19937 mt(rd());
-//    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
-//    vector<int16_t> buffer;
-//    int seconds = 500;
-//    int nsamples = seconds * sampleRate;
-//    //generate 5 seconds worth of samples
-//    for (int i = 1; i <= nsamples; i++) {
-//        int16_t sample = (int16_t)dist(mt);
-//        buffer.push_back(sample);
-//        
-//        if (i % (1050 * 10) == 0) {
-//            ap.writeAudioSamples(buffer);
-//            cout << "sw1:" << sw1->numberOfBuffersWritten() << " q:" << sw1->queueSize() << endl;
-//            cout << "sw2:" << sw2->numberOfBuffersWritten() << " q:" << sw2->queueSize() << endl;
-//            buffer.clear();
-//        }
-//    }
-//    
-//    ap.stop();
-//    
-//    
-//    while (true) {
-//        cout << "-sw1:" << sw1->numberOfBuffersWritten() << " q:" << sw1->queueSize() << endl;
-//        cout << "-sw2:" << sw2->numberOfBuffersWritten() << " q:" << sw2->queueSize() << endl;
-//
-//        this_thread::sleep_for(chrono::seconds(1));
-//        
-//    }
-//}
+TEST(AudioProcessorTest, TestStream2) {
+    auto sampleRate = 44100;
+    auto compressor = make_shared<Mp3Compressor>(0, sampleRate);
+    remove("AudioProcessorTest_TestStream.bin");
+    remove("AudioProcessorTest_TestStream.mp3");
+    StreamWriter sw1("AudioProcessorTest_TestStream.bin");
+    StreamWriter sw2("AudioProcessorTest_TestStream.mp3", compressor);
+    
+    vector<StreamWriter> sws;
+    sws.push_back(move(sw1));
+    sws.push_back(move(sw2));
+    AudioProcessor ap(sws);
+    
+    
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+    std::int16_t buffer[1050];
+    int seconds = 5000;
+    int nsamples = seconds * sampleRate;
+    //generate 5 seconds worth of samples
+    for (int i = 1; i <= nsamples; i++) {
+        int16_t sample = (int16_t)dist(mt);
+        buffer[(i - 1) % 1050] = sample;
+        
+        if (i % (1050 * 10) == 0) {
+            ap.process(buffer, 1050);
+            //cout << "sw1:" << sws[0].numberOfBuffersWritten() << " q:" << sws[0].queueSize() << endl;
+            //cout << "sw2:" << sws[1].numberOfBuffersWritten() << " q:" << sws[1].queueSize() << endl;
+            
+        }
+    }
+    
+    ap.stop();
+    
+    
+    while (true) {
+        //cout << "-sw1:" << sws[0].numberOfBuffersWritten() << " q:" << sws[0].queueSize() << endl;
+        //cout << "-sw2:" << sws[1].numberOfBuffersWritten() << " q:" << sws[1].queueSize() << endl;
+
+        this_thread::sleep_for(chrono::seconds(1));
+        
+    }
+}
 
 
 

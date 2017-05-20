@@ -26,24 +26,23 @@ namespace CAP {
         /**
          Copy Constructor
          **/
-        AudioBuffer(const AudioBuffer &other) {
-            nsamples = other.nsamples;
-            for (int i = 0; i < nsamples; i++) {
-                samples[i] = other.samples[i];
-            }
-        }
+        AudioBuffer(const AudioBuffer &other) = default;
         
         /**
          Constructor
          **/
-        AudioBuffer(std::int16_t samples_[], std::size_t nsamples_): samples(samples_), nsamples(nsamples_) {};
+        AudioBuffer(std::int16_t samples_[], std::size_t nsamples_): nsamples(nsamples_) {
+            for (int i = 0; i < nsamples; i++) {
+                buffer[i] = samples_[i];
+            }
+        };
         
-        std::size_t size() {
+        std::size_t size() const {
             return nsamples;
         };
         
-        std::int16_t * getSamples() {
-            return samples;
+        const std::int16_t * getBuffer() const {
+            return buffer.data();
         };
         
         AudioBuffer() = delete;
@@ -52,8 +51,7 @@ namespace CAP {
     protected:
     private:
         
-        
-        std::int16_t *samples;
+        std::array<std::int16_t, 4096> buffer;
         std::size_t nsamples;
     };
 }

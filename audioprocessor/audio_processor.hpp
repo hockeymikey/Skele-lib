@@ -28,7 +28,7 @@ namespace CAP {
          @param audioBuffer
             Audio buffer
          **/
-        void process(const AudioBuffer& audioBuffer);
+        void process(std::int16_t *samples, std::size_t nsamples);
         
         
         /**
@@ -36,10 +36,9 @@ namespace CAP {
          **/
         void stop();
         
-        /**
-         Destructor
-         **/
-        ~AudioProcessor();
+        AudioProcessor() = delete;
+        AudioProcessor(const AudioProcessor&) = delete;
+        AudioProcessor operator=(const AudioProcessor&) = delete;
         
         /**
          Must be run on separate thread
@@ -51,9 +50,6 @@ namespace CAP {
     private:
         std::vector<StreamWriter> streamWriters;
         
-        AudioProcessor();
-        AudioProcessor(const AudioProcessor&);
-        AudioProcessor operator=(const AudioProcessor&);
     };
 }
 
