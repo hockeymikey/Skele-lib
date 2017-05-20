@@ -9,8 +9,8 @@
 #ifndef StreamWriter_hpp
 #define StreamWriter_hpp
 
-
-#include "compressor.hpp"
+#include "audio_buffer.hpp"
+#include "signal_processor.hpp"
 #include <string>
 #include <fstream>
 #include <condition_variable>
@@ -18,12 +18,19 @@
 #include <mutex>
 #include <memory>
 #include <future>
+#include <array>
 namespace CAP {
+    
     /**
      Base class for writing raw audio samples to the file specified by the client.
      **/
     class StreamWriter {
     public:
+        /**
+         Move constructor: use compiler generated one (it knows what it's doing)
+         **/
+        StreamWriter(StreamWriter&&) = default;
+        
         /**
          Constructor
          
@@ -40,7 +47,7 @@ namespace CAP {
          @param compressor
             Compressor to use before writing to file
          **/
-        StreamWriter(std::string filepath, std::shared_ptr<Compressor> compressor);
+        StreamWriter(std::string filepath, std::shared_ptr<SignalProcessor> signalProcessor);
         
         /**
          Copy constructor
@@ -51,12 +58,12 @@ namespace CAP {
         
         
         /**
-         Places buffer in the queue for asynchronous processing
+         Places buffer in the queue for asynchronous processing, makes copy internally
          
          @param     buffer
-            Array of samples, makes copy internally
+            Array of samples
          **/
-        void enqueue(std::vector<int16_t> buffer);
+        void enqueue(AudioBuffer audioBuffer);
         
         /**
          Stops asynchronous processing.
@@ -69,30 +76,44 @@ namespace CAP {
         void start();
         
         /**
-         Compressor is attached or not
+         Signal processor is attached or not
          @return  boolean
          **/
-        bool hasCompressor() const;
+        bool hasSignalProcessor() const;
+        
+        /**
+         Destructor
+         **/
+        ~StreamWriter();
+        
+        std::size_t queueSize();
         
         std::size_t numberOfBuffersWritten();
         
+        StreamWriter(const StreamWriter& other) = delete;
+        StreamWriter() = delete;
+        StreamWriter operator=(const StreamWriter&) = delete;
+        
     protected:
-    private:
-        StreamWriter(const StreamWriter& other);
+    private:        
         std::string filepath;
         std::promise<void> stopPromise;
-        std::queue<std::vector<int16_t>> bufferQueue;
-        StreamWriter();
-        StreamWriter operator=(const StreamWriter&);
-        std::mutex waitMutex;
-        std::mutex queueMutex;
-        std::condition_variable queueConditionVariable;
+        std::queue<AudioBuffer> bufferQueue;
+        
         bool stopLoop = false;
-        void runLoop();
-        std::shared_ptr<Compressor> compressor;
-        std::mutex buffersWrittenMutex;
+        std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
         std::size_t buffersWritten = 0;
-        void writeBufferToFileStream(std::vector<int16_t>&, std::ofstream&);
+        
+        //pointer to synchronisation infrastructure to allow move constructor
+        std::unique_ptr<std::mutex> waitMutex;
+        std::unique_ptr<std::mutex> queueMutex;
+        std::unique_ptr<std::mutex> buffersWrittenMutex;
+        std::unique_ptr<std::condition_variable> queueConditionVariable;
+        
+        //private methods
+        void writeAudioBufferToFileStream(AudioBuffer audioBuffer, std::ofstream&);
+        void runLoop();
+        void initDynamicFields();
     };
 }
 

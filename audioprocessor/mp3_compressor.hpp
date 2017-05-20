@@ -9,29 +9,30 @@
 #ifndef Mp3Compressor_hpp
 #define Mp3Compressor_hpp
 
-#include "compressor.hpp"
+#include "signal_processor.hpp"
 #include "lame.h"
 #include <vector>
 
 namespace CAP {
-    class Mp3Compressor: public Compressor {
+    class Mp3Compressor: public SignalProcessor {
     public:
         /**
          Compresses the buffer to MP3 format and returns it
          
-         @param buffer
+         @param samples
             An array or samples
-         @return compressed array of samples
          **/
-        std::vector<int16_t> compress(std::vector<int16_t> const& buffer);
+        AudioBuffer process(const AudioBuffer& audioBuffer);
         
         /**
          Constructor
          
          @param compressionQuality
-         Compression quality. 0 is best (very slow), 9 is worst
+            Compression quality. 0 is best (very slow), 9 is worst
+         @param sampleRate
+            Let lame know what sample rate is
          **/
-        Mp3Compressor(int compressionQuality);
+        Mp3Compressor(int compressionQuality, int sampleRate);
         
         
         /**
@@ -41,7 +42,8 @@ namespace CAP {
         
     protected:
     private:
-        lame_t lame;        
+        lame_t lame;
+//        unsigned char compressedBuffer[4096];
     };
 }
 

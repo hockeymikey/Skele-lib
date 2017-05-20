@@ -30,15 +30,18 @@ void StreamWriterTest::SetUp() {};
 void StreamWriterTest::TearDown() {};
 
 TEST(StreamWriterTest, HasCompressor) {
-    auto compressor = make_shared<Mp3Compressor>(5);
-    ASSERT_FALSE(make_shared<StreamWriter>("")->hasCompressor());
-    ASSERT_TRUE(make_shared<StreamWriter>("", compressor)->hasCompressor());
+    auto compressor = make_shared<Mp3Compressor>(5, 44100);
+    StreamWriter sw("");
+    StreamWriter sw2("", compressor);
+    ASSERT_FALSE(sw.hasSignalProcessor());
+    ASSERT_TRUE(sw2.hasSignalProcessor());
 }
 
 TEST(StreamWriterTest, TestCompressing) {
     string filename = "StreamWriterTest_TestCompressing.mp3";
     remove(filename.c_str());
-    auto compressor = make_shared<Mp3Compressor>(5);
+    auto sampleRate = 44100;
+    auto compressor = make_shared<Mp3Compressor>(5, sampleRate);
     
     StreamWriter streamWriter(filename, compressor);
     
@@ -48,21 +51,28 @@ TEST(StreamWriterTest, TestCompressing) {
     mt19937 mt(rd());
     uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
 
-    vector<int16_t> buffer;
+    
     int seconds = 5;
-    int nsamples = seconds * 44100;
+    int nsamples = seconds * sampleRate;
+    std::int16_t buffer[1050];
+    int numberOfBuffersEnqueued = 0;
     //generate 5 seconds worth of samples
     for (int i = 1; i <= nsamples; i++) {
         int16_t sample = (int16_t)dist(mt);
-        buffer.push_back(sample);
+        
+        buffer[(i - 1) % 1050] = sample;
 
         if (i % 1050 == 0) {
-            streamWriter.enqueue(buffer);
-            buffer.clear();
+            AudioBuffer ab(buffer, 1050);
+            streamWriter.enqueue(ab);
+            numberOfBuffersEnqueued += 1;
         }
     }
-
+    
     streamWriter.stop().get();
+    
+    ASSERT_EQ(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
+    
 
     std::ifstream in(filename, ifstream::ate | ifstream::binary);
 
@@ -79,9 +89,10 @@ TEST(StreamWriterTest, WriteRawAudioSamples) {
     remove(filename.c_str());
     StreamWriter streamWriter(filename);
 
-    vector<int16_t> testSamples = {30000, -12200, -12, 400, 5000};
+    std::int16_t testSamples[] = {30000, -12200, -12, 400, 5000};
     streamWriter.start();
-    streamWriter.enqueue(testSamples);
+    AudioBuffer ab(testSamples, 5);
+    streamWriter.enqueue(ab);
     
     streamWriter.stop().get();
     

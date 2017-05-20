@@ -6,9 +6,10 @@ set(libap_SRCS
     audio_description.cpp
     stream_writer.hpp
     stream_writer.cpp
-    compressor.hpp
+    signal_processor.hpp
     mp3_compressor.hpp
     mp3_compressor.cpp
+    audio_buffer.hpp
 )
 
 

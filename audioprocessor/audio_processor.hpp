@@ -3,9 +3,9 @@
 #define audioprocessor_hpp
 
 #include "stream_writer.hpp"
+#include "audio_buffer.hpp"
 #include <fstream>
 #include <vector>
-
 
 namespace CAP {
     /**
@@ -16,28 +16,30 @@ namespace CAP {
     public:
         /**
          Constructor. Stream writer at index 0 has highest priority. 
-         Cannot have compressor attached to compressor with highest priority.
          
          @param streamWriters
-            A list of referenced to stream writers audio processor will be delegating write operation to.
+            A vector of stream writers audio processor will be delegating write operation to.
          **/
-        AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> streamWriters);
+        AudioProcessor(std::vector<StreamWriter> &streamWriters);
         
         /**
-         Accepts raw samples and passes to available stream writers for processing.
-         Even though it is convenient to use vectors in the implementation, it might be difficult to set up parameter in client code.
-         If that turns out to be the case, will switch out to arrays.
-         
-         @param samples
-            A reference to a list of raw samples 
+         Passes audio buffer to stream writers to process.
+                  
+         @param audioBuffer
+            Audio buffer
          **/
-        void writeAudioSamples(std::vector<int16_t>& samples);
+        void process(const AudioBuffer& audioBuffer);
         
         
         /**
          Stops listening for incoming samples  
          **/
         void stop();
+        
+        /**
+         Destructor
+         **/
+        ~AudioProcessor();
         
         /**
          Must be run on separate thread
@@ -47,7 +49,7 @@ namespace CAP {
     protected:
     
     private:
-        std::vector<std::shared_ptr<StreamWriter>> streamWriters;
+        std::vector<StreamWriter> streamWriters;
         
         AudioProcessor();
         AudioProcessor(const AudioProcessor&);
