@@ -67,12 +67,11 @@ TEST(AudioProcessorTest, TestStream2) {
     auto compressor = make_shared<Mp3Compressor>(0, sampleRate);
     remove("AudioProcessorTest_TestStream.bin");
     remove("AudioProcessorTest_TestStream.mp3");
-    StreamWriter sw1("AudioProcessorTest_TestStream.bin");
-    StreamWriter sw2("AudioProcessorTest_TestStream.mp3", compressor);
     
-    vector<StreamWriter> sws;
-    sws.push_back(move(sw1));
-    sws.push_back(move(sw2));
+    
+    vector<StreamWriter> sws = {};
+    sws.push_back(StreamWriter("AudioProcessorTest_TestStream.bin"));
+    sws.push_back(StreamWriter("AudioProcessorTest_TestStream.mp3", compressor));
     AudioProcessor ap(sws);
     
     
@@ -88,23 +87,11 @@ TEST(AudioProcessorTest, TestStream2) {
         buffer[(i - 1) % 1050] = sample;
         
         if (i % (1050 * 10) == 0) {
-            ap.process(buffer, 1050);
-            //cout << "sw1:" << sws[0].numberOfBuffersWritten() << " q:" << sws[0].queueSize() << endl;
-            //cout << "sw2:" << sws[1].numberOfBuffersWritten() << " q:" << sws[1].queueSize() << endl;
-            
+            ap.process(buffer, 1050);            
         }
     }
     
     ap.stop();
-    
-    
-    while (true) {
-        //cout << "-sw1:" << sws[0].numberOfBuffersWritten() << " q:" << sws[0].queueSize() << endl;
-        //cout << "-sw2:" << sws[1].numberOfBuffersWritten() << " q:" << sws[1].queueSize() << endl;
-
-        this_thread::sleep_for(chrono::seconds(1));
-        
-    }
 }
 
 

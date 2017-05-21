@@ -111,7 +111,7 @@ namespace CAP {
         std::unique_ptr<std::condition_variable> queueConditionVariable;
         
         //private methods
-        void writeAudioBufferToFileStream(AudioBuffer audioBuffer, std::ofstream&);
+        void writeAudioBufferToFileStream(const AudioBuffer &audioBuffer, std::ofstream&);
         void runLoop();
         void initDynamicFields();
     };

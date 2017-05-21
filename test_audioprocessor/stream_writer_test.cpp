@@ -63,8 +63,7 @@ TEST(StreamWriterTest, TestCompressing) {
         buffer[(i - 1) % 1050] = sample;
 
         if (i % 1050 == 0) {
-            AudioBuffer ab(buffer, 1050);
-            streamWriter.enqueue(ab);
+            streamWriter.enqueue(AudioBuffer(buffer, 1050));
             numberOfBuffersEnqueued += 1;
         }
     }
@@ -91,8 +90,7 @@ TEST(StreamWriterTest, WriteRawAudioSamples) {
 
     std::int16_t testSamples[] = {30000, -12200, -12, 400, 5000};
     streamWriter.start();
-    AudioBuffer ab(testSamples, 5);
-    streamWriter.enqueue(ab);
+    streamWriter.enqueue(AudioBuffer(testSamples, 5));
     
     streamWriter.stop().get();
     

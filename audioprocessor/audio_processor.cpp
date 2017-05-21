@@ -1,6 +1,7 @@
 
 #include "audio_processor.hpp"
 #include <array>
+#include <iostream>
 
 CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw): streamWriters(std::move(sw)) {
     if (streamWriters.size() == 0) {
@@ -12,8 +13,11 @@ CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw): streamWriter
 }
 
 void CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
+    int i = 0;
     for (auto &streamWriter: streamWriters) {
         streamWriter.enqueue(AudioBuffer(samples, nsamples));
+        std::cout << i << ":" << streamWriter.numberOfBuffersWritten() << " q:" << streamWriter.queueSize() << std::endl;
+        i += 1;
     }
 }
 
@@ -21,6 +25,17 @@ void CAP::AudioProcessor::stop() {
     for (auto &streamWriter: streamWriters) {
         streamWriter.stop().get();
     }
+//    while (true) {
+//        int i = 0;
+//        for (auto &streamWriter: streamWriters) {
+//            std::cout << i << "+:" << streamWriter.numberOfBuffersWritten() << " q:" << streamWriter.queueSize() << std::endl;
+//            i += 1;
+//        }
+//        
+//        
+//        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+//        
+//    }
 }
 
 

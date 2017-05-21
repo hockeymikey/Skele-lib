@@ -78,7 +78,7 @@ void CAP::StreamWriter::runLoop() {
         
         // 3. Get the next buffer.
         queueLock.lock();
-        auto audioBuffer = bufferQueue.front();
+        auto audioBuffer = std::move(bufferQueue.front());
         bufferQueue.pop();
         queueLock.unlock();
         
@@ -100,7 +100,7 @@ void CAP::StreamWriter::runLoop() {
         
     }
 }
-void CAP::StreamWriter::writeAudioBufferToFileStream(AudioBuffer audioBuffer, std::ofstream& stream) {
+void CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer, std::ofstream& stream) {
     stream.write(reinterpret_cast<const char *>(audioBuffer.getBuffer()), audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
     std::lock_guard<std::mutex> buffersWrittenLock(*buffersWrittenMutex);
     buffersWritten = buffersWritten + 1;
