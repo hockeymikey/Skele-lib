@@ -23,9 +23,9 @@ CAP::Mp3Compressor::~Mp3Compressor() {
     lame_close(lame);
 }
 
-CAP::AudioBuffer CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer) {
-    unsigned char compressedBuffer[audioBuffer.size()];
-    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size() / 2, compressedBuffer, audioBuffer.size());
+void CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
+    auto compressedBuffer = reinterpret_cast<unsigned char *>(processed.getBuffer());    
+    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size() / 2, compressedBuffer, processed.AudioBufferCapacity);
  
     switch (output) {
         case -1:
@@ -41,8 +41,6 @@ CAP::AudioBuffer CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer) {
             break;
     }
     
-    auto samples = reinterpret_cast<int16_t *>(compressedBuffer);
-    auto size = output;
-        
-    return AudioBuffer(samples, size);
+    processed.setSize(output);
+    
 };

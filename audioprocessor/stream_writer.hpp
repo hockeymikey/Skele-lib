@@ -89,9 +89,19 @@ namespace CAP {
         std::size_t queueSize();
         
         std::size_t numberOfBuffersWritten();
-        
+        /**
+         Dont allow copy since the object uses mutexes
+         **/
         StreamWriter(const StreamWriter& other) = delete;
+        
+        /**
+         Don't allow object with default field values
+         **/
         StreamWriter() = delete;
+        
+        /**
+         Don't allow copy by assignment since the object uses mutexes
+         **/
         StreamWriter operator=(const StreamWriter&) = delete;
         
     protected:
@@ -104,7 +114,7 @@ namespace CAP {
         std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
         std::size_t buffersWritten = 0;
         
-        //pointer to synchronisation infrastructure to allow move constructor
+        //pointer to synchronisation infrastructure to allow compiler generate move constructor
         std::unique_ptr<std::mutex> waitMutex;
         std::unique_ptr<std::mutex> queueMutex;
         std::unique_ptr<std::mutex> buffersWrittenMutex;

@@ -22,10 +22,10 @@ namespace CAP {
          
          @param audioBuffer
             Array of samples
-         @return return
-         
+         @param compressed
+            Array of processed samples
          **/
-        virtual AudioBuffer process(const AudioBuffer& audioBuffer) = 0;
+        virtual void process(const AudioBuffer& audioBuffer, AudioBuffer& processed) = 0;
         
         SignalProcessor(const SignalProcessor& other) = delete;
         SignalProcessor() = default;

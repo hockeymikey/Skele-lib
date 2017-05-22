@@ -16,13 +16,8 @@
 namespace CAP {
     class Mp3Compressor: public SignalProcessor {
     public:
-        /**
-         Compresses the buffer to MP3 format and returns it
-         
-         @param samples
-            An array or samples
-         **/
-        AudioBuffer process(const AudioBuffer& audioBuffer);
+        
+        void process(const AudioBuffer& audioBuffer, AudioBuffer& processed);
         
         /**
          Constructor
@@ -36,7 +31,7 @@ namespace CAP {
         
         
         /**
-         Destructor
+         Destructor. closes lame
          **/
         ~Mp3Compressor();
         

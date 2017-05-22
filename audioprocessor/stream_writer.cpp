@@ -88,7 +88,8 @@ void CAP::StreamWriter::runLoop() {
         
         if (signalProcessor != nullptr) {
             try {
-                auto compressedBuffer = signalProcessor->process(audioBuffer);
+                AudioBuffer compressedBuffer;
+                signalProcessor->process(audioBuffer, compressedBuffer);
                 writeAudioBufferToFileStream(compressedBuffer, fileStream);
             } catch (std::runtime_error re) {
                 std::cerr << re.what() << std::endl;

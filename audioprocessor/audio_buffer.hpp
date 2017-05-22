@@ -11,15 +11,16 @@
 
 #include <cstdlib>
 #include <cstdint>
-#include <array>
 #include <string>
 
 namespace CAP {
     /**
-     Stores 4096 samples
+     Stores 4410 samples (10 msec at 44.1 kHz)
      **/
     class AudioBuffer {
     public:
+        
+        static const std::size_t AudioBufferCapacity = 4410;
         
         /**
          Move constructor
@@ -38,16 +39,32 @@ namespace CAP {
             Pointer to array of samples
          @param nsamples_
             Number of samples array contains
+         
+         @throws std::overflow_error
+            If nsamples is
          **/
         AudioBuffer(std::int16_t samples_[], std::size_t nsamples_): nsamples(nsamples_) {
-            if (nsamples > buffer.max_size()) {
-                std::string msg("buffer overflow (max buffer size is " + std::to_string(buffer.max_size()));
-                throw std::runtime_error(msg);
+            if (nsamples > AudioBufferCapacity) {
+                std::string msg("buffer overflow (max buffer size is " + std::to_string(AudioBufferCapacity));
+                throw std::overflow_error(msg);
             }
             for (int i = 0; i < nsamples; i++) {
                 buffer[i] = samples_[i];
             }
         };
+        /**
+         Updates the number of samples buffer has
+         
+         @throws std::overflow_error
+         **/
+        void setSize(std::size_t newSize) {
+            if (newSize > AudioBufferCapacity) {
+                std::string msg("buffer overflow (max buffer size is " + std::to_string(AudioBufferCapacity));
+                throw std::overflow_error(msg);
+            }
+            nsamples = newSize;
+        }
+        
         
         /**
          Returns the number of samples in buffer
@@ -62,13 +79,14 @@ namespace CAP {
          Returns pointer to array of samples
          **/
         const std::int16_t * getBuffer() const {
-            return buffer.data();
+            return buffer;
         };
         
-        /**
-        Don't allow default constructor
-         **/
-        AudioBuffer() = delete;
+        std::int16_t * getBuffer() {
+            return buffer;
+        };
+        
+        AudioBuffer() = default;
         
         /**
          Don't allow copy by assignment
@@ -77,9 +95,8 @@ namespace CAP {
         
     protected:
     private:
-        
-        std::array<std::int16_t, 4096> buffer; //use STL array to get to max size
-        std::size_t nsamples;
+        std::int16_t buffer[AudioBufferCapacity];
+        std::size_t nsamples = 0;
     };
 }
 #endif /* audio_buffer_hpp */

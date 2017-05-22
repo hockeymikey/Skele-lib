@@ -62,36 +62,43 @@ TEST(AudioProcessorTest, TestStream) {
 }
 
 
-TEST(AudioProcessorTest, TestStream2) {
+TEST(AudioProcessorTest, TestLongStream) {
     auto sampleRate = 44100;
-    auto compressor = make_shared<Mp3Compressor>(0, sampleRate);
-    remove("AudioProcessorTest_TestStream.bin");
-    remove("AudioProcessorTest_TestStream.mp3");
+    auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
+    remove("AudioProcessorTest_TestLongStream.bin");
+    remove("AudioProcessorTest_TestLongStream.mp3");
     
     
     vector<StreamWriter> sws = {};
-    sws.push_back(StreamWriter("AudioProcessorTest_TestStream.bin"));
-    sws.push_back(StreamWriter("AudioProcessorTest_TestStream.mp3", compressor));
+    sws.push_back(StreamWriter("AudioProcessorTest_TestLongStream.bin"));
+    sws.push_back(StreamWriter("AudioProcessorTest_TestLongStream.mp3", compressor));
     AudioProcessor ap(sws);
     
     
     random_device rd;
     mt19937 mt(rd());
     uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
-    std::int16_t buffer[1050];
-    int seconds = 5000;
+    std::int16_t buffer[4410];
+    int seconds = 2000;
     int nsamples = seconds * sampleRate;
-    //generate 5 seconds worth of samples
+    
+    
     for (int i = 1; i <= nsamples; i++) {
         int16_t sample = (int16_t)dist(mt);
-        buffer[(i - 1) % 1050] = sample;
+        buffer[(i - 1) % 4410] = sample;
         
-        if (i % (1050 * 10) == 0) {
-            ap.process(buffer, 1050);            
+        if (i % (4410) == 0) {
+            ap.process(buffer, 4410);
+//            this_thread::sleep_for(std::chrono::milliseconds(10));
         }
     }
     
     ap.stop();
+//    while (true) {
+//        cout << 12313 << endl;
+//        this_thread::sleep_for(std::chrono::seconds(1));
+//    }
+    
 }
 
 

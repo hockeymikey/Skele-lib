@@ -49,6 +49,7 @@ namespace CAP {
     
     private:
         std::vector<StreamWriter> streamWriters;
+        size_t streamWriterKillThreshold = 1000;
         
     };
 }

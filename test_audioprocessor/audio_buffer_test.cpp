@@ -23,5 +23,5 @@ void AudioBufferTest::TearDown() {};
 
 TEST(AUdioBufferTest, TestBufferOverflow) {
     std::int16_t temp[100];
-    EXPECT_THROW(AudioBuffer(temp, 10000), runtime_error);
+    EXPECT_THROW(AudioBuffer(temp, 10000), overflow_error);
 }

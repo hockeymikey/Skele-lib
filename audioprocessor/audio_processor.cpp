@@ -13,11 +13,21 @@ CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw): streamWriter
 }
 
 void CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
-    int i = 0;
+    int priority = 0;
     for (auto &streamWriter: streamWriters) {
+        if (priority == 0) {
+            //priority writer has issues, kill all
+            if (streamWriter.queueSize() > streamWriterKillThreshold) {
+                //throw exception
+            }
+        } else {
+            if (streamWriter.queueSize() > streamWriterKillThreshold) {
+                //throw exception
+            }
+        }
         streamWriter.enqueue(AudioBuffer(samples, nsamples));
-        std::cout << i << ":" << streamWriter.numberOfBuffersWritten() << " q:" << streamWriter.queueSize() << std::endl;
-        i += 1;
+        std::cout << priority << ":" << streamWriter.numberOfBuffersWritten() << " q:" << streamWriter.queueSize() << std::endl;
+        priority += 1;
     }
 }
 
