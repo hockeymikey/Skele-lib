@@ -112,7 +112,7 @@ TEST(AudioProcessorTest, NoStreamWriters) {
 
 TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     auto sampleRate = 44100;
-    auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
+    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(9, sampleRate));
     string raw = "AudioProcessorTest_TestKillCompressorDueToSlow.bin";
     string mp3 = "AudioProcessorTest_TestKillCompressorDueToSlow.mp3";
     remove(raw.c_str());
@@ -121,7 +121,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     
     vector<StreamWriter> sws = {};
     sws.push_back(StreamWriter(raw));
-    sws.push_back(StreamWriter(mp3, compressor));
+    sws.push_back(StreamWriter(mp3, move(compressor)));
     AudioProcessor ap(sws);
     
     

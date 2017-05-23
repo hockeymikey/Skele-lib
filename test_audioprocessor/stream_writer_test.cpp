@@ -30,9 +30,9 @@ void StreamWriterTest::SetUp() {};
 void StreamWriterTest::TearDown() {};
 
 TEST(StreamWriterTest, HasCompressor) {
-    auto compressor = make_shared<Mp3Compressor>(5, 44100);
+    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(5, 44100));
     StreamWriter sw("");
-    StreamWriter sw2("", compressor);
+    StreamWriter sw2("", move(compressor));
     ASSERT_FALSE(sw.hasSignalProcessor());
     ASSERT_TRUE(sw2.hasSignalProcessor());
 }
@@ -41,9 +41,9 @@ TEST(StreamWriterTest, TestCompressing) {
     string filename = "StreamWriterTest_TestCompressing.mp3";
     remove(filename.c_str());
     auto sampleRate = 44100;
-    auto compressor = make_shared<Mp3Compressor>(5, sampleRate);
+    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(5, sampleRate));
     
-    StreamWriter streamWriter(filename, compressor);
+    StreamWriter streamWriter(filename, move(compressor));
     
     streamWriter.start();
     
@@ -87,9 +87,9 @@ TEST(StreamWriterTest, TestUngracefullStop) {
     string filename = "StreamWriterTest_TestUngracefullStop.bin";
     remove(filename.c_str());
     auto sampleRate = 44100;
-    auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
+    auto compressor = unique_ptr<SignalProcessor>( new Mp3Compressor(9, sampleRate));
     
-    StreamWriter streamWriter(filename, compressor);
+    StreamWriter streamWriter(filename, move(compressor));
     
     streamWriter.start();
     

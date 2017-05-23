@@ -27,7 +27,9 @@ namespace CAP {
          **/
         virtual bool process(const AudioBuffer& audioBuffer, AudioBuffer& processed) = 0;
         
-        virtual ~SignalProcessor() {};
+        virtual ~SignalProcessor() {
+            
+        };
         
         SignalProcessor(const SignalProcessor& other) = delete;
         SignalProcessor() = default;

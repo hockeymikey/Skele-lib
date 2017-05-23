@@ -14,7 +14,7 @@
 
 CAP::StreamWriter::StreamWriter(std::string filepath): filepath(filepath), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
 }
-CAP::StreamWriter::StreamWriter(std::string filepath, std::shared_ptr<SignalProcessor> cmp): filepath(filepath), signalProcessor(cmp), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {    
+CAP::StreamWriter::StreamWriter(std::string filepath, std::unique_ptr<SignalProcessor> cmp): filepath(filepath), signalProcessor(std::move(cmp)), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
 }
 
 void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {

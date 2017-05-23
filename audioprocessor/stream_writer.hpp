@@ -53,7 +53,7 @@ namespace CAP {
          @param compressor
             Compressor to use before writing to file
          **/
-        StreamWriter(std::string filepath, std::shared_ptr<SignalProcessor> signalProcessor);
+        StreamWriter(std::string filepath, std::unique_ptr<SignalProcessor> signalProcessor);
         
         /**
          Copy constructor
@@ -118,7 +118,7 @@ namespace CAP {
         std::queue<AudioBuffer> bufferQueue;
         
         bool stopLoop = false;
-        std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
+        std::unique_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
         std::size_t buffersWritten = 0;
         
         //pointer to synchronisation infrastructure to allow compiler generate move constructor
