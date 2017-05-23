@@ -68,7 +68,7 @@ TEST(StreamWriterTest, TestCompressing) {
         }
     }
     
-    streamWriter.stop().get();
+    streamWriter.stopGracefully(true).get();
     
     ASSERT_EQ(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
     
@@ -83,6 +83,44 @@ TEST(StreamWriterTest, TestCompressing) {
     ASSERT_NEAR(in.tellg(), filesize, 1000);
 }
 
+TEST(StreamWriterTest, TestUngracefullStop) {
+    string filename = "StreamWriterTest_TestUngracefullStop.bin";
+    remove(filename.c_str());
+    auto sampleRate = 44100;
+    auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
+    
+    StreamWriter streamWriter(filename, compressor);
+    
+    streamWriter.start();
+    
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+    
+    
+    int seconds = 60;
+    int nsamples = seconds * sampleRate;
+    std::int16_t buffer[1050];
+    int numberOfBuffersEnqueued = 0;
+    //generate 5 seconds worth of samples
+    for (int i = 1; i <= nsamples; i++) {
+        int16_t sample = (int16_t)dist(mt);
+        
+        buffer[(i - 1) % 1050] = sample;
+        
+        if (i % 1050 == 0) {
+            streamWriter.enqueue(AudioBuffer(buffer, 1050));
+            numberOfBuffersEnqueued += 1;
+        }
+    }
+    
+    streamWriter.stopGracefully(false).get();
+    
+    ASSERT_GT(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
+    cout << numberOfBuffersEnqueued << ":" << streamWriter.numberOfBuffersWritten();
+    cout << endl;
+}
+
 TEST(StreamWriterTest, WriteRawAudioSamples) {
     string filename = "StreamWriterTest_WriteRawAudioSamples.bin";
     remove(filename.c_str());
@@ -92,7 +130,7 @@ TEST(StreamWriterTest, WriteRawAudioSamples) {
     streamWriter.start();
     streamWriter.enqueue(AudioBuffer(testSamples, 5));
     
-    streamWriter.stop().get();
+    streamWriter.stopGracefully(true).get();
     
 
     

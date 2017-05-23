@@ -8,6 +8,7 @@
 
 #include "mp3_compressor.hpp"
 #include <cstdlib>
+#include <iostream>
 
 CAP::Mp3Compressor::Mp3Compressor(int compressionQuality, int sampleRate):  CAP::SignalProcessor() {
     lame = lame_init();
@@ -23,24 +24,27 @@ CAP::Mp3Compressor::~Mp3Compressor() {
     lame_close(lame);
 }
 
-void CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
+bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
     auto compressedBuffer = reinterpret_cast<unsigned char *>(processed.getBuffer());    
     int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size() / 2, compressedBuffer, processed.AudioBufferCapacity);
  
     switch (output) {
         case -1:
-            throw std::runtime_error("Lame buffer is too small");
+            std::cerr << "Lame buffer is too small" << std::endl;
+            return false;
         case -2:
-            throw std::runtime_error("Lame memory allocation issue");
+            std::cerr << "Lame memory allocation issue" << std::endl;
+            return false;
         case -3:
             std::abort(); //should not happen since lame init called above
         case -4:
-            throw std::runtime_error("Lame psychoacoustic error");
+            std::cerr << "Lame psychoacoustic error" << std::endl;
+            return false;
         case 0:
         default:
             break;
     }
     
     processed.setSize(output);
-    
+    return true;
 };

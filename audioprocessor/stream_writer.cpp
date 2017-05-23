@@ -29,8 +29,12 @@ void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
     queueConditionVariable->notify_one();
 }
 
-std::future<void> CAP::StreamWriter::stop() {
+std::future<void> CAP::StreamWriter::stopGracefully(bool gracefully) {
     stopLoop = true;
+    if (!gracefully) {
+        std::lock_guard<std::mutex> bufferLock(*queueMutex);
+        bufferQueue = {}; //empty the queue
+    }
     queueConditionVariable->notify_one();
     return stopPromise.get_future();
 }
@@ -87,13 +91,11 @@ void CAP::StreamWriter::runLoop() {
         }
         
         if (signalProcessor != nullptr) {
-            try {
-                AudioBuffer compressedBuffer;
-                signalProcessor->process(audioBuffer, compressedBuffer);
-                writeAudioBufferToFileStream(compressedBuffer, fileStream);
-            } catch (std::runtime_error re) {
-                std::cerr << re.what() << std::endl;
+            AudioBuffer compressedBuffer;
+            if (!signalProcessor->process(audioBuffer, compressedBuffer)) {
+                return;
             }
+            writeAudioBufferToFileStream(compressedBuffer, fileStream);
             
         } else {
            writeAudioBufferToFileStream(audioBuffer, fileStream);
@@ -102,7 +104,8 @@ void CAP::StreamWriter::runLoop() {
     }
 }
 void CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer, std::ofstream& stream) {
-    stream.write(reinterpret_cast<const char *>(audioBuffer.getBuffer()), audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
+    auto b = reinterpret_cast<const char *>(audioBuffer.getBuffer());
+    stream.write(b, audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
     std::lock_guard<std::mutex> buffersWrittenLock(*buffersWrittenMutex);
     buffersWritten = buffersWritten + 1;
 }

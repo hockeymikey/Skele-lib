@@ -76,17 +76,29 @@ namespace CAP {
         };
         
         /**
-         Returns pointer to array of samples
+         Returns pointer to array of samples. Array contents cannot be changed
+         
+         @return pointer to array of samples
          **/
         const std::int16_t * getBuffer() const {
             return buffer;
         };
         
+        /**
+         Returns pointer to array that can be modified
+         
+         @return pointer to array of samples
+         **/
         std::int16_t * getBuffer() {
             return buffer;
         };
         
+        /**
+         Allow initializing empty buffer
+         **/
         AudioBuffer() = default;
+        
+//        virtual ~AudioBuffer();
         
         /**
          Don't allow copy by assignment

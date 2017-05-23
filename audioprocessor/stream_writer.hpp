@@ -26,6 +26,12 @@ namespace CAP {
      **/
     class StreamWriter {
     public:
+        
+        /**
+         Let compiler generate move assignment operator
+         **/
+        StreamWriter& operator=(StreamWriter&& other) = default;
+        
         /**
          Move constructor: use compiler generated one (it knows what it's doing)
          **/
@@ -66,9 +72,10 @@ namespace CAP {
         void enqueue(AudioBuffer audioBuffer);
         
         /**
-         Stops asynchronous processing.
+         Stops processing. Based on the flag supplied, will wait till queue is empty or not.
          **/
-        std::future<void> stop();
+        std::future<void> stopGracefully(bool gracefully);
+        
         
         /**
          Starts asynchronous processing
@@ -123,7 +130,6 @@ namespace CAP {
         //private methods
         void writeAudioBufferToFileStream(const AudioBuffer &audioBuffer, std::ofstream&);
         void runLoop();
-        void initDynamicFields();
     };
 }
 

@@ -9,8 +9,6 @@
 #ifndef signal_processor_hpp
 #define signal_processor_hpp
 
-#include <cstddef>
-#include <cstdint>
 #include "audio_buffer.hpp"
 
 namespace CAP {
@@ -24,8 +22,12 @@ namespace CAP {
             Array of samples
          @param compressed
             Array of processed samples
+         
+         @return success/failure
          **/
-        virtual void process(const AudioBuffer& audioBuffer, AudioBuffer& processed) = 0;
+        virtual bool process(const AudioBuffer& audioBuffer, AudioBuffer& processed) = 0;
+        
+//        virtual ~SignalProcessor();
         
         SignalProcessor(const SignalProcessor& other) = delete;
         SignalProcessor() = default;

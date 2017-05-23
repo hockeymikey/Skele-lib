@@ -11,13 +11,20 @@
 
 #include "signal_processor.hpp"
 #include "lame.h"
-#include <vector>
 
 namespace CAP {
     class Mp3Compressor: public SignalProcessor {
     public:
-        
-        void process(const AudioBuffer& audioBuffer, AudioBuffer& processed);
+
+        /**
+         Compresses to MP3 'in' buffer and places the compressed samples in 'out' buffer
+         
+         @param in
+            Constant reference to buffer with raw samples
+         @param out
+            Reference to buffer where compressed samples will be stored
+         **/
+        bool process(const AudioBuffer& in, AudioBuffer& out);
         
         /**
          Constructor
