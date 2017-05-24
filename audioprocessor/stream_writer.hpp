@@ -73,8 +73,17 @@ namespace CAP {
         
         /**
          Stops processing. Based on the flag supplied, will wait till queue is empty or not.
+         
+         @return future
          **/
-        std::future<void> stopGracefully(bool gracefully);
+        std::future<void> stop();
+        
+        /**
+         Ignores queued buffers, and returns from the thread
+         
+         @return future
+         **/
+        std::future<void> kill();
         
         
         /**
@@ -87,6 +96,9 @@ namespace CAP {
          @return  boolean
          **/
         bool hasSignalProcessor() const;
+        
+        /**
+         Informs whether there is an error consuming buffers off the queue (ex: lame error, write error)
         
         /**
          Destructor
@@ -115,9 +127,12 @@ namespace CAP {
     private:        
         std::string filepath;
         std::promise<void> stopPromise;
+        std::promise<void> killPromise;
         std::queue<AudioBuffer> bufferQueue;
         
         bool stopLoop = false;
+        bool killLoop = false;
+        bool hasError = false;
         std::unique_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
         std::size_t buffersWritten = 0;
         

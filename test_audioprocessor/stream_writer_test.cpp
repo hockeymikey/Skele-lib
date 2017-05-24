@@ -68,7 +68,7 @@ TEST(StreamWriterTest, TestCompressing) {
         }
     }
     
-    streamWriter.stopGracefully(true).get();
+    streamWriter.stop().get();
     
     ASSERT_EQ(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
     
@@ -114,7 +114,7 @@ TEST(StreamWriterTest, TestUngracefullStop) {
         }
     }
     
-    streamWriter.stopGracefully(false).get();
+    streamWriter.kill().get();
     
     ASSERT_GT(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
     cout << numberOfBuffersEnqueued << ":" << streamWriter.numberOfBuffersWritten();
@@ -130,7 +130,7 @@ TEST(StreamWriterTest, WriteRawAudioSamples) {
     streamWriter.start();
     streamWriter.enqueue(AudioBuffer(testSamples, 5));
     
-    streamWriter.stopGracefully(true).get();
+    streamWriter.stop().get();
     
 
     

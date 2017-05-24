@@ -29,14 +29,20 @@ void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
     queueConditionVariable->notify_one();
 }
 
-std::future<void> CAP::StreamWriter::stopGracefully(bool gracefully) {
+std::future<void> CAP::StreamWriter::stop() {
     stopLoop = true;
-    if (!gracefully) {
-        std::lock_guard<std::mutex> bufferLock(*queueMutex);
-        bufferQueue = {}; //empty the queue
-    }
     queueConditionVariable->notify_one();
     return stopPromise.get_future();
+}
+
+std::future<void> CAP::StreamWriter::kill() {
+    killLoop = true;
+    queueConditionVariable->notify_one();
+    auto future = killPromise.get_future();
+    if (hasError) {
+        killPromise.set_value();
+    }
+    return future;
 }
 
 std::size_t CAP::StreamWriter::numberOfBuffersWritten() {
@@ -46,6 +52,10 @@ std::size_t CAP::StreamWriter::numberOfBuffersWritten() {
 
 void CAP::StreamWriter::start() {
     stopLoop = false;
+    killLoop = false;
+    hasError = false;
+    stopPromise = std::promise<void>();
+    killPromise = std::promise<void>();
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
 }
 
@@ -70,15 +80,21 @@ void CAP::StreamWriter::runLoop() {
         auto isEmpty = bufferQueue.empty();
         queueLock.unlock();
         
-        if (isEmpty) {
-            if (stopLoop) {
+        if (stopLoop) {
+            if (isEmpty) {
                 stopPromise.set_value();
                 return;
-            } else {
-                queueConditionVariable->wait(loopLock);
-                continue;
             }
+        } else if (killLoop) {
+            killPromise.set_value();
+            return;
         }
+        
+        if (isEmpty) {
+            queueConditionVariable->wait(loopLock);
+            continue;
+        }
+        
         
         // 3. Get the next buffer.
         queueLock.lock();
@@ -86,13 +102,10 @@ void CAP::StreamWriter::runLoop() {
         bufferQueue.pop();
         queueLock.unlock();
         
-        if (audioBuffer.size() == 0) {
-            continue;
-        }
-        
         if (signalProcessor != nullptr) {
             AudioBuffer compressedBuffer;
             if (!signalProcessor->process(audioBuffer, compressedBuffer)) {
+                hasError = true;
                 return;
             }
             writeAudioBufferToFileStream(compressedBuffer, fileStream);

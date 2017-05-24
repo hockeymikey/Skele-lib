@@ -17,16 +17,16 @@
 //    AudioBufferMock(const AudioBufferMock &other) = default;
 //};
 
-//class Mp3CompressorMock : public CAP::SignalProcessor {
-//public:
-//    Mp3CompressorMock() = default;
-//    Mp3CompressorMock(const Mp3CompressorMock &) = default;
-//    MOCK_METHOD2(process, bool (const AudioBufferMock& in, AudioBufferMock& out));
-//  
-////    MOCK_METHOD2(do_process, bool (const CAP::AudioBuffer* in, CAP::AudioBuffer* out));
-////    bool process(const CAP::AudioBuffer& in, CAP::AudioBuffer& out) {
-////        return do_process(&in, &out);
-////    }
-//};
+class Mp3CompressorMock : public CAP::SignalProcessor {
+public:
+    
+//    MOCK_METHOD2(process, bool (const CAP::AudioBuffer& in, CAP::AudioBuffer& out));
+  
+    MOCK_METHOD2(do_process, bool (const CAP::AudioBuffer* in, CAP::AudioBuffer* out));
+    
+    bool process(const CAP::AudioBuffer& in, CAP::AudioBuffer& out) {
+        return do_process(&in, &out);
+    }
+};
 
 #endif /* mp3_compressor_mock_hpp */

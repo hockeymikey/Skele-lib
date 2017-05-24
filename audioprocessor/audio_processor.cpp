@@ -12,7 +12,7 @@ CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw): streamWriter
     }
 }
 
-void CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
+CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
     int priority = 0;
     bool priorityWriterHasIssues = false;
     bool nonPriorityWriterHasIssues = false;
@@ -45,21 +45,21 @@ void CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
     }
     
     for (int i = 0; i < streamWritersToKillCount; i++) {
-        int priority = streamWritersTokill[i];
-        
-        streamWriters.at(priority).stopGracefully(false).get();
+        int priority = streamWritersTokill[i];        
+        streamWriters.at(priority).kill().get();
         streamWriters.erase(streamWriters.begin() + priority);
     }
     if (priorityWriterHasIssues) {
-        throw PriorityWriterProcessingException();
+        return ProcessResult::PriorityWriterError;
     } else if (nonPriorityWriterHasIssues) {
-        throw WriterProcessingException();
+        return ProcessResult::NonPriorityWriterError;
     }
+    return ProcessResult::Success;
 }
 
 void CAP::AudioProcessor::stop() {
     for (auto &streamWriter: streamWriters) {
-        streamWriter.stopGracefully(true).get();
+        streamWriter.stop().get();
     }
 //    while (true) {
 //        int i = 0;

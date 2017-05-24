@@ -10,14 +10,6 @@
 namespace CAP {
     
     
-    class WriterProcessingException: std::exception {
-        
-    };
-    
-    class PriorityWriterProcessingException: WriterProcessingException {
-        
-    };
-    
     
     /**
      Orchestrates audio sample writing
@@ -25,6 +17,13 @@ namespace CAP {
     class AudioProcessor {
         
     public:
+        
+        enum class ProcessResult {
+            Success,
+            PriorityWriterError,
+            NonPriorityWriterError
+        };
+        
         /**
          Constructor. Stream writer at index 0 has highest priority. 
          
@@ -40,16 +39,13 @@ namespace CAP {
             Pointer to array of samples
          @param nsamples
             Number of samples in array
-         @throws CAP::WriterProcessingException
-            If non-priority writer queue exceeds this->streamWriterKillThreshold, this exception is thrown
-         @throws CAP::PriorityWriterProcessingException
-            If priority writer queue exceeds this->streamWriterKillThreshold, this exception is thrown
+         @return ProcessResult            
          **/
-        void process(std::int16_t *samples, std::size_t nsamples);
+        ProcessResult process(std::int16_t *samples, std::size_t nsamples);
         
         
         /**
-         Stops listening for incoming samples. Graceful stop
+         Stops listening for incoming samples. Blocks while waiting for the queues to be emptied.
          **/
         void stop();
         
