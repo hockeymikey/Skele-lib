@@ -13,21 +13,21 @@ CAP::SystemFile::SystemFile(std::string filepath_): CAP::File(), filepath(filepa
 }
 
 void CAP::SystemFile::close() {
-    fileStream.close();
+    filestream.close();
 }
 
 bool CAP::SystemFile::isOpen() const {
-    return fileStream.is_open();
+    return filestream.is_open();
 }
 
 bool CAP::SystemFile::write(const CAP::AudioBuffer &audioBuffer) {
     auto b = reinterpret_cast<const char *>(audioBuffer.getBuffer());
-    fileStream.write(b, audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
-    return !fileStream.bad();
+    filestream.write(b, audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
+    return !filestream.bad();
 }
 
 void CAP::SystemFile::open() {
-    fileStream.open(filepath, std::ofstream::binary | std::ofstream::app);
+    filestream.open(filepath, std::ofstream::binary | std::ofstream::app);
 }
 
 std::string CAP::SystemFile::path() const {

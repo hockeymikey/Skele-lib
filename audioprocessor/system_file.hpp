@@ -70,7 +70,7 @@ namespace CAP {
     protected:
     private:
         std::string filepath;
-        std::ofstream fileStream;
+        std::ofstream filestream;
     };
 }
 
