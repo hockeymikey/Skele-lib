@@ -83,8 +83,10 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     EXPECT_CALL(*mp3Compressor, do_process(testing::_, testing::_)).Times(AtLeast(1)).WillRepeatedly(Return(false));
     
     vector<StreamWriter> sws = {};
-    sws.push_back(StreamWriter(raw));
-    sws.push_back(StreamWriter(mp3, move(compressor)));
+    auto rawfile = unique_ptr<File>(new SystemFile(raw));
+    auto mp3file = unique_ptr<File>(new SystemFile(mp3));
+    sws.push_back(StreamWriter(move(rawfile)));
+    sws.push_back(StreamWriter(move(mp3file), move(compressor)));
     AudioProcessor ap(sws);
     
     
@@ -132,8 +134,11 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     
     
     vector<StreamWriter> sws = {};
-    sws.push_back(StreamWriter(raw));
-    sws.push_back(StreamWriter(mp3, move(compressor)));
+    auto rawfile = unique_ptr<File>(new SystemFile(raw));
+    auto mp3file = unique_ptr<File>(new SystemFile(mp3));
+    
+    sws.push_back(StreamWriter(move(rawfile)));
+    sws.push_back(StreamWriter(move(mp3file), move(compressor)));
     AudioProcessor ap(sws);
     
     

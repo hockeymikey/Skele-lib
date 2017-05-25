@@ -12,9 +12,9 @@
 #include <iostream>
 #include <memory>
 
-CAP::StreamWriter::StreamWriter(std::string filepath): filepath(filepath), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
+CAP::StreamWriter::StreamWriter(std::unique_ptr<File> file_): file(std::move(file_)), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
 }
-CAP::StreamWriter::StreamWriter(std::string filepath, std::unique_ptr<SignalProcessor> cmp): filepath(filepath), signalProcessor(std::move(cmp)), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
+CAP::StreamWriter::StreamWriter(std::unique_ptr<File> file_, std::unique_ptr<SignalProcessor> cmp): file(std::move(file_)), signalProcessor(std::move(cmp)), waitMutex(new std::mutex()), queueMutex(new std::mutex()), buffersWrittenMutex(new std::mutex()), queueConditionVariable(new std::condition_variable()) {
 }
 
 void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
@@ -72,7 +72,12 @@ std::size_t CAP::StreamWriter::queueSize() {
 }
 
 void CAP::StreamWriter::runLoop() {
-    std::ofstream fileStream(filepath, std::ofstream::binary | std::ofstream::app);
+    file->open();
+    if (!file->isOpen()) {
+        std::cerr << "file cannot be opened: " << file->path() << std::endl;
+        hasError = true;
+        return;
+    }
     std::unique_lock<std::mutex> loopLock(*waitMutex);
     while (true) {
         // 1. Wait for an event if the queue is empty.
@@ -83,10 +88,12 @@ void CAP::StreamWriter::runLoop() {
         if (stopLoop) {
             if (isEmpty) {
                 stopPromise.set_value();
+                file->close();
                 return;
             }
         } else if (killLoop) {
             killPromise.set_value();
+            file->close();
             return;
         }
         
@@ -106,20 +113,32 @@ void CAP::StreamWriter::runLoop() {
             AudioBuffer compressedBuffer;
             if (!signalProcessor->process(audioBuffer, compressedBuffer)) {
                 hasError = true;
+                file->close();
                 return;
             }
-            writeAudioBufferToFileStream(compressedBuffer, fileStream);
+            if (!writeAudioBufferToFileStream(compressedBuffer)) {
+                hasError = true;
+                file->close();
+                return;
+            }
             
         } else {
-           writeAudioBufferToFileStream(audioBuffer, fileStream);
+            if (!writeAudioBufferToFileStream(audioBuffer)) {
+                hasError = true;
+                file->close();
+                return;
+            }
         }
         
     }
 }
-void CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer, std::ofstream& stream) {
-    auto b = reinterpret_cast<const char *>(audioBuffer.getBuffer());
-    stream.write(b, audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
-    std::lock_guard<std::mutex> buffersWrittenLock(*buffersWrittenMutex);
-    buffersWritten = buffersWritten + 1;
+bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {
+    if (file->write(audioBuffer)) {
+        std::lock_guard<std::mutex> buffersWrittenLock(*buffersWrittenMutex);
+        buffersWritten = buffersWritten + 1;
+        return true;
+    }
+    std::cerr << "error writing to file:" << file->path() << std::endl;
+    return false;
 }
 

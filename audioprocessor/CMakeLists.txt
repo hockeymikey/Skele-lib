@@ -10,6 +10,9 @@ set(libap_SRCS
     mp3_compressor.hpp
     mp3_compressor.cpp
     audio_buffer.hpp
+    file.hpp
+    system_file.hpp
+    system_file.cpp	
 )
 
 

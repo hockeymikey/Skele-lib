@@ -45,7 +45,6 @@ namespace CAP {
     protected:
     private:
         lame_t lame;
-//        unsigned char compressedBuffer[4096];
     };
 }
 

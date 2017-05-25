@@ -11,14 +11,16 @@
 
 #include "audio_buffer.hpp"
 #include "signal_processor.hpp"
+#include "system_file.hpp"
+
 #include <string>
-#include <fstream>
 #include <condition_variable>
 #include <queue>
 #include <mutex>
 #include <memory>
 #include <future>
 #include <array>
+
 namespace CAP {
     
     /**
@@ -40,27 +42,20 @@ namespace CAP {
         /**
          Constructor
          
-         @param filepath
-            The file path where this object is gonna write samples to.
+         @param file
+            Reference to file object
          **/
-        StreamWriter(std::string filepath);
+        StreamWriter(std::unique_ptr<File> file);
         
         /**
          Constructor
          
-         @param filepath
-            The file path where this object is gonna write samples to.
+         @param file
+            Reference to file object
          @param compressor
             Compressor to use before writing to file
          **/
-        StreamWriter(std::string filepath, std::unique_ptr<SignalProcessor> signalProcessor);
-        
-        /**
-         Copy constructor
-         @param other
-            Other stream writer object
-         **/
-        
+        StreamWriter(std::unique_ptr<File> file, std::unique_ptr<SignalProcessor> signalProcessor);        
         
         
         /**
@@ -93,21 +88,30 @@ namespace CAP {
         
         /**
          Signal processor is attached or not
+         
          @return  boolean
          **/
         bool hasSignalProcessor() const;
-        
-        /**
-         Informs whether there is an error consuming buffers off the queue (ex: lame error, write error)
         
         /**
          Destructor
          **/
         ~StreamWriter();
         
+        /**
+         The size of queue of audio buffers
+         
+         @return size_t
+         **/
         std::size_t queueSize();
         
+        /**
+         Keeps track of number of audio buffers that have been written successfully
+         
+         @return size_t
+         **/
         std::size_t numberOfBuffersWritten();
+        
         /**
          Dont allow copy since the object uses mutexes
          **/
@@ -124,8 +128,10 @@ namespace CAP {
         StreamWriter operator=(const StreamWriter&) = delete;
         
     protected:
-    private:        
-        std::string filepath;
+    private:
+        
+        std::unique_ptr<File> file;
+        
         std::promise<void> stopPromise;
         std::promise<void> killPromise;
         std::queue<AudioBuffer> bufferQueue;
@@ -143,7 +149,7 @@ namespace CAP {
         std::unique_ptr<std::condition_variable> queueConditionVariable;
         
         //private methods
-        void writeAudioBufferToFileStream(const AudioBuffer &audioBuffer, std::ofstream&);
+        bool writeAudioBufferToFileStream(const AudioBuffer &audioBuffer);
         void runLoop();
     };
 }
