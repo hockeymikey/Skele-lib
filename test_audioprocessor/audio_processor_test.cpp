@@ -73,14 +73,10 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     auto mp3 = "AudioProcessorTest_TestKillCompressorDueToLame.mp3";
     remove(raw);
     remove(mp3);
-    std::int16_t t[] = {1,2,3,4,5};
-    
-    CAP::AudioBuffer in(t, 5);
-    CAP::AudioBuffer out(t, 5);
     
     Mp3CompressorMock *mp3Compressor = (Mp3CompressorMock *)compressor.get();
     
-    EXPECT_CALL(*mp3Compressor, do_process(testing::_, testing::_)).Times(AtLeast(1)).WillRepeatedly(Return(false));
+    EXPECT_CALL(*mp3Compressor, process(testing::_, testing::_)).Times(AtLeast(1)).WillRepeatedly(Return(false));
     
     vector<StreamWriter> sws = {};
     auto rawfile = unique_ptr<File>(new SystemFile(raw));

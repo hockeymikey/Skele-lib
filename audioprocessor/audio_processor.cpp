@@ -3,63 +3,73 @@
 #include <array>
 #include <iostream>
 
-CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw): streamWriters(std::move(sw)) {
-    if (streamWriters.size() == 0) {
-        throw std::runtime_error("At least one stream writer is expected");
+CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw) {
+    if (sw.size() == 0 || sw.size() > 5) {
+        throw std::runtime_error("At least one stream writer, but no more than 5 writers is expected");
     }
-    for (auto &streamWriter: streamWriters) {
-        streamWriter.start();
+    for (int i = 0; i < sw.size(); i++) {
+        PrioritizedStreamWriter ps(sw.at(i), i);
+        prioritizedStreamWriters.push_back(std::move(ps));
+    }
+    
+    for(auto &psw: prioritizedStreamWriters) {
+        psw.getStreamWriter().start();
     }
 }
 
 CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
-    int priority = 0;
-    bool priorityWriterHasIssues = false;
-    bool nonPriorityWriterHasIssues = false;
-    int streamWritersToKillCount= 0;
-    std::array<std::int8_t, 10> streamWritersTokill;
     
-    for (auto &streamWriter: streamWriters) {
-        if (priority == 0) {
-            if (streamWriter.queueSize() >= streamWriterKillThreshold) {
+    auto result = ProcessResult::Success;
+    int streamWritersToKillCount= 0;
+    std::array<std::int8_t, 5> streamWritersTokill;
+    
+    for (auto &pStreamWriter: prioritizedStreamWriters) {
+        if (pStreamWriter.getPriority() == 0) {
+            if (pStreamWriter.getStreamWriter().queueSize() >= streamWriterKillThreshold) {
                 //priority writer has issues, kill all
-                priorityWriterHasIssues = true;
-                streamWritersTokill[streamWritersToKillCount] = priority;
+                result = ProcessResult::PriorityWriterError;
+                streamWritersTokill[streamWritersToKillCount] = pStreamWriter.getPriority();
                 streamWritersToKillCount += 1;
             } else {
-                streamWriter.enqueue(AudioBuffer(samples, nsamples));
+                pStreamWriter.getStreamWriter().enqueue(AudioBuffer(samples, nsamples));
             }
         } else {
             //non-priority writer has issues, kill it and throw exception
-            if (streamWriter.queueSize() >= streamWriterKillThreshold || priorityWriterHasIssues) {
-                streamWritersTokill[streamWritersToKillCount] = priority;
+            if (pStreamWriter.getStreamWriter().queueSize() >= streamWriterKillThreshold || result == ProcessResult::PriorityWriterError) {
+                streamWritersTokill[streamWritersToKillCount] = pStreamWriter.getPriority();
                 streamWritersToKillCount += 1;
-                nonPriorityWriterHasIssues = true;
+                if (result != ProcessResult::PriorityWriterError) {
+                    result = ProcessResult::NonPriorityWriterError;
+                }
             } else {
-                streamWriter.enqueue(AudioBuffer(samples, nsamples));
+                pStreamWriter.getStreamWriter().enqueue(AudioBuffer(samples, nsamples));
             }
         }
         
-        std::cout << priority << ":" << streamWriter.numberOfBuffersWritten() << " q:" << streamWriter.queueSize() << std::endl;
-        priority += 1;
+        std::cout << pStreamWriter.getPriority() << ":" << pStreamWriter.getStreamWriter().numberOfBuffersWritten() << " q:" << pStreamWriter.getStreamWriter().queueSize() << std::endl;
+        
     }
     
     for (int i = 0; i < streamWritersToKillCount; i++) {
-        int priority = streamWritersTokill[i];        
-        streamWriters.at(priority).kill().get();
-        streamWriters.erase(streamWriters.begin() + priority);
+        int priority = streamWritersTokill[i];
+        for (int g = 0; g < prioritizedStreamWriters.size(); g++) {
+            if (prioritizedStreamWriters[g].getPriority() == priority) {
+                prioritizedStreamWriters.at(g).getStreamWriter().kill().get();
+                prioritizedStreamWriters.erase(prioritizedStreamWriters.begin() + g);
+                break;
+            }
+        }
+        
+        
+        
     }
-    if (priorityWriterHasIssues) {
-        return ProcessResult::PriorityWriterError;
-    } else if (nonPriorityWriterHasIssues) {
-        return ProcessResult::NonPriorityWriterError;
-    }
-    return ProcessResult::Success;
+    
+    return result;
 }
 
 void CAP::AudioProcessor::stop() {
-    for (auto &streamWriter: streamWriters) {
-        streamWriter.stop().get();
+    for (auto &pstreamWriter: prioritizedStreamWriters) {
+        pstreamWriter.getStreamWriter().stop().get();
     }
 //    while (true) {
 //        int i = 0;

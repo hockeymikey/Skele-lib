@@ -25,7 +25,7 @@ namespace CAP {
         };
         
         /**
-         Constructor. Stream writer at index 0 has highest priority. 
+         Constructor. Stream writer at index 0 has highest priority. AudioProcessor takes ownership of the stream writers. Outside access not possible
          
          @param streamWriters
             A vector of stream writers audio processor will be delegating write operation to.
@@ -55,7 +55,7 @@ namespace CAP {
          @return number of stream wrtiers
          **/
         std::size_t getNumberOfStreamWriters() const {
-            return streamWriters.size();
+            return prioritizedStreamWriters.size();
         }
         
         /**
@@ -81,7 +81,32 @@ namespace CAP {
     protected:
     
     private:
-        std::vector<StreamWriter> streamWriters;
+        
+        class PrioritizedStreamWriter {
+        public:
+            PrioritizedStreamWriter(StreamWriter& sw, int priority_): streamWrtier(std::move(sw)), priority(priority_) {};
+            PrioritizedStreamWriter& operator=(PrioritizedStreamWriter&& other) = default;
+            PrioritizedStreamWriter(PrioritizedStreamWriter&&) = default;
+            PrioritizedStreamWriter(const PrioritizedStreamWriter&) = delete;
+            PrioritizedStreamWriter() = delete;
+            PrioritizedStreamWriter operator=(const PrioritizedStreamWriter&) = delete;
+
+            int getPriority() const {
+                    return priority;
+                };
+
+            StreamWriter& getStreamWriter() {
+                    return streamWrtier;
+                }
+
+        protected:
+        private:
+            StreamWriter streamWrtier;
+            int priority;
+        };
+
+        
+        std::vector<PrioritizedStreamWriter> prioritizedStreamWriters;
         std::size_t streamWriterKillThreshold = 100; //number of buffers
         
     };

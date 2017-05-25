@@ -32,7 +32,11 @@ void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
 std::future<void> CAP::StreamWriter::stop() {
     stopLoop = true;
     queueConditionVariable->notify_one();
-    return stopPromise.get_future();
+    auto future = stopPromise.get_future();
+    if (hasError) {
+        stopPromise.set_value();
+    }
+    return future;
 }
 
 std::future<void> CAP::StreamWriter::kill() {
@@ -87,13 +91,13 @@ void CAP::StreamWriter::runLoop() {
         
         if (stopLoop) {
             if (isEmpty) {
-                stopPromise.set_value();
                 file->close();
+                stopPromise.set_value();
                 return;
             }
         } else if (killLoop) {
-            killPromise.set_value();
             file->close();
+            killPromise.set_value();
             return;
         }
         
