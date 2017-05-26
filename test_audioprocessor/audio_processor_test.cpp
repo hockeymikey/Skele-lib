@@ -1,4 +1,5 @@
 #include "gmock/gmock.h"
+#include "file_mock.hpp"
 #include "mp3_compressor_mock.hpp"
 #include "audio_processor.hpp"
 #include "audio_processor_test.hpp"
@@ -11,6 +12,7 @@ using namespace CAP;
 using namespace std;
 using ::testing::AtLeast;
 using ::testing::Return;
+using ::testing::NiceMock;
 
 AudioProcessorTest::AudioProcessorTest() {
     // Have qux return true by default
@@ -29,6 +31,50 @@ TEST(AudioProcessorTest, NoStreamWriters) {
     vector<StreamWriter> sws = {};
     EXPECT_THROW(AudioProcessor ap(sws), runtime_error);
 }
+
+TEST(AudioProcessorTest, TooManyStreamWriters) {
+    vector<StreamWriter> sws = {};
+    sws.push_back(StreamWriter(unique_ptr<File>(new FileMock())));
+    sws.push_back(StreamWriter(unique_ptr<File>(new FileMock())));
+    sws.push_back(StreamWriter(unique_ptr<File>(new FileMock())));
+    sws.push_back(StreamWriter(unique_ptr<File>(new FileMock())));
+    sws.push_back(StreamWriter(unique_ptr<File>(new FileMock())));
+    sws.push_back(StreamWriter(unique_ptr<File>(new FileMock())));
+    EXPECT_THROW(AudioProcessor ap(sws), runtime_error);
+}
+
+TEST(AudioProcessorTest, StreamFailureCantOpenRawFileKillAllStreams) {
+    vector<StreamWriter> sws = {};
+    auto mp3 = "AudioProcessorTest_StreamFailureCantOpenRawFileKillAllStreams.mp3";
+    remove(mp3);
+
+    auto rawfile = unique_ptr<File>(new NiceMock<FileMock>());
+    NiceMock<FileMock> *mock = (NiceMock<FileMock> *)rawfile.get();
+    ON_CALL(*mock, isOpen()).WillByDefault(Return(false));
+    ON_CALL(*mock, path()).WillByDefault(Return("mock/path"));
+    sws.push_back(StreamWriter(move(rawfile)));
+
+    auto mp3file = unique_ptr<File>(new SystemFile(mp3));
+    sws.push_back(StreamWriter(move(mp3file)));
+
+    AudioProcessor ap(sws);
+    
+    while (true) {
+        int16_t t[3000];
+        auto result = ap.process(t, 3000);
+        if (result == AudioProcessor::ProcessResult::PriorityWriterError) {
+            break;
+        }
+        this_thread::sleep_for(chrono::microseconds(10));
+    }
+    
+    ap.stop();
+    ASSERT_EQ(ap.getNumberOfStreamWriters(), 0);
+    
+    //ASSERT_EQ(ap.start(), AudioProcessor::ActionResult::PriorityWriterError);
+    
+}
+
 
 //TEST(AudioProcessorTest, TestStream) {
 //    auto sampleRate = 44100;

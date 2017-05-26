@@ -96,8 +96,8 @@ namespace CAP {
                 };
 
             StreamWriter& getStreamWriter() {
-                    return streamWrtier;
-                }
+                return streamWrtier;
+            }            
 
         protected:
         private:

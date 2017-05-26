@@ -108,9 +108,10 @@ namespace CAP {
         /**
          Keeps track of number of audio buffers that have been written successfully
          
-         @return size_t
+         @return atomic_size_t
+            pointer to atomic size_t
          **/
-        std::size_t numberOfBuffersWritten();
+        std::shared_ptr<std::atomic_size_t> numberOfBuffersWritten();
         
         /**
          Dont allow copy since the object uses mutexes
@@ -136,18 +137,17 @@ namespace CAP {
         std::promise<void> killPromise;
         std::queue<AudioBuffer> bufferQueue;
         
-        bool stopLoop = false;
-        bool killLoop = false;
-        bool hasError = false;
         std::unique_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
-        std::size_t buffersWritten = 0;
+        
         
         //pointer to synchronisation infrastructure to allow compiler generate move constructor
         std::unique_ptr<std::mutex> waitMutex;
         std::unique_ptr<std::mutex> queueMutex;
-        std::unique_ptr<std::mutex> buffersWrittenMutex;
         std::unique_ptr<std::condition_variable> queueConditionVariable;
-        
+        std::unique_ptr<std::atomic_bool> stopLoop;
+        std::unique_ptr<std::atomic_bool> killLoop;
+        std::unique_ptr<std::atomic_bool> hasError;
+        std::shared_ptr<std::atomic_size_t> buffersWritten;
         //private methods
         bool writeAudioBufferToFileStream(const AudioBuffer &audioBuffer);
         void runLoop();

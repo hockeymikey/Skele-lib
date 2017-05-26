@@ -73,7 +73,7 @@ TEST(StreamWriterTest, TestCompressing) {
     
     streamWriter.stop().get();
     
-    ASSERT_EQ(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
+    ASSERT_EQ(numberOfBuffersEnqueued, *(streamWriter.numberOfBuffersWritten()));
     
 
     std::ifstream in(filename, ifstream::ate | ifstream::binary);
@@ -119,8 +119,8 @@ TEST(StreamWriterTest, TestUngracefullStop) {
     
     streamWriter.kill().get();
     
-    ASSERT_GT(numberOfBuffersEnqueued, streamWriter.numberOfBuffersWritten());
-    cout << numberOfBuffersEnqueued << ":" << streamWriter.numberOfBuffersWritten();
+    ASSERT_GT(numberOfBuffersEnqueued, *(streamWriter.numberOfBuffersWritten()));
+    cout << numberOfBuffersEnqueued << ":" << *(streamWriter.numberOfBuffersWritten());
     cout << endl;
 }
 

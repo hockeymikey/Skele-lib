@@ -45,14 +45,13 @@ CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::process(std::int16_t *sa
                 pStreamWriter.getStreamWriter().enqueue(AudioBuffer(samples, nsamples));
             }
         }
-        
-        std::cout << pStreamWriter.getPriority() << ":" << pStreamWriter.getStreamWriter().numberOfBuffersWritten() << " q:" << pStreamWriter.getStreamWriter().queueSize() << std::endl;
-        
+        auto numBuffersWritten = pStreamWriter.getStreamWriter().numberOfBuffersWritten();
+        std::cout << pStreamWriter.getPriority() << ":" << *numBuffersWritten << " q:" << pStreamWriter.getStreamWriter().queueSize() << std::endl;        
     }
     
     for (int i = 0; i < streamWritersToKillCount; i++) {
         int priority = streamWritersTokill[i];
-        for (int g = 0; g < prioritizedStreamWriters.size(); g++) {
+        for (int g = 0, size = prioritizedStreamWriters.size(); g < size; g++) {
             if (prioritizedStreamWriters[g].getPriority() == priority) {
                 prioritizedStreamWriters.at(g).getStreamWriter().kill().get();
                 prioritizedStreamWriters.erase(prioritizedStreamWriters.begin() + g);
