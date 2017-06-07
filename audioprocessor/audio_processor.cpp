@@ -3,72 +3,53 @@
 #include <array>
 #include <iostream>
 
-CAP::AudioProcessor::AudioProcessor(std::vector<StreamWriter> &sw) {
-    if (sw.size() == 0 || sw.size() > 5) {
+CAP::AudioProcessor::AudioProcessor(StreamWriter * const streamWriters_, std::int8_t streamWriterCount_): streamWriters(streamWriters_), streamWriterCount(streamWriterCount_) {
+    if (streamWriterCount == 0 || streamWriterCount > StreamWriterCapacity) {
         throw std::runtime_error("At least one stream writer, but no more than 5 writers is expected");
     }
-    for (int i = 0; i < sw.size(); i++) {
-        PrioritizedStreamWriter ps(sw.at(i), i);
-        prioritizedStreamWriters.push_back(std::move(ps));
-    }
-    
-    for(auto &psw: prioritizedStreamWriters) {
-        psw.getStreamWriter().start();
+    for (int i = 0; i < streamWriterCount; i++) {
+        streamWriters[i].start();
     }
 }
 
 CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
     
     auto result = ProcessResult::Success;
-    int streamWritersToKillCount= 0;
-    std::array<std::int8_t, 5> streamWritersTokill;
+
     
-    for (auto &pStreamWriter: prioritizedStreamWriters) {
-        if (pStreamWriter.getPriority() == 0) {
-            if (pStreamWriter.getStreamWriter().queueSize() >= streamWriterKillThreshold) {
+    for (int i = 0; i < streamWriterCount; i++) {
+        auto qSize = streamWriters[i].queueSize();
+        if (i == 0) {
+            if (qSize >= streamWriterKillThreshold) {
                 //priority writer has issues, kill all
                 result = ProcessResult::PriorityWriterError;
-                streamWritersTokill[streamWritersToKillCount] = pStreamWriter.getPriority();
-                streamWritersToKillCount += 1;
+                streamWriters[i].kill().get();
             } else {
-                pStreamWriter.getStreamWriter().enqueue(AudioBuffer(samples, nsamples));
+                if (streamWriters[i].isWriteable()) {
+                    streamWriters[i].enqueue(AudioBuffer(samples, nsamples));
+                }
             }
         } else {
-            //non-priority writer has issues, kill it and throw exception
-            if (pStreamWriter.getStreamWriter().queueSize() >= streamWriterKillThreshold || result == ProcessResult::PriorityWriterError) {
-                streamWritersTokill[streamWritersToKillCount] = pStreamWriter.getPriority();
-                streamWritersToKillCount += 1;
+            //non-priority writer has issues, kill it
+            if (qSize >= streamWriterKillThreshold || result == ProcessResult::PriorityWriterError) {
+                streamWriters[i].kill().get();
                 if (result != ProcessResult::PriorityWriterError) {
                     result = ProcessResult::NonPriorityWriterError;
                 }
             } else {
-                pStreamWriter.getStreamWriter().enqueue(AudioBuffer(samples, nsamples));
+                if (streamWriters[i].isWriteable()) {
+                    streamWriters[i].enqueue(AudioBuffer(samples, nsamples));
+                }
             }
         }
-        auto numBuffersWritten = pStreamWriter.getStreamWriter().numberOfBuffersWritten();
-        std::cout << pStreamWriter.getPriority() << ":" << *numBuffersWritten << " q:" << pStreamWriter.getStreamWriter().queueSize() << std::endl;        
-    }
-    
-    for (int i = 0; i < streamWritersToKillCount; i++) {
-        int priority = streamWritersTokill[i];
-        for (int g = 0, size = prioritizedStreamWriters.size(); g < size; g++) {
-            if (prioritizedStreamWriters[g].getPriority() == priority) {
-                prioritizedStreamWriters.at(g).getStreamWriter().kill().get();
-                prioritizedStreamWriters.erase(prioritizedStreamWriters.begin() + g);
-                break;
-            }
-        }
-        
-        
-        
     }
     
     return result;
 }
 
 void CAP::AudioProcessor::stop() {
-    for (auto &pstreamWriter: prioritizedStreamWriters) {
-        pstreamWriter.getStreamWriter().stop().get();
+    for (int i = 0; i < streamWriterCount; i++) {
+        streamWriters[i].stop().get();
     }
 //    while (true) {
 //        int i = 0;

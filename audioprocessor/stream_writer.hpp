@@ -67,7 +67,7 @@ namespace CAP {
         void enqueue(AudioBuffer audioBuffer);
         
         /**
-         Stops processing. Based on the flag supplied, will wait till queue is empty or not.
+         Stops processing.
          
          @return future
          **/
@@ -112,6 +112,11 @@ namespace CAP {
             pointer to atomic size_t
          **/
         std::shared_ptr<std::atomic_size_t> numberOfBuffersWritten();
+        
+        /**
+         Informs whether writer has been scheduled for stop/kill.
+         **/
+        bool isWriteable();
         
         /**
          Dont allow copy since the object uses mutexes

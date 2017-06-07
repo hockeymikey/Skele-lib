@@ -33,16 +33,20 @@ CAP::StreamWriter::StreamWriter(std::unique_ptr<File> file_, std::unique_ptr<Sig
     waitMutex(new std::mutex()),
     queueMutex(new std::mutex()),
     queueConditionVariable(new std::condition_variable()),
-    stopLoop(new std::atomic_bool),
-    killLoop(new std::atomic_bool),
-    hasError(new std::atomic_bool),
-    buffersWritten(new std::atomic_size_t) {
+    stopLoop(new std::atomic_bool()),
+    killLoop(new std::atomic_bool()),
+    hasError(new std::atomic_bool()),
+    buffersWritten(new std::atomic_size_t()) {
         *stopLoop = false;
         *killLoop = false;
         *hasError = false;
         *buffersWritten = 0;
         
-    }
+}
+
+bool CAP::StreamWriter::isWriteable() {
+    return !(*killLoop || *stopLoop);
+}
 
 void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
     // 1. Secure our queue access.
@@ -58,21 +62,24 @@ void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
 
 std::future<void> CAP::StreamWriter::stop() {
     *stopLoop = true;
-    queueConditionVariable->notify_one();
     auto future = stopPromise.get_future();
-    if (*hasError) {
+    queueConditionVariable->notify_one();
+    
+    if (*killLoop) {
         stopPromise.set_value();
     }
+    
     return future;
 }
 
 std::future<void> CAP::StreamWriter::kill() {
     *killLoop = true;
-    queueConditionVariable->notify_one();
     auto future = killPromise.get_future();
-    if (*hasError) {
-        killPromise.set_value();
-    }
+    std::unique_lock<std::mutex> queueLock(*queueMutex);
+    bufferQueue = {};
+    queueLock.unlock();
+    queueConditionVariable->notify_one();
+    
     return future;
 }
 
@@ -105,7 +112,6 @@ void CAP::StreamWriter::runLoop() {
     if (!file->isOpen()) {
         std::cerr << "file cannot be opened: " << file->path() << std::endl;
         *hasError = true;
-        return;
     }
     std::unique_lock<std::mutex> loopLock(*waitMutex);
     while (true) {
@@ -116,17 +122,21 @@ void CAP::StreamWriter::runLoop() {
         
         if (*stopLoop) {
             if (isEmpty) {
-                file->close();
+                if (file->isOpen()) {
+                    file->close();
+                }
                 stopPromise.set_value();
                 return;
             }
         } else if (*killLoop) {
-            file->close();
+            if (file->isOpen()) {
+                file->close();
+            }
             killPromise.set_value();
             return;
         }
         
-        if (isEmpty) {
+        if (isEmpty || *hasError) {
             queueConditionVariable->wait(loopLock);
             continue;
         }
@@ -142,20 +152,14 @@ void CAP::StreamWriter::runLoop() {
             AudioBuffer compressedBuffer;
             if (!signalProcessor->process(audioBuffer, compressedBuffer)) {
                 *hasError = true;
-                file->close();
-                return;
             }
             if (!writeAudioBufferToFileStream(compressedBuffer)) {
                 *hasError = true;
-                file->close();
-                return;
             }
             
         } else {
             if (!writeAudioBufferToFileStream(audioBuffer)) {
                 *hasError = true;
-                file->close();
-                return;
             }
         }
         

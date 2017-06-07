@@ -18,6 +18,8 @@ namespace CAP {
         
     public:
         
+        static const std::int8_t StreamWriterCapacity = 5;
+        
         enum class ProcessResult {
             Success,
             PriorityWriterError,
@@ -28,9 +30,9 @@ namespace CAP {
          Constructor. Stream writer at index 0 has highest priority. AudioProcessor takes ownership of the stream writers. Outside access not possible
          
          @param streamWriters
-            A vector of stream writers audio processor will be delegating write operation to.
+            An array of stream writers audio processor will be delegating write operation to.
          **/
-        AudioProcessor(std::vector<StreamWriter> &streamWriters);
+        AudioProcessor(StreamWriter * const streamWriters, std::int8_t streamWriterCount);
         
         /**
          Passes audio buffer to stream writers to process.
@@ -39,7 +41,9 @@ namespace CAP {
             Pointer to array of samples
          @param nsamples
             Number of samples in array
-         @return ProcessResult            
+         @return ProcessResult      
+            If result is priority writer error, the method will discard the samples.
+            If the result is non-priority writer error, priority will keep writing non-priority samples will be discarded
          **/
         ProcessResult process(std::int16_t *samples, std::size_t nsamples);
         
@@ -49,14 +53,6 @@ namespace CAP {
          **/
         void stop();
         
-        /**
-         Return number of stream writers. This is mainly for testing purposes.
-         
-         @return number of stream wrtiers
-         **/
-        std::size_t getNumberOfStreamWriters() const {
-            return prioritizedStreamWriters.size();
-        }
         
         /**
          No default constructor allowed
@@ -82,32 +78,9 @@ namespace CAP {
     
     private:
         
-        class PrioritizedStreamWriter {
-        public:
-            PrioritizedStreamWriter(StreamWriter& sw, int priority_): streamWrtier(std::move(sw)), priority(priority_) {};
-            PrioritizedStreamWriter& operator=(PrioritizedStreamWriter&& other) = default;
-            PrioritizedStreamWriter(PrioritizedStreamWriter&&) = default;
-            PrioritizedStreamWriter(const PrioritizedStreamWriter&) = delete;
-            PrioritizedStreamWriter() = delete;
-            PrioritizedStreamWriter operator=(const PrioritizedStreamWriter&) = delete;
-
-            int getPriority() const {
-                    return priority;
-                };
-
-            StreamWriter& getStreamWriter() {
-                return streamWrtier;
-            }            
-
-        protected:
-        private:
-            StreamWriter streamWrtier;
-            int priority;
-        };
-
-        
-        std::vector<PrioritizedStreamWriter> prioritizedStreamWriters;
-        std::size_t streamWriterKillThreshold = 100; //number of buffers
+        StreamWriter * const streamWriters;
+        std::int8_t streamWriterCount = 0;
+        std::int8_t streamWriterKillThreshold = 100; //number of buffers
         
     };
 }
