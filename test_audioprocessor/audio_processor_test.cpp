@@ -37,8 +37,42 @@ TEST(AudioProcessorTest, TooManyStreamWriters) {
     EXPECT_THROW(AudioProcessor ap(sws, 6), runtime_error);
 }
 
-TEST(AudioProcessorTest, StreamFailureCantOpenRawFileKillAllStreams) {
-    auto mp3 = "AudioProcessorTest_StreamFailureCantOpenRawFileKillAllStreams.mp3";
+TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
+    auto bin = "AudioProcessorTest_StreamFailureCantOpenNonPriorityStreamKillIt.bin";
+    remove(bin);
+    
+    
+    auto mp3file = unique_ptr<File>(new NiceMock<FileMock>());
+    NiceMock<FileMock> *mock = (NiceMock<FileMock> *)mp3file.get();
+    ON_CALL(*mock, isOpen()).WillByDefault(Return(false));
+    ON_CALL(*mock, path()).WillByDefault(Return("mock/mp3/path"));
+    
+    auto binfile = unique_ptr<File>(new SystemFile(bin));
+    
+    
+    StreamWriter sws[] = {StreamWriter(move(binfile)), StreamWriter(move(mp3file))};
+    
+    AudioProcessor ap(sws, 2);
+    int i = 0;
+    while (i < 1000) {
+        int16_t t[3000];
+        ap.process(t, 3000);
+        i++;
+        this_thread::sleep_for(chrono::microseconds(10));
+    }
+    
+    ASSERT_TRUE(sws[0].isWriteable());
+    ASSERT_FALSE(sws[1].isWriteable());
+    
+    ap.stop();
+    
+    ASSERT_EQ(sws[0].queueSize(), 0);
+    ASSERT_GE(sws[1].queueSize(), 0);
+    
+}
+
+TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
+    auto mp3 = "AudioProcessorTest_StreamFailureCantOpenPriorityFileKillAllStreams.bin";
     remove(mp3);
 
     auto rawfile = unique_ptr<File>(new NiceMock<FileMock>());
