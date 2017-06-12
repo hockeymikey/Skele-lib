@@ -12,7 +12,7 @@ CAP::AudioProcessor::AudioProcessor(StreamWriter * const streamWriters_, std::in
     }
 }
 
-CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::process(std::int16_t *samples, std::size_t nsamples) {
+CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::processBuffer(std::int16_t *samples, std::size_t nsamples) {
     
     auto result = ProcessResult::Success;
 
@@ -51,31 +51,8 @@ void CAP::AudioProcessor::stop() {
     for (int i = 0; i < streamWriterCount; i++) {
         streamWriters[i].stop().get();
     }
-//    while (true) {
-//        int i = 0;
-//        for (auto &streamWriter: streamWriters) {
-//            std::cout << i << "+:" << streamWriter.numberOfBuffersWritten() << " q:" << streamWriter.queueSize() << std::endl;
-//            i += 1;
-//        }
-//        
-//        
-//        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-//        
-//    }
 }
 
 
 void CAP::AudioProcessor::scheduleAudioPostProcessing(std::function<void ()> callback) {
-//    auto priorityWrite = streamWriters[0]->numberOfBuffersWritten();
-//    for(auto& streamWriter : streamWriters) {
-//        if (streamWriter == streamWriters[0]) {
-//            //skip priority writer
-//            continue;
-//        }
-//        streamWriter->start();
-//    }
-//    std::async(std::launch::async, [](){
-//        
-//    });
-//    callback();
 }

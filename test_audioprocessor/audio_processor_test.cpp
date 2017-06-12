@@ -56,7 +56,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     int i = 0;
     while (i < 1000) {
         int16_t t[3000];
-        ap.process(t, 3000);
+        ap.processBuffer(t, 3000);
         i++;
         this_thread::sleep_for(chrono::microseconds(10));
     }
@@ -89,7 +89,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     
     while (true) {
         int16_t t[3000];
-        auto result = ap.process(t, 3000);
+        auto result = ap.processBuffer(t, 3000);
         if (result == AudioProcessor::ProcessResult::PriorityWriterError) {
             break;
         }
@@ -185,7 +185,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
         buffer[(i - 1) % 4410] = sample;
         
         if (i % (4410) == 0) {
-            auto result = ap.process(buffer, 4410);
+            auto result = ap.processBuffer(buffer, 4410);
             if (result == AudioProcessor::ProcessResult::NonPriorityWriterError) {
                 compressorErrorOccurred = true;
             } else if (result == AudioProcessor::ProcessResult::PriorityWriterError) {
@@ -240,7 +240,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
         
         if (i % (4410) == 0) {
             
-            if (ap.process(buffer, 4410) == AudioProcessor::ProcessResult::NonPriorityWriterError) {
+            if (ap.processBuffer(buffer, 4410) == AudioProcessor::ProcessResult::NonPriorityWriterError) {
                 compressorErrorOccurred = true;
             }
             bufferCount += 1;

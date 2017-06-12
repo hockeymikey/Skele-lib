@@ -45,7 +45,7 @@ namespace CAP {
             If result is priority writer error, the method will discard the samples.
             If the result is non-priority writer error, priority will keep writing non-priority samples will be discarded
          **/
-        ProcessResult process(std::int16_t *samples, std::size_t nsamples);
+        ProcessResult processBuffer(std::int16_t *samples, std::size_t nsamples);
         
         
         /**
