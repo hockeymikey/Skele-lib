@@ -3,56 +3,93 @@
 #include <array>
 #include <iostream>
 
-CAP::AudioProcessor::AudioProcessor(StreamWriter * const streamWriters_, std::int8_t streamWriterCount_): streamWriters(streamWriters_), streamWriterCount(streamWriterCount_) {
-    if (streamWriterCount == 0 || streamWriterCount > StreamWriterCapacity) {
-        throw std::runtime_error("At least one stream writer, but no more than 5 writers is expected");
-    }
-    for (int i = 0; i < streamWriterCount; i++) {
+CAP::AudioProcessor::AudioProcessor(StreamWriter * const streamWriters, std::uint8_t streamWriterCount) {
+            
+    streamWriterBundles[bundleCount].streamWriters = streamWriters;
+    streamWriterBundles[bundleCount].streamWriterCount = streamWriterCount;
+    streamWriterBundles[bundleCount].isPostProcessing = false;
+    
+    for (std::uint8_t i = 0; i < streamWriterCount; i++) {
         streamWriters[i].start();
     }
+    bundleCount++;
 }
 
 CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::processBuffer(std::int16_t *samples, std::size_t nsamples) {
     
     auto result = ProcessResult::Success;
 
-    
-    for (int i = 0; i < streamWriterCount; i++) {
-        auto qSize = streamWriters[i].queueSize();
-        if (i == 0) {
-            if (qSize >= streamWriterKillThreshold) {
-                //priority writer has issues, kill all
-                result = ProcessResult::PriorityWriterError;
-                streamWriters[i].kill().get();
-            } else {
-                if (streamWriters[i].isWriteable()) {
-                    streamWriters[i].enqueue(AudioBuffer(samples, nsamples));
-                }
-            }
-        } else {
-            //non-priority writer has issues, kill it
-            if (qSize >= streamWriterKillThreshold || result == ProcessResult::PriorityWriterError) {
-                streamWriters[i].kill().get();
-                if (result != ProcessResult::PriorityWriterError) {
-                    result = ProcessResult::NonPriorityWriterError;
+    for (std::uint8_t g = 0; g < bundleCount; g++) {
+        if (streamWriterBundles[g].isPostProcessing) {
+            continue;
+        }
+        
+        for (std::uint8_t i = 0; i < streamWriterBundles[g].streamWriterCount; i++) {
+            auto qSize = streamWriterBundles[g].streamWriters[i].queueSize();
+            if (i == 0) {
+                if (qSize >= streamWriterKillThreshold) {
+                    //priority writer has issues, kill all
+                    result = ProcessResult::PriorityWriterError;
+                    streamWriterBundles[g].streamWriters[i].kill().get();
+                } else {
+                    if (streamWriterBundles[g].streamWriters[i].isWriteable()) {
+                        streamWriterBundles[g].streamWriters[i].enqueue(AudioBuffer(samples, nsamples));
+                    }
                 }
             } else {
-                if (streamWriters[i].isWriteable()) {
-                    streamWriters[i].enqueue(AudioBuffer(samples, nsamples));
+                //non-priority writer has issues, kill it
+                if (qSize >= streamWriterKillThreshold || result == ProcessResult::PriorityWriterError) {
+                    streamWriterBundles[g].streamWriters[i].kill().get();
+                    if (result != ProcessResult::PriorityWriterError) {
+                        result = ProcessResult::NonPriorityWriterError;
+                    }
+                } else {
+                    if (streamWriterBundles[g].streamWriters[i].isWriteable()) {
+                        streamWriterBundles[g].streamWriters[i].enqueue(AudioBuffer(samples, nsamples));
+                    }
                 }
             }
         }
+        
     }
+    
+    
     
     return result;
 }
 
 void CAP::AudioProcessor::stop() {
-    for (int i = 0; i < streamWriterCount; i++) {
-        streamWriters[i].stop().get();
+    for (std::uint8_t g = 0; g < bundleCount; g++) {
+        if (streamWriterBundles[g].isPostProcessing) {
+            continue;
+        }
+        for (std::uint8_t i = 0; i < streamWriterBundles[g].streamWriterCount; i++) {
+            streamWriterBundles[g].streamWriters[i].stop().get();
+        }
     }
+    
 }
 
 
-void CAP::AudioProcessor::scheduleAudioPostProcessing(std::function<void ()> callback) {
+void CAP::AudioProcessor::schedulePostProcess(StreamWriter * const streamWriters, std::uint8_t streamWriterCount, std::function<void ()> callback) {
+    
+    //retire previous stream writers
+    streamWriterBundles[bundleCount - 1].isPostProcessing = true;
+    auto oldStreamWriters = streamWriterBundles[bundleCount - 1].streamWriters;
+    auto oldStreamWriterCount = streamWriterBundles[bundleCount - 1].streamWriterCount;
+    
+    std::async(std::launch::async, [oldStreamWriters, oldStreamWriterCount] {
+//        for (auto i = 0; i < count; i++) {
+//            
+//        }
+    });
+    
+    streamWriterBundles[bundleCount].streamWriters = streamWriters;
+    streamWriterBundles[bundleCount].streamWriterCount = streamWriterCount;
+    streamWriterBundles[bundleCount].isPostProcessing = false;    
+    
+    for (std::uint8_t i = 0; i < streamWriterCount; i++) {
+        streamWriters[i].start();
+    }
+    bundleCount++;
 }

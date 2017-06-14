@@ -15,10 +15,6 @@ using ::testing::Return;
 using ::testing::NiceMock;
 
 AudioProcessorTest::AudioProcessorTest() {
-    // Have qux return true by default
-//    ON_CALL(m_bar,qux()).WillByDefault(Return(true));
-    // Have norf return false by default
-//    ON_CALL(m_bar,norf()).WillByDefault(Return(false));
 }
 
 AudioProcessorTest::~AudioProcessorTest() {};
@@ -27,14 +23,32 @@ void AudioProcessorTest::SetUp() {};
 
 void AudioProcessorTest::TearDown() {};
 
-TEST(AudioProcessorTest, NoStreamWriters) {
-    StreamWriter sws[] = {};
-    EXPECT_THROW(AudioProcessor ap(sws, 0), runtime_error);
-}
 
-TEST(AudioProcessorTest, TooManyStreamWriters) {
-    StreamWriter sws[] = {StreamWriter(unique_ptr<File>(new FileMock())),StreamWriter(unique_ptr<File>(new FileMock())),StreamWriter(unique_ptr<File>(new FileMock())),StreamWriter(unique_ptr<File>(new FileMock())),StreamWriter(unique_ptr<File>(new FileMock())),StreamWriter(unique_ptr<File>(new FileMock()))};
-    EXPECT_THROW(AudioProcessor ap(sws, 6), runtime_error);
+TEST(AudioProcessorTest, SchedulePostProcess) {
+    auto file1 = unique_ptr<File>(new NiceMock<FileMock>());
+    NiceMock<FileMock> *mock1 = (NiceMock<FileMock> *)file1.get();
+    ON_CALL(*mock1, isOpen()).WillByDefault(Return(true));
+    
+    StreamWriter sws[] = {StreamWriter(move(file1))};
+    AudioProcessor ap(sws, 1);
+    int16_t samples[100] = {};
+    ap.processBuffer(samples, 100);
+    
+    ap.stop();
+    
+    auto file2 = unique_ptr<File>(new NiceMock<FileMock>());
+    NiceMock<FileMock> *mock2 = (NiceMock<FileMock> *)file2.get();
+    ON_CALL(*mock2, isOpen()).WillByDefault(Return(true));
+    ON_CALL(*mock2, path()).WillByDefault(Return("mock1"));
+//    ON_CALL(*mock2, write(testing::_)).WillByDefault(Return(true));
+    
+    StreamWriter sws2[] = {StreamWriter(move(file2))};
+    ap.schedulePostProcess(sws2, 1);
+    
+    ap.processBuffer(samples, 100);
+//
+//    ASSERT_EQ(100, sws[0].numberOfBuffersWritten());
+//    ASSERT_EQ(100, sws2[0].numberOfBuffersWritten());
 }
 
 TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {

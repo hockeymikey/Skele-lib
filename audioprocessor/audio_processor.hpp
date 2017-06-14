@@ -4,8 +4,8 @@
 
 #include "stream_writer.hpp"
 #include "audio_buffer.hpp"
-#include <fstream>
-#include <vector>
+#include <cstdint>
+#include <array>
 
 namespace CAP {
     
@@ -17,8 +17,6 @@ namespace CAP {
     class AudioProcessor {
         
     public:
-        
-        static const std::int8_t StreamWriterCapacity = 5;
         
         enum class ProcessResult {
             Success,
@@ -32,7 +30,7 @@ namespace CAP {
          @param streamWriters
             An array of stream writers audio processor will be delegating write operation to.
          **/
-        AudioProcessor(StreamWriter * const streamWriters, std::int8_t streamWriterCount);
+        AudioProcessor(StreamWriter * const streamWriters, std::uint8_t streamWriterCount);
         
         /**
          Passes audio buffer to stream writers to process.
@@ -70,16 +68,23 @@ namespace CAP {
         AudioProcessor operator=(const AudioProcessor&) = delete;
         
         /**
-         Must be run on separate thread
+         Provides new set of streamwriters
          **/
-        void scheduleAudioPostProcessing(std::function<void ()>);
+        void schedulePostProcess(StreamWriter * const streamWriters, std::uint8_t streamWriterCount, std::function<void ()> callback);
         
     protected:
     
     private:
         
-        StreamWriter * const streamWriters;
-        std::int8_t streamWriterCount = 0;
+        struct StreamWriterBundle {
+            bool isPostProcessing = false;
+            StreamWriter * streamWriters;
+            std::uint8_t streamWriterCount = 0;
+        };
+        
+        std::array<StreamWriterBundle, UINT8_MAX> streamWriterBundles;
+        std::uint8_t bundleCount = 0;
+        
         std::int8_t streamWriterKillThreshold = 100; //number of buffers
         
     };
