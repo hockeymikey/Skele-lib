@@ -25,30 +25,38 @@ void AudioProcessorTest::TearDown() {};
 
 
 TEST(AudioProcessorTest, SchedulePostProcess) {
-    auto file1 = unique_ptr<File>(new NiceMock<FileMock>());
-    NiceMock<FileMock> *mock1 = (NiceMock<FileMock> *)file1.get();
-    ON_CALL(*mock1, isOpen()).WillByDefault(Return(true));
+    auto bin = "AudioProcessorTest_SchedulePostProcess.bin";
+    auto bin2 = "AudioProcessorTest_SchedulePostProcess2.bin";
+    
+    remove(bin);
+    remove(bin2);
+    
+    auto file1 = unique_ptr<File>(new SystemFile(bin));
+    auto file2 = unique_ptr<File>(new SystemFile(bin2));
+    
     
     StreamWriter sws[] = {StreamWriter(move(file1))};
     AudioProcessor ap(sws, 1);
     int16_t samples[100] = {};
-    ap.processBuffer(samples, 100);
-    
-    ap.stop();
-    
-    auto file2 = unique_ptr<File>(new NiceMock<FileMock>());
-    NiceMock<FileMock> *mock2 = (NiceMock<FileMock> *)file2.get();
-    ON_CALL(*mock2, isOpen()).WillByDefault(Return(true));
-    ON_CALL(*mock2, path()).WillByDefault(Return("mock1"));
-//    ON_CALL(*mock2, write(testing::_)).WillByDefault(Return(true));
-    
-    StreamWriter sws2[] = {StreamWriter(move(file2))};
-    ap.schedulePostProcess(sws2, 1);
     
     ap.processBuffer(samples, 100);
-//
-//    ASSERT_EQ(100, sws[0].numberOfBuffersWritten());
-//    ASSERT_EQ(100, sws2[0].numberOfBuffersWritten());
+    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(10, 44100));
+    StreamWriter sws2[] = {StreamWriter(move(file2), move(compressor))};
+    bool callbackCalled = false;
+    ap.schedulePostProcess(sws2, 1, [&callbackCalled] () {
+        callbackCalled = true;
+    });
+    for (uint8_t i = 0; i < 100; i++) {
+        int16_t samples2[100] = {};
+        ap.processBuffer(samples2, 100);
+    }
+    
+    
+    ap.stop([] {});
+
+    ASSERT_EQ(1, *(sws[0].numberOfBuffersWritten().get()));
+    ASSERT_EQ(100, *(sws2[0].numberOfBuffersWritten().get()));
+    ASSERT_TRUE(callbackCalled);
 }
 
 TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
@@ -78,7 +86,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     ASSERT_TRUE(sws[0].isWriteable());
     ASSERT_FALSE(sws[1].isWriteable());
     
-    ap.stop();
+    ap.stop([] {});
     
     ASSERT_EQ(sws[0].queueSize(), 0);
     ASSERT_GE(sws[1].queueSize(), 0);
@@ -120,7 +128,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     ASSERT_FALSE(sws[0].isWriteable());
     ASSERT_FALSE(sws[1].isWriteable());
     
-    ap.stop();
+    ap.stop([] {});
     
 }
 
@@ -212,7 +220,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     ASSERT_TRUE(sw[0].isWriteable());
     ASSERT_FALSE(sw[1].isWriteable());
     
-    ap.stop();
+    ap.stop([] {});
     
     ASSERT_EQ(compressorErrorOccurred, true);
     ASSERT_EQ(rawWriterErrorOccurred, false);
@@ -265,7 +273,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     ASSERT_TRUE(sws[0].isWriteable());
     ASSERT_FALSE(sws[1].isWriteable());
     
-    ap.stop();
+    ap.stop([] {});
     
     ASSERT_EQ(compressorErrorOccurred, true);
     

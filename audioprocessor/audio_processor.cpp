@@ -58,16 +58,19 @@ CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::processBuffer(std::int16
     return result;
 }
 
-void CAP::AudioProcessor::stop() {
-    for (std::uint8_t g = 0; g < bundleCount; g++) {
-        if (streamWriterBundles[g].isPostProcessing) {
-            continue;
-        }
-        for (std::uint8_t i = 0; i < streamWriterBundles[g].streamWriterCount; i++) {
-            streamWriterBundles[g].streamWriters[i].stop().get();
-        }
-    }
+std::future<void> CAP::AudioProcessor::stop(std::function<void ()> callback) {
     
+    return std::async(std::launch::async, [this, callback] {
+        for (std::uint8_t g = 0; g < bundleCount; g++) {
+            if (streamWriterBundles[g].isPostProcessing) {
+                continue;
+            }
+            for (std::uint8_t i = 0; i < streamWriterBundles[g].streamWriterCount; i++) {
+                streamWriterBundles[g].streamWriters[i].stop().get();
+            }
+        }
+        callback();
+    });
 }
 
 
@@ -78,10 +81,11 @@ void CAP::AudioProcessor::schedulePostProcess(StreamWriter * const streamWriters
     auto oldStreamWriters = streamWriterBundles[bundleCount - 1].streamWriters;
     auto oldStreamWriterCount = streamWriterBundles[bundleCount - 1].streamWriterCount;
     
-    std::async(std::launch::async, [oldStreamWriters, oldStreamWriterCount] {
-//        for (auto i = 0; i < count; i++) {
-//            
-//        }
+    auto future = std::async(std::launch::async, [oldStreamWriters, oldStreamWriterCount, callback] {
+        for (auto i = 0; i < oldStreamWriterCount; i++) {
+            oldStreamWriters[i].stop().get();
+        }
+        callback();
     });
     
     streamWriterBundles[bundleCount].streamWriters = streamWriters;

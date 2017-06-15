@@ -87,6 +87,10 @@ std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfBuffersWritten() 
     return buffersWritten;
 }
 
+std::size_t CAP::StreamWriter::numberOfSamplesWritten() {
+    return samplesWritten;
+}
+
 void CAP::StreamWriter::start() {
 //    *stopLoop = false;
 //    *killLoop = false;
@@ -168,6 +172,7 @@ void CAP::StreamWriter::runLoop() {
 bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {
     if (file->write(audioBuffer)) {
         *buffersWritten = *buffersWritten + 1;
+        samplesWritten += audioBuffer.size();
         return true;
     }
     std::cerr << "error writing to file:" << file->path() << std::endl;

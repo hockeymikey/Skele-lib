@@ -29,6 +29,8 @@ namespace CAP {
          
          @param streamWriters
             An array of stream writers audio processor will be delegating write operation to.
+         @param streamWriterCount
+            Number of stream writers in array
          **/
         AudioProcessor(StreamWriter * const streamWriters, std::uint8_t streamWriterCount);
         
@@ -48,8 +50,12 @@ namespace CAP {
         
         /**
          Stops listening for incoming samples. Blocks while waiting for the queues to be emptied.
+         
+         @param callback
+            Callback function to call when all stream writers are done
+         @return future
          **/
-        void stop();
+        std::future<void> stop(std::function<void ()> callback);
         
         
         /**
@@ -69,6 +75,13 @@ namespace CAP {
         
         /**
          Provides new set of streamwriters
+         
+         @param streamWriters
+            An array of stream writers audio processor will be delegating write operation to.
+         @param streamWriterCount
+            Number of stream writers in array
+         @param callback
+            Callback function to call when all stream writers are done
          **/
         void schedulePostProcess(StreamWriter * const streamWriters, std::uint8_t streamWriterCount, std::function<void ()> callback);
         
