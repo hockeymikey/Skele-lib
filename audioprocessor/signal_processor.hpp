@@ -10,6 +10,7 @@
 #define signal_processor_hpp
 
 #include "audio_buffer.hpp"
+#include "file.hpp"
 
 namespace CAP {
     class SignalProcessor {
@@ -26,6 +27,8 @@ namespace CAP {
          @return success/failure
          **/
         virtual bool process(const AudioBuffer& audioBuffer, AudioBuffer& processed) = 0;
+        
+        virtual void finalizeFileAtPath(std::string path) = 0;
         
         virtual ~SignalProcessor() {
             

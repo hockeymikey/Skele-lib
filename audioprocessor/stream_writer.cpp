@@ -12,22 +12,7 @@
 #include <iostream>
 #include <memory>
 
-CAP::StreamWriter::StreamWriter(std::unique_ptr<File> file_):
-    file(std::move(file_)),
-    waitMutex(new std::mutex()),
-    queueMutex(new std::mutex()),
-    queueConditionVariable(new std::condition_variable()),
-    stopLoop(new std::atomic_bool),
-    killLoop(new std::atomic_bool),
-    hasError(new std::atomic_bool),
-    buffersWritten(new std::atomic_size_t) {
-        *stopLoop = false;
-        *killLoop = false;
-        *hasError = false;
-        *buffersWritten = 0;
-    }
-
-CAP::StreamWriter::StreamWriter(std::unique_ptr<File> file_, std::unique_ptr<SignalProcessor> cmp):
+CAP::StreamWriter::StreamWriter(std::shared_ptr<File> file_, std::shared_ptr<SignalProcessor> cmp):
     file(std::move(file_)),
     signalProcessor(std::move(cmp)),
     waitMutex(new std::mutex()),
@@ -100,9 +85,6 @@ void CAP::StreamWriter::start() {
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
 }
 
-bool CAP::StreamWriter::hasSignalProcessor() const {
-    return signalProcessor != nullptr;
-}
 CAP::StreamWriter::~StreamWriter() {
 }
 
@@ -128,6 +110,7 @@ void CAP::StreamWriter::runLoop() {
             if (isEmpty) {
                 if (file->isOpen()) {
                     file->close();
+                    signalProcessor->finalizeFileAtPath(file->path());
                 }
                 stopPromise.set_value();
                 return;
@@ -152,21 +135,10 @@ void CAP::StreamWriter::runLoop() {
         bufferQueue.pop();
         queueLock.unlock();
         
-        if (signalProcessor != nullptr) {
-            AudioBuffer compressedBuffer;
-            if (!signalProcessor->process(audioBuffer, compressedBuffer)) {
-                *hasError = true;
-            }
-            if (!writeAudioBufferToFileStream(compressedBuffer)) {
-                *hasError = true;
-            }
-            
-        } else {
-            if (!writeAudioBufferToFileStream(audioBuffer)) {
-                *hasError = true;
-            }
+        AudioBuffer compressedBuffer;
+        if (!signalProcessor->process(audioBuffer, compressedBuffer) || !writeAudioBufferToFileStream(compressedBuffer)) {
+            *hasError = true;
         }
-        
     }
 }
 bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {

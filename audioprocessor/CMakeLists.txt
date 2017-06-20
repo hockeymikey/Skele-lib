@@ -13,6 +13,8 @@ set(libap_SRCS
     file.hpp
     system_file.hpp
     system_file.cpp	
+    pcm_processor.hpp
+    pcm_processor.cpp
 )
 
 

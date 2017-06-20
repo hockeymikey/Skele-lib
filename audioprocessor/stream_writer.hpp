@@ -44,18 +44,10 @@ namespace CAP {
          
          @param file
             Reference to file object
-         **/
-        StreamWriter(std::unique_ptr<File> file);
-        
-        /**
-         Constructor
-         
-         @param file
-            Reference to file object
          @param compressor
             Compressor to use before writing to file
          **/
-        StreamWriter(std::unique_ptr<File> file, std::unique_ptr<SignalProcessor> signalProcessor);        
+        StreamWriter(std::shared_ptr<File> file, std::shared_ptr<SignalProcessor> signalProcessor);
         
         
         /**
@@ -85,13 +77,7 @@ namespace CAP {
          Starts asynchronous processing
          **/
         void start();
-        
-        /**
-         Signal processor is attached or not
-         
-         @return  boolean
-         **/
-        bool hasSignalProcessor() const;
+                
         
         /**
          Destructor
@@ -141,13 +127,13 @@ namespace CAP {
     protected:
     private:
         
-        std::unique_ptr<File> file;
+        std::shared_ptr<File> file;
         
         std::promise<void> stopPromise;
         std::promise<void> killPromise;
         std::queue<AudioBuffer> bufferQueue;
         
-        std::unique_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
+        std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
         
         
         //pointer to synchronisation infrastructure to allow compiler generate move constructor

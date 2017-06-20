@@ -26,6 +26,9 @@ namespace CAP {
          **/
         bool process(const AudioBuffer& in, AudioBuffer& out);
         
+        
+        void finalizeFileAtPath(std::string path);
+        
         /**
          Constructor
          

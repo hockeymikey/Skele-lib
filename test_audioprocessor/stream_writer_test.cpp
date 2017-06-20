@@ -16,6 +16,7 @@
 #include "system_file.hpp"
 #include "stream_writer_test.hpp"
 #include "mp3_compressor.hpp"
+#include "pcm_processor.hpp"
 
 
 using namespace std;
@@ -30,21 +31,11 @@ void StreamWriterTest::SetUp() {};
 
 void StreamWriterTest::TearDown() {};
 
-TEST(StreamWriterTest, HasCompressor) {
-    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(5, 44100));
-    auto file = unique_ptr<File>(new SystemFile(""));
-    auto file2 = unique_ptr<File>(new SystemFile(""));
-    StreamWriter sw(move(file));
-    StreamWriter sw2(move(file2), move(compressor));
-    ASSERT_FALSE(sw.hasSignalProcessor());
-    ASSERT_TRUE(sw2.hasSignalProcessor());
-}
-
 TEST(StreamWriterTest, TestCompressing) {
     string filename = "StreamWriterTest_TestCompressing.mp3";
     remove(filename.c_str());
     auto sampleRate = 44100;
-    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(5, sampleRate));
+    auto compressor = make_shared<Mp3Compressor>(5, sampleRate);
     auto file = unique_ptr<File>(new SystemFile(filename));
     StreamWriter streamWriter(move(file), move(compressor));
     
@@ -87,10 +78,10 @@ TEST(StreamWriterTest, TestCompressing) {
 }
 
 TEST(StreamWriterTest, TestUngracefullStop) {
-    string filename = "StreamWriterTest_TestUngracefullStop.bin";
+    string filename = "StreamWriterTest_TestUngracefullStop.wav";
     remove(filename.c_str());
     auto sampleRate = 44100;
-    auto compressor = unique_ptr<SignalProcessor>( new Mp3Compressor(9, sampleRate));
+    auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
     auto file = unique_ptr<File>(new SystemFile(filename));
     StreamWriter streamWriter(move(file), move(compressor));
     
@@ -125,10 +116,11 @@ TEST(StreamWriterTest, TestUngracefullStop) {
 }
 
 TEST(StreamWriterTest, WriteRawAudioSamples) {
-    string filename = "StreamWriterTest_WriteRawAudioSamples.bin";
+    string filename = "StreamWriterTest_WriteRawAudioSamples.wav";
     remove(filename.c_str());
     auto file = unique_ptr<File>(new SystemFile(filename));
-    StreamWriter streamWriter(move(file));
+    auto pcmProcessor = make_shared<PcmProcessor>();
+    StreamWriter streamWriter(move(file), move(pcmProcessor));
 
     std::int16_t testSamples[] = {30000, -12200, -12, 400, 5000};
     streamWriter.start();
@@ -139,7 +131,11 @@ TEST(StreamWriterTest, WriteRawAudioSamples) {
 
     
     ifstream instream(filename, ifstream::binary | ifstream::in);
+    
     char output;
+    char header[44];
+    instream.read(header, sizeof(char) * 44);
+    
     instream.read(&output, sizeof(int16_t));
     int16_t outputSample = reinterpret_cast<int16_t&>(output);
     ASSERT_EQ(outputSample, 30000);

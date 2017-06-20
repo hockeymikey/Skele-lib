@@ -24,6 +24,10 @@ CAP::Mp3Compressor::~Mp3Compressor() {
     lame_close(lame);
 }
 
+void CAP::Mp3Compressor::finalizeFileAtPath(std::string path) {
+    
+}
+
 bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
     auto compressedBuffer = reinterpret_cast<unsigned char *>(processed.getBuffer());    
     int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size() / 2, compressedBuffer, processed.AudioBufferCapacity);

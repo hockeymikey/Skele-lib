@@ -12,12 +12,13 @@
 #include "gmock/gmock.h"
 #include "signal_processor.hpp"
 #include "audio_buffer.hpp"
-
+#include "file.hpp"
 
 class Mp3CompressorMock : public CAP::SignalProcessor {
 public:
     
     MOCK_METHOD2(process, bool (const CAP::AudioBuffer& in, CAP::AudioBuffer& out));
+    MOCK_METHOD1(finalizeFileAtPath, void (std::string path));
   
 //    MOCK_METHOD2(do_process, bool (const CAP::AudioBuffer* in, CAP::AudioBuffer* out));
 //    

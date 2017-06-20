@@ -4,6 +4,7 @@
 #include "audio_processor.hpp"
 #include "audio_processor_test.hpp"
 #include "mp3_compressor.hpp"
+#include "pcm_processor.hpp"
 #include <vector>
 #include <random>
 #include <cstdio>
@@ -25,8 +26,8 @@ void AudioProcessorTest::TearDown() {};
 
 
 TEST(AudioProcessorTest, SchedulePostProcess) {
-    auto bin = "AudioProcessorTest_SchedulePostProcess.bin";
-    auto bin2 = "AudioProcessorTest_SchedulePostProcess2.bin";
+    auto bin = "AudioProcessorTest_SchedulePostProcess.wav";
+    auto bin2 = "AudioProcessorTest_SchedulePostProcess2.wav";
     
     remove(bin);
     remove(bin2);
@@ -34,8 +35,9 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     auto file1 = unique_ptr<File>(new SystemFile(bin));
     auto file2 = unique_ptr<File>(new SystemFile(bin2));
     
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
     
-    StreamWriter sws[] = {StreamWriter(move(file1))};
+    StreamWriter sws[] = {StreamWriter(move(file1), move(pcmProcessor))};
     AudioProcessor ap(sws, 1);
     int16_t samples[100] = {};
     
@@ -60,7 +62,7 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
 }
 
 TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
-    auto bin = "AudioProcessorTest_StreamFailureCantOpenNonPriorityStreamKillIt.bin";
+    auto bin = "AudioProcessorTest_StreamFailureCantOpenNonPriorityStreamKillIt.wav";
     remove(bin);
     
     
@@ -70,9 +72,9 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     ON_CALL(*mock, path()).WillByDefault(Return("mock/mp3/path"));
     
     auto binfile = unique_ptr<File>(new SystemFile(bin));
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
     
-    
-    StreamWriter sws[] = {StreamWriter(move(binfile)), StreamWriter(move(mp3file))};
+    StreamWriter sws[] = {StreamWriter(move(binfile), move(pcmProcessor)), StreamWriter(move(mp3file), move(pcmProcessor))};
     
     AudioProcessor ap(sws, 2);
     int i = 0;
@@ -94,7 +96,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
 }
 
 TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
-    auto mp3 = "AudioProcessorTest_StreamFailureCantOpenPriorityFileKillAllStreams.bin";
+    auto mp3 = "AudioProcessorTest_StreamFailureCantOpenPriorityFileKillAllStreams.wav";
     remove(mp3);
 
     auto rawfile = unique_ptr<File>(new NiceMock<FileMock>());
@@ -103,9 +105,10 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     ON_CALL(*mock, path()).WillByDefault(Return("mock/path"));
     
     auto mp3file = unique_ptr<File>(new SystemFile(mp3));
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    auto pcmProcessor2 = unique_ptr<SignalProcessor>(new PcmProcessor());
     
-    
-    StreamWriter sws[] = {StreamWriter(move(rawfile)), StreamWriter(move(mp3file))};
+    StreamWriter sws[] = {StreamWriter(move(rawfile), move(pcmProcessor)), StreamWriter(move(mp3file), move(pcmProcessor2))};
 
     AudioProcessor ap(sws, 2);
     
@@ -176,7 +179,8 @@ TEST(AudioProcessorTest, TestStream) {
 TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     auto sampleRate = 44100;
     auto compressor = unique_ptr<SignalProcessor>(new Mp3CompressorMock());
-    auto raw = "AudioProcessorTest_TestKillCompressorDueToLame.bin";
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    auto raw = "AudioProcessorTest_TestKillCompressorDueToLame.wav";
     auto mp3 = "AudioProcessorTest_TestKillCompressorDueToLame.mp3";
     remove(raw);
     remove(mp3);
@@ -189,7 +193,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     auto rawfile = unique_ptr<File>(new SystemFile(raw));
     auto mp3file = unique_ptr<File>(new SystemFile(mp3));
     
-    StreamWriter sw[] = {StreamWriter(move(rawfile)), StreamWriter(move(mp3file), move(compressor))};
+    StreamWriter sw[] = {StreamWriter(move(rawfile), move(pcmProcessor)), StreamWriter(move(mp3file), move(compressor))};
     AudioProcessor ap(sw, 2);
     
     
@@ -232,7 +236,8 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
 TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     auto sampleRate = 44100;
     auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(9, sampleRate));
-    string raw = "AudioProcessorTest_TestKillCompressorDueToSlow.bin";
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    string raw = "AudioProcessorTest_TestKillCompressorDueToSlow.wav";
     string mp3 = "AudioProcessorTest_TestKillCompressorDueToSlow.mp3";
     remove(raw.c_str());
     remove(mp3.c_str());
@@ -242,7 +247,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     auto mp3file = unique_ptr<File>(new SystemFile(mp3));
     
     StreamWriter sws[] = {
-        StreamWriter(move(rawfile)),
+        StreamWriter(move(rawfile), move(pcmProcessor)),
         StreamWriter(move(mp3file), move(compressor))
     };
     AudioProcessor ap(sws, 2);
