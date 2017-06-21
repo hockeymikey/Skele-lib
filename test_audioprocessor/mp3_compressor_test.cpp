@@ -20,3 +20,6 @@ void Mp3CompressorTest::SetUp() {};
 
 void Mp3CompressorTest::TearDown() {};
 
+
+//TEST(Mp3CompressorTest, <#test_name#>)
+

@@ -3,48 +3,103 @@
 #define audioprocessor_hpp
 
 #include "stream_writer.hpp"
-#include <fstream>
-#include <vector>
-
+#include "audio_buffer.hpp"
+#include <cstdint>
+#include <array>
 
 namespace CAP {
+    
+    
+    
     /**
      Orchestrates audio sample writing
      **/
     class AudioProcessor {
         
     public:
+        
+        enum class ProcessResult {
+            Success,
+            PriorityWriterError,
+            NonPriorityWriterError
+        };
+        
         /**
-         Constructor
+         Constructor. Stream writer at index 0 has highest priority. AudioProcessor takes ownership of the stream writers. Outside access not possible
          
          @param streamWriters
-            A list of referenced to stream writers audio processor will be delegating write operation to.
+            An array of stream writers audio processor will be delegating write operation to.
+         @param streamWriterCount
+            Number of stream writers in array
          **/
-        AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> streamWriters);
+        AudioProcessor(StreamWriter * const streamWriters, std::uint8_t streamWriterCount);
         
         /**
-         Accepts raw samples and passes to available stream writers for processing.
-         Even though it is convenient to use vectors in the implementation, it might be difficult to set up parameter in client code.
-         If that turns out to be the case, will switch out to arrays.
-         
+         Passes audio buffer to stream writers to process.
+                  
          @param samples
-            A reference to a list of raw samples 
+            Pointer to array of samples
+         @param nsamples
+            Number of samples in array
+         @return ProcessResult      
+            If result is priority writer error, the method will discard the samples.
+            If the result is non-priority writer error, priority will keep writing non-priority samples will be discarded
          **/
-        void writeAudioSamples(std::vector<int16_t>& samples);
+        ProcessResult processBuffer(std::int16_t *samples, std::size_t nsamples);
         
         
         /**
-         Stops listening for incoming samples  
+         Stops listening for incoming samples. Blocks while waiting for the queues to be emptied.
+         
+         @param callback
+            Callback function to call when all stream writers are done
+         @return future
          **/
-        void stop();
+        std::future<void> stop(std::function<void ()> callback);
+        
+        
+        /**
+         No default constructor allowed
+         **/
+        AudioProcessor() = delete;
+        
+        /**
+         No copy constructor allowed
+         **/
+        AudioProcessor(const AudioProcessor&) = delete;
+        
+        /**
+         No copy by assignment allowed
+         **/
+        AudioProcessor operator=(const AudioProcessor&) = delete;
+        
+        /**
+         Provides new set of streamwriters
+         
+         @param streamWriters
+            An array of stream writers audio processor will be delegating write operation to.
+         @param streamWriterCount
+            Number of stream writers in array
+         @param callback
+            Callback function to call when all stream writers are done
+         **/
+        void schedulePostProcess(StreamWriter * const streamWriters, std::uint8_t streamWriterCount, std::function<void ()> callback);
+        
     protected:
     
     private:
-        std::vector<std::shared_ptr<StreamWriter>> streamWriters;
         
-        AudioProcessor();
-        AudioProcessor(const AudioProcessor&);
-        AudioProcessor operator=(const AudioProcessor&);
+        struct StreamWriterBundle {
+            bool isPostProcessing = false;
+            StreamWriter * streamWriters;
+            std::uint8_t streamWriterCount = 0;
+        };
+        
+        std::array<StreamWriterBundle, UINT8_MAX> streamWriterBundles;
+        std::uint8_t bundleCount = 0;
+        
+        std::int8_t streamWriterKillThreshold = 100; //number of buffers
+        
     };
 }
 
