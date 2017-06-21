@@ -8,72 +8,146 @@
 
 #include "stream_writer.hpp"
 #include <thread>
+#include <cstdlib>
 #include <iostream>
+#include <memory>
 
-CAP::StreamWriter::StreamWriter(std::string filepath): filepath(filepath) {
+CAP::StreamWriter::StreamWriter(std::shared_ptr<File> file_, std::shared_ptr<SignalProcessor> cmp):
+    file(std::move(file_)),
+    signalProcessor(std::move(cmp)),
+    waitMutex(new std::mutex()),
+    queueMutex(new std::mutex()),
+    queueConditionVariable(new std::condition_variable()),
+    stopLoop(new std::atomic_bool()),
+    killLoop(new std::atomic_bool()),
+    hasError(new std::atomic_bool()),
+    buffersWritten(new std::atomic_size_t()) {
+        *stopLoop = false;
+        *killLoop = false;
+        *hasError = false;
+        *buffersWritten = 0;
+        
 }
-CAP::StreamWriter::StreamWriter(std::string filepath, std::shared_ptr<Compressor> cmp): filepath(filepath), compressor(cmp) {
-    
+
+bool CAP::StreamWriter::isWriteable() {
+    return !(*killLoop || *stopLoop);
 }
 
-
-void CAP::StreamWriter::enqueue(std::vector<int16_t> buffer) {
+void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
     // 1. Secure our queue access.
-    std::lock_guard<std::mutex> bufferLock(queueMutex);
+    std::lock_guard<std::mutex> bufferLock(*queueMutex);
+    
     
     // 2. Insert new buffer.
-    bufferQueue.push(buffer);
+    bufferQueue.push(std::move(audioBuffer));
     
     // 3. Notify the loop thread.
-    queueConditionVariable.notify_one();
+    queueConditionVariable->notify_one();
 }
 
 std::future<void> CAP::StreamWriter::stop() {
-    stopLoop = true;
-    queueConditionVariable.notify_one();
-    return stopPromise.get_future();
+    *stopLoop = true;
+    auto future = stopPromise.get_future();
+    queueConditionVariable->notify_one();
+    
+    if (*killLoop) {
+        stopPromise.set_value();
+    }
+    
+    return future;
 }
+
+std::future<void> CAP::StreamWriter::kill() {
+    *killLoop = true;
+    auto future = killPromise.get_future();
+    std::unique_lock<std::mutex> queueLock(*queueMutex);
+    bufferQueue = {};
+    queueLock.unlock();
+    queueConditionVariable->notify_one();
+    
+    return future;
+}
+
+std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfBuffersWritten() {
+    return buffersWritten;
+}
+
+std::size_t CAP::StreamWriter::numberOfSamplesWritten() {
+    return samplesWritten;
+}
+
 void CAP::StreamWriter::start() {
-    stopLoop = false;
+//    *stopLoop = false;
+//    *killLoop = false;
+//    *hasError = false;
+//    stopPromise = std::promise<void>();
+//    killPromise = std::promise<void>();
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
 }
 
+CAP::StreamWriter::~StreamWriter() {
+}
+
+std::size_t CAP::StreamWriter::queueSize() {
+    std::lock_guard<std::mutex> bufferLock(*queueMutex);
+    return bufferQueue.size();
+}
+
 void CAP::StreamWriter::runLoop() {
-    std::ofstream fileStream(filepath, std::ofstream::binary | std::ofstream::app);
-    std::unique_lock<std::mutex> loopLock(waitMutex);
+    file->open();
+    if (!file->isOpen()) {
+        std::cerr << "file cannot be opened: " << file->path() << std::endl;
+        *hasError = true;
+    }
+    std::unique_lock<std::mutex> loopLock(*waitMutex);
     while (true) {
         // 1. Wait for an event if the queue is empty.
-        std::unique_lock<std::mutex> bufferLock(queueMutex);
+        std::unique_lock<std::mutex> queueLock(*queueMutex);
         auto isEmpty = bufferQueue.empty();
-        bufferLock.unlock();
+        queueLock.unlock();
         
-        if (isEmpty) {
-            if (stopLoop) {
+        if (*stopLoop) {
+            if (isEmpty) {
+                if (file->isOpen()) {
+                    file->close();
+                    signalProcessor->finalizeFileAtPath(file->path());
+                }
                 stopPromise.set_value();
                 return;
-            } else {
-                queueConditionVariable.wait(loopLock);
             }
+        } else if (*killLoop) {
+            if (file->isOpen()) {
+                file->close();
+            }
+            killPromise.set_value();
+            return;
+        }
+        
+        if (isEmpty || *hasError) {
+            queueConditionVariable->wait(loopLock);
             continue;
         }
         
+        
         // 3. Get the next buffer.
-        bufferLock.lock();
-        auto buffer = bufferQueue.front();
+        queueLock.lock();
+        auto audioBuffer = std::move(bufferQueue.front());
         bufferQueue.pop();
-        bufferLock.unlock();
+        queueLock.unlock();
         
-        if (compressor != nullptr) {
-            try {
-                buffer = compressor->compress(buffer);
-                fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
-            } catch (std::runtime_error re) {
-                std::cerr << re.what() << std::endl;
-            }
-            
-        } else {
-            fileStream.write(reinterpret_cast<char *>(buffer.data()), buffer.size() * sizeof(int16_t));
+        AudioBuffer compressedBuffer;
+        if (!signalProcessor->process(audioBuffer, compressedBuffer) || !writeAudioBufferToFileStream(compressedBuffer)) {
+            *hasError = true;
         }
-        
     }
 }
+bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {
+    if (file->write(audioBuffer)) {
+        *buffersWritten = *buffersWritten + 1;
+        samplesWritten += audioBuffer.size();
+        return true;
+    }
+    std::cerr << "error writing to file:" << file->path() << std::endl;
+    return false;
+}
+
