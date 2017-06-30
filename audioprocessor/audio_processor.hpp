@@ -4,7 +4,6 @@
 
 #include "stream_writer.hpp"
 #include "audio_buffer.hpp"
-#include <cstdint>
 #include <array>
 
 namespace CAP {

@@ -9,8 +9,6 @@
 #ifndef audio_buffer_hpp
 #define audio_buffer_hpp
 
-#include <cstdlib>
-#include <cstdint>
 #include <string>
 
 namespace CAP {

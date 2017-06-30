@@ -2,8 +2,6 @@ set(target audioprocessor)
 set(libap_SRCS
     audio_processor.hpp
     audio_processor.cpp
-    audio_description.hpp
-    audio_description.cpp
     stream_writer.hpp
     stream_writer.cpp
     signal_processor.hpp
