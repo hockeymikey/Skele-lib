@@ -27,7 +27,7 @@ bool CAP::SystemFile::write(const CAP::AudioBuffer &audioBuffer) {
 }
 
 void CAP::SystemFile::open() {
-    filestream.open(filepath, std::ofstream::binary | std::ofstream::trunc);
+    filestream.open(filepath, std::ofstream::binary | std::ofstream::out | std::ofstream::trunc);
 }
 
 std::string CAP::SystemFile::path() const {
