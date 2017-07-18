@@ -29,7 +29,7 @@ CAP::StreamWriter::StreamWriter(std::shared_ptr<File> file_, std::shared_ptr<Sig
         
 }
 
-bool CAP::StreamWriter::isWriteable() {
+bool CAP::StreamWriter::isWriteable() const {
     return !(*killLoop || *stopLoop);
 }
 
@@ -68,7 +68,7 @@ std::future<void> CAP::StreamWriter::kill() {
     return future;
 }
 
-std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfBuffersWritten() {
+std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfBuffersWritten() const {
     return buffersWritten;
 }
 
@@ -82,13 +82,14 @@ void CAP::StreamWriter::start() {
 //    *hasError = false;
 //    stopPromise = std::promise<void>();
 //    killPromise = std::promise<void>();
+    auto po = file->path();
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
 }
 
 CAP::StreamWriter::~StreamWriter() {
 }
 
-std::size_t CAP::StreamWriter::queueSize() {
+std::size_t CAP::StreamWriter::queueSize() const {
     std::lock_guard<std::mutex> bufferLock(*queueMutex);
     return bufferQueue.size();
 }

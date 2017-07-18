@@ -89,7 +89,7 @@ namespace CAP {
          
          @return size_t
          **/
-        std::size_t queueSize();
+        std::size_t queueSize() const;
         
         /**
          Keeps track of number of audio buffers that have been written successfully
@@ -97,7 +97,7 @@ namespace CAP {
          @return atomic_size_t
             pointer to atomic size_t
          **/
-        std::shared_ptr<std::atomic_size_t> numberOfBuffersWritten();
+        std::shared_ptr<std::atomic_size_t> numberOfBuffersWritten() const;
         
         /**
          Returns number of samlpes stream writer wrote. Doesnt need to be atomic
@@ -107,7 +107,7 @@ namespace CAP {
         /**
          Informs whether writer has been scheduled for stop/kill.
          **/
-        bool isWriteable();
+        bool isWriteable() const;
         
         /**
          Dont allow copy since the object uses mutexes

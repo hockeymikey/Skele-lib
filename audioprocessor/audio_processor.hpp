@@ -24,14 +24,14 @@ namespace CAP {
         };
         
         /**
-         Constructor. Stream writer at index 0 has highest priority. AudioProcessor takes ownership of the stream writers. Outside access not possible
+         Constructor.
          
-         @param streamWriters
-            An array of stream writers audio processor will be delegating write operation to.
-         @param streamWriterCount
-            Number of stream writers in array
+         @param sw
+            Vector of pointers to stream writers audio processor will be delegating write operation to.
+        
          **/
-        AudioProcessor(StreamWriter * const streamWriters, std::uint8_t streamWriterCount);
+        AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> sw);
+        
         
         /**
          Passes audio buffer to stream writers to process.
@@ -73,16 +73,18 @@ namespace CAP {
         AudioProcessor operator=(const AudioProcessor&) = delete;
         
         /**
-         Provides new set of streamwriters
+         Redirects audio processing to newly-provided stream writers, calls callback when old streamwriters are caught up
          
-         @param streamWriters
-            An array of stream writers audio processor will be delegating write operation to.
-         @param streamWriterCount
-            Number of stream writers in array
+         @param priority
+            Vector of pointers to stream writers audio processor will be delegating write operation to.
+         
          @param callback
             Callback function to call when all stream writers are done
          **/
-        void schedulePostProcess(StreamWriter * const streamWriters, std::uint8_t streamWriterCount, std::function<void ()> callback);
+        void schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sw, std::function<void ()> callback);
+        
+        
+//        std::shared_ptr<StreamWriter> getCurrentPriorityStreamWriter();
         
     protected:
     
@@ -90,14 +92,23 @@ namespace CAP {
         
         struct StreamWriterBundle {
             bool isPostProcessing = false;
-            StreamWriter * streamWriters;
-            std::uint8_t streamWriterCount = 0;
+            StreamWriterBundle(StreamWriterBundle&&) = default;
+            StreamWriterBundle operator=(const StreamWriterBundle&) = delete;
+            StreamWriterBundle& operator=(StreamWriterBundle&& other) = default;
+            StreamWriterBundle(const StreamWriterBundle& other) = delete;
+            StreamWriterBundle() = delete;
+            StreamWriterBundle(std::vector<std::shared_ptr<StreamWriter>> sw): streamWriters(sw) {}
+            
+            std::vector<std::shared_ptr<StreamWriter>> streamWriters;
         };
         
-        std::array<StreamWriterBundle, UINT8_MAX> streamWriterBundles;
-        std::uint8_t bundleCount = 0;
+        std::vector<std::shared_ptr<StreamWriterBundle>> streamWriterBundles;
+        
         
         std::int8_t streamWriterKillThreshold = 100; //number of buffers
+        
+        void schedulePostProcess(std::function<void ()> callback);
+//        StreamWriter * getPriorityStreamWriterFromBundle(StreamWriterBundle *);
         
     };
 }
