@@ -16,27 +16,6 @@ CAP::AudioProcessor::AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> s
     
 }
 
-//CAP::AudioProcessor::AudioProcessor(StreamWriter streamWriter, StreamWriter other) {
-//    
-//    TemplatedStreamWriterBundle<2> bundle(std::move(streamWriter), std::move(other));
-//    
-////    streamWriterBundles[bundleCount] = std::move(bundle);
-////    
-////    StreamWriter* sw = getPriorityStreamWriterFromBundle(&(streamWriterBundles[bundleCount]));
-//
-//    StreamWriterBundle b = std::move(bundle);
-//    
-//    auto b2 = std::move(static_cast<TemplatedStreamWriterBundle<2>&>(b));
-//    b2.getPriorityStreamWriter()->start();
-////    StreamWriter* sw = getPriorityStreamWriterFromBundle(&b);
-//    
-////    sw->start();
-////    (sw + 1)->start();
-//
-//    bundleCount++;
-//}
-
-
 CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::processBuffer(std::int16_t *samples, std::size_t nsamples) {
     
     auto result = ProcessResult::Success;
@@ -82,17 +61,6 @@ CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::processBuffer(std::int16
     return result;
 }
 
-//CAP::StreamWriter* CAP::AudioProcessor::getPriorityStreamWriterFromBundle(StreamWriterBundle* swb) {
-//    StreamWriter* sw = nullptr;
-//    if (swb->streamWriterCount == 1) {
-//        sw = static_cast<TemplatedStreamWriterBundle<1>*>(swb)->getPriorityStreamWriter();
-//    } else if (swb->streamWriterCount == 2) {
-//        sw = static_cast<TemplatedStreamWriterBundle<2>*>(swb)->getPriorityStreamWriter();
-//    }
-//    
-//    return sw;
-//}
-
 std::future<void> CAP::AudioProcessor::stop(std::function<void ()> callback) {
     
     return std::async(std::launch::async, [this, callback] {
@@ -127,28 +95,6 @@ void CAP::AudioProcessor::schedulePostProcess(std::vector<std::shared_ptr<Stream
     
     
 }
-
-//void CAP::AudioProcessor::schedulePostProcess(CAP::StreamWriter priority, std::function<void ()> callback) {
-//    schedulePostProcess(callback);
-//    
-//    priority.start();
-//    
-//    static TemplatedStreamWriterBundle<1> bundle(priority);
-//    
-//    streamWriterBundles[bundleCount] = std::move(bundle);
-//    
-////    streamWriterBundles[bundleCount].getPriorityStreamWriter()->start();
-//    
-//    
-//    bundleCount++;
-//}
-
-//CAP::StreamWriter * CAP::AudioProcessor::getPriorityStreamWriter(StreamWriterBundle * swb) {
-//    return swb->getPriorityStreamWriter();
-//}
-//std::uint8_t CAP::AudioProcessor::getStreamWriterCount(StreamWriterBundle * swb) {
-//    return swb->getStreamWriterCount();
-//}
 
 void CAP::AudioProcessor::schedulePostProcess(std::function<void ()> callback) {
     
