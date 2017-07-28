@@ -84,7 +84,7 @@ namespace CAP {
         void schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sw, std::function<void ()> callback);
         
         
-//        std::shared_ptr<StreamWriter> getCurrentPriorityStreamWriter();
+        std::shared_ptr<StreamWriter> getCurrentPriorityStreamWriter();
         
     protected:
     

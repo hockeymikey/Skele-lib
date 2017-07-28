@@ -108,10 +108,10 @@ std::future<void> CAP::AudioProcessor::stop(std::function<void ()> callback) {
     });
 }
 
-//std::shared_ptr<CAP::StreamWriter> CAP::AudioProcessor::getCurrentPriorityStreamWriter() {
-//    auto it = streamWriterBundles.end() - 1;
-//    return (*it)->streamWriters.front();
-//}
+std::shared_ptr<CAP::StreamWriter> CAP::AudioProcessor::getCurrentPriorityStreamWriter() {
+    auto it = streamWriterBundles.end() - 1;
+    return (*it)->streamWriters.front();
+}
 
 void CAP::AudioProcessor::schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sws, std::function<void ()> callback) {
     
