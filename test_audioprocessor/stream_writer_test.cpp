@@ -12,7 +12,6 @@
 #include <chrono>
 #include <random>
 #include <cstdio>
-#include "stream_writer.hpp"
 #include "system_file.hpp"
 #include "stream_writer_test.hpp"
 #include "mp3_compressor.hpp"
@@ -22,7 +21,20 @@
 using namespace std;
 using namespace CAP;
 
+class TestEventHandler: public CAP::StreamWriterAbstractEventHandler {
+public:
+    std::atomic_bool streamWriterDidStop = {false};
+    std::atomic_bool streamWriterDidKill = {false};
+    void streamWriterStopped() {
+        streamWriterDidStop = true;
+    }
+    void streamWriterKilled() {
+        streamWriterDidKill = true;
+    }
+};
+
 StreamWriterTest::StreamWriterTest() {
+    
 }
 
 StreamWriterTest::~StreamWriterTest() {};
@@ -32,13 +44,15 @@ void StreamWriterTest::SetUp() {};
 void StreamWriterTest::TearDown() {};
 
 TEST(StreamWriterTest, TestCompressing) {
+    auto testEventHandler = make_shared<TestEventHandler>();
+    
     string filename = "StreamWriterTest_TestCompressing.mp3";
     remove(filename.c_str());
     auto sampleRate = 44100;
     auto compressor = make_shared<Mp3Compressor>(5, sampleRate);
     auto file = unique_ptr<File>(new SystemFile(filename));
     StreamWriter streamWriter(move(file), move(compressor));
-    
+    streamWriter.eventHandler = testEventHandler;
     streamWriter.start();
     
     random_device rd;
@@ -62,7 +76,13 @@ TEST(StreamWriterTest, TestCompressing) {
         }
     }
     
-    streamWriter.stop().get();
+    streamWriter.stop();
+    
+    while (!testEventHandler->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(1));
+    }
+
+    
     
     ASSERT_EQ(numberOfBuffersEnqueued, *(streamWriter.numberOfBuffersWritten()));
     
@@ -84,7 +104,8 @@ TEST(StreamWriterTest, TestUngracefullStop) {
     auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
     auto file = unique_ptr<File>(new SystemFile(filename));
     StreamWriter streamWriter(move(file), move(compressor));
-    
+    auto testEventHandler = make_shared<TestEventHandler>();
+    streamWriter.eventHandler = testEventHandler;
     streamWriter.start();
     
     random_device rd;
@@ -108,7 +129,12 @@ TEST(StreamWriterTest, TestUngracefullStop) {
         }
     }
     
-    streamWriter.kill().get();
+    streamWriter.kill();
+    
+    while (!testEventHandler->streamWriterDidKill) {
+        this_thread::sleep_for(chrono::milliseconds(1));
+    }
+    
     
     ASSERT_GT(numberOfBuffersEnqueued, *(streamWriter.numberOfBuffersWritten()));
     cout << numberOfBuffersEnqueued << ":" << *(streamWriter.numberOfBuffersWritten());
@@ -116,17 +142,24 @@ TEST(StreamWriterTest, TestUngracefullStop) {
 }
 
 TEST(StreamWriterTest, WriteRawAudioSamples) {
+    
+    auto testEventHandler = make_shared<TestEventHandler>();
     string filename = "StreamWriterTest_WriteRawAudioSamples.wav";
     remove(filename.c_str());
     auto file = unique_ptr<File>(new SystemFile(filename));
     auto pcmProcessor = make_shared<PcmProcessor>();
     StreamWriter streamWriter(move(file), move(pcmProcessor));
+    
+    streamWriter.eventHandler = testEventHandler;
 
     std::int16_t testSamples[] = {30000, -12200, -12, 400, 5000};
     streamWriter.start();
     streamWriter.enqueue(AudioBuffer(testSamples, 5));
+    streamWriter.stop();
     
-    streamWriter.stop().get();
+    while (!testEventHandler->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(1));
+    }
     
 
     

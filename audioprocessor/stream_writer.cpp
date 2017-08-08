@@ -45,27 +45,18 @@ void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
     queueConditionVariable->notify_one();
 }
 
-std::future<void> CAP::StreamWriter::stop() {
+void CAP::StreamWriter::stop() {
     *stopLoop = true;
-    auto future = stopPromise.get_future();
     queueConditionVariable->notify_one();
-    
-    if (*killLoop) {
-        stopPromise.set_value();
-    }
-    
-    return future;
 }
 
-std::future<void> CAP::StreamWriter::kill() {
+void CAP::StreamWriter::kill() {
     *killLoop = true;
-    auto future = killPromise.get_future();
     std::unique_lock<std::mutex> queueLock(*queueMutex);
     bufferQueue = {};
     queueLock.unlock();
     queueConditionVariable->notify_one();
     
-    return future;
 }
 
 std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfBuffersWritten() const {
@@ -77,11 +68,6 @@ std::size_t CAP::StreamWriter::numberOfSamplesWritten() {
 }
 
 void CAP::StreamWriter::start() {
-//    *stopLoop = false;
-//    *killLoop = false;
-//    *hasError = false;
-//    stopPromise = std::promise<void>();
-//    killPromise = std::promise<void>();
     auto po = file->path();
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
 }
@@ -113,14 +99,18 @@ void CAP::StreamWriter::runLoop() {
                     file->close();
                     signalProcessor->finalizeFileAtPath(file->path());
                 }
-                stopPromise.set_value();
+                if (eventHandler != nullptr) {
+                    eventHandler->streamWriterStopped();
+                }
                 return;
             }
         } else if (*killLoop) {
             if (file->isOpen()) {
                 file->close();
             }
-            killPromise.set_value();
+            if (eventHandler != nullptr) {
+                eventHandler->streamWriterKilled();
+            }
             return;
         }
         

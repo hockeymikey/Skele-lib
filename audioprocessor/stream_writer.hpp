@@ -23,11 +23,31 @@
 
 namespace CAP {
     
+    class StreamWriterAbstractEventHandler {
+    public:
+        StreamWriterAbstractEventHandler(const StreamWriterAbstractEventHandler& other) = delete;
+        StreamWriterAbstractEventHandler() = default;
+        StreamWriterAbstractEventHandler(StreamWriterAbstractEventHandler&&) = default;
+        
+        virtual void streamWriterStopped() = 0;
+        virtual void streamWriterKilled() = 0;
+        virtual ~StreamWriterAbstractEventHandler() {
+            
+        };
+
+        //            virtual void operator()() final {
+        //            for(int i = 0; i < 10000; i++)
+        //                std::cout<<"Display Thread Executing"<<std::endl;
+        //            }
+    };
+    
     /**
      Base class for writing raw audio samples to the file specified by the client.
      **/
     class StreamWriter {
     public:
+        
+        std::shared_ptr<StreamWriterAbstractEventHandler> eventHandler;
         
         /**
          Let compiler generate move assignment operator
@@ -59,18 +79,18 @@ namespace CAP {
         void enqueue(AudioBuffer audioBuffer);
         
         /**
-         Stops processing.
+         Stops processing (async call).
          
          @return future
          **/
-        std::future<void> stop();
+        void stop();
         
         /**
-         Ignores queued buffers, and returns from the thread
+         Ignores queued buffers, and returns from the thread (async call)
          
          @return future
          **/
-        std::future<void> kill();
+        void kill();
         
         
         /**
@@ -127,10 +147,7 @@ namespace CAP {
     protected:
     private:
         
-        std::shared_ptr<File> file;
-        
-        std::promise<void> stopPromise;
-        std::promise<void> killPromise;
+        std::shared_ptr<File> file;            
         std::queue<AudioBuffer> bufferQueue;
         
         std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
