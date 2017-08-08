@@ -99,8 +99,8 @@ void CAP::StreamWriter::runLoop() {
                     file->close();
                     signalProcessor->finalizeFileAtPath(file->path());
                 }
-                if (eventHandler != nullptr) {
-                    eventHandler->streamWriterStopped();
+                if (streamWriterObserver != nullptr) {
+                    streamWriterObserver->streamWriterStopped();
                 }
                 return;
             }
@@ -108,8 +108,8 @@ void CAP::StreamWriter::runLoop() {
             if (file->isOpen()) {
                 file->close();
             }
-            if (eventHandler != nullptr) {
-                eventHandler->streamWriterKilled();
+            if (streamWriterObserver != nullptr) {
+                streamWriterObserver->streamWriterKilled();
             }
             return;
         }

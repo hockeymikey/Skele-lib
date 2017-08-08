@@ -16,22 +16,11 @@
 #include "stream_writer_test.hpp"
 #include "mp3_compressor.hpp"
 #include "pcm_processor.hpp"
-
+#include "test_stream_writer_observer.hpp"
 
 using namespace std;
 using namespace CAP;
 
-class TestEventHandler: public CAP::StreamWriterAbstractEventHandler {
-public:
-    std::atomic_bool streamWriterDidStop = {false};
-    std::atomic_bool streamWriterDidKill = {false};
-    void streamWriterStopped() {
-        streamWriterDidStop = true;
-    }
-    void streamWriterKilled() {
-        streamWriterDidKill = true;
-    }
-};
 
 StreamWriterTest::StreamWriterTest() {
     
@@ -44,7 +33,7 @@ void StreamWriterTest::SetUp() {};
 void StreamWriterTest::TearDown() {};
 
 TEST(StreamWriterTest, TestCompressing) {
-    auto testEventHandler = make_shared<TestEventHandler>();
+    auto testEventHandler = make_shared<TestStreamWriterObserver>();
     
     string filename = "StreamWriterTest_TestCompressing.mp3";
     remove(filename.c_str());
@@ -52,7 +41,7 @@ TEST(StreamWriterTest, TestCompressing) {
     auto compressor = make_shared<Mp3Compressor>(5, sampleRate);
     auto file = unique_ptr<File>(new SystemFile(filename));
     StreamWriter streamWriter(move(file), move(compressor));
-    streamWriter.eventHandler = testEventHandler;
+    streamWriter.streamWriterObserver = testEventHandler;
     streamWriter.start();
     
     random_device rd;
@@ -104,8 +93,8 @@ TEST(StreamWriterTest, TestUngracefullStop) {
     auto compressor = make_shared<Mp3Compressor>(9, sampleRate);
     auto file = unique_ptr<File>(new SystemFile(filename));
     StreamWriter streamWriter(move(file), move(compressor));
-    auto testEventHandler = make_shared<TestEventHandler>();
-    streamWriter.eventHandler = testEventHandler;
+    auto testEventHandler = make_shared<TestStreamWriterObserver>();
+    streamWriter.streamWriterObserver = testEventHandler;
     streamWriter.start();
     
     random_device rd;
@@ -143,14 +132,14 @@ TEST(StreamWriterTest, TestUngracefullStop) {
 
 TEST(StreamWriterTest, WriteRawAudioSamples) {
     
-    auto testEventHandler = make_shared<TestEventHandler>();
+    auto testEventHandler = make_shared<TestStreamWriterObserver>();
     string filename = "StreamWriterTest_WriteRawAudioSamples.wav";
     remove(filename.c_str());
     auto file = unique_ptr<File>(new SystemFile(filename));
     auto pcmProcessor = make_shared<PcmProcessor>();
     StreamWriter streamWriter(move(file), move(pcmProcessor));
     
-    streamWriter.eventHandler = testEventHandler;
+    streamWriter.streamWriterObserver = testEventHandler;
 
     std::int16_t testSamples[] = {30000, -12200, -12, 400, 5000};
     streamWriter.start();

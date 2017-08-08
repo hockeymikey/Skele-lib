@@ -23,15 +23,15 @@
 
 namespace CAP {
     
-    class StreamWriterAbstractEventHandler {
+    class AbstractStreamWriterObserver {
     public:
-        StreamWriterAbstractEventHandler(const StreamWriterAbstractEventHandler& other) = delete;
-        StreamWriterAbstractEventHandler() = default;
-        StreamWriterAbstractEventHandler(StreamWriterAbstractEventHandler&&) = default;
+        AbstractStreamWriterObserver(const AbstractStreamWriterObserver& other) = delete;
+        AbstractStreamWriterObserver() = default;
+        AbstractStreamWriterObserver(AbstractStreamWriterObserver&&) = default;
         
         virtual void streamWriterStopped() = 0;
         virtual void streamWriterKilled() = 0;
-        virtual ~StreamWriterAbstractEventHandler() {
+        virtual ~AbstractStreamWriterObserver() {
             
         };
 
@@ -47,7 +47,7 @@ namespace CAP {
     class StreamWriter {
     public:
         
-        std::shared_ptr<StreamWriterAbstractEventHandler> eventHandler;
+        std::shared_ptr<AbstractStreamWriterObserver> streamWriterObserver;
         
         /**
          Let compiler generate move assignment operator

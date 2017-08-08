@@ -4,11 +4,10 @@
 
 #include "stream_writer.hpp"
 #include "audio_buffer.hpp"
+#include "circular_queue.hpp"
 #include <array>
 
 namespace CAP {
-    
-    
     
     /**
      Orchestrates audio sample writing
@@ -17,34 +16,38 @@ namespace CAP {
         
     public:
         
-        enum class ProcessResult {
+        enum class Status {
             Success,
             PriorityWriterError,
-            NonPriorityWriterError
+            NonPriorityWriterError,
+            FullBuffer
         };
+        
         
         /**
          Constructor.
          
-         @param sw
-            Vector of pointers to stream writers audio processor will be delegating write operation to.
-        
+         @param circularQueue
+            Pointer to cicrular queue
+         @param recommendedDelay
+            Processing delay
          **/
-        AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> sw);
+        AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue);
         
+        
+        void startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint8_t recommendedDelayInSeconds);
         
         /**
-         Passes audio buffer to stream writers to process.
-                  
          @param samples
             Pointer to array of samples
          @param nsamples
             Number of samples in array
-         @return ProcessResult      
+         
+         @return ProcessResult
             If result is priority writer error, the method will discard the samples.
             If the result is non-priority writer error, priority will keep writing non-priority samples will be discarded
          **/
-        ProcessResult processBuffer(std::int16_t *samples, std::size_t nsamples);
+        CAP::AudioProcessor::Status processSamples(std::int16_t *samples, std::size_t nsamples);
         
         
         /**
@@ -54,7 +57,7 @@ namespace CAP {
             Callback function to call when all stream writers are done
          @return future
          **/
-        std::future<void> stop(std::function<void ()> callback);
+        void stopHighlight();
         
         
         /**
@@ -81,10 +84,9 @@ namespace CAP {
          @param callback
             Callback function to call when all stream writers are done
          **/
-        void schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sw, std::function<void ()> callback);
+//        void schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sw, std::function<void ()> callback);
         
-        
-        std::shared_ptr<StreamWriter> getCurrentPriorityStreamWriter();
+    
         
     protected:
     
@@ -97,18 +99,20 @@ namespace CAP {
             StreamWriterBundle& operator=(StreamWriterBundle&& other) = default;
             StreamWriterBundle(const StreamWriterBundle& other) = delete;
             StreamWriterBundle() = delete;
-            StreamWriterBundle(std::vector<std::shared_ptr<StreamWriter>> sw): streamWriters(sw) {}
-            
+            StreamWriterBundle(std::vector<std::shared_ptr<StreamWriter>> sw, std::uint8_t recommendedDelay_): streamWriters(sw), recommendedDelayInSeconds(recommendedDelay_) {}
             std::vector<std::shared_ptr<StreamWriter>> streamWriters;
+            std::uint8_t recommendedDelayInSeconds;
         };
         
         std::vector<std::shared_ptr<StreamWriterBundle>> streamWriterBundles;
         
         
+        std::unique_ptr<AbstractCircularQueue> circularQueue;
+        
         std::int8_t streamWriterKillThreshold = 100; //number of buffers
         
-        void schedulePostProcess(std::function<void ()> callback);
-//        StreamWriter * getPriorityStreamWriterFromBundle(StreamWriterBundle *);
+//        void schedulePostProcess(std::function<void ()> callback);
+        CAP::AudioProcessor::Status enqueueSamples(std::int16_t *samples, std::size_t nsamples);
         
     };
 }
