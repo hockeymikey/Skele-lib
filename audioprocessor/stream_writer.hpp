@@ -122,13 +122,13 @@ namespace CAP {
         /**
          Returns number of samlpes stream writer wrote. Doesnt need to be atomic
          **/
-        std::size_t numberOfSamplesWritten();
+        std::shared_ptr<std::atomic_size_t> numberOfSamplesWritten() const;
         
         /**
          Informs whether writer has been scheduled for stop/kill.
          **/
         bool isWriteable() const;
-        
+                
         /**
          Dont allow copy since the object uses mutexes
          **/
@@ -162,7 +162,7 @@ namespace CAP {
         std::unique_ptr<std::atomic_bool> hasError;
         std::shared_ptr<std::atomic_size_t> buffersWritten;
         
-        std::size_t samplesWritten = 0;
+        std::shared_ptr<std::atomic_size_t> samplesWritten;
         
         //private methods
         bool writeAudioBufferToFileStream(const AudioBuffer &audioBuffer);

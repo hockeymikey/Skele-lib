@@ -57,7 +57,7 @@ namespace CAP {
             Callback function to call when all stream writers are done
          @return future
          **/
-        void stopHighlight();
+        void stopHighlight(bool flushCircularQueue);
         
         
         /**
@@ -93,7 +93,6 @@ namespace CAP {
     private:
         
         struct StreamWriterBundle {
-            bool isPostProcessing = false;
             StreamWriterBundle(StreamWriterBundle&&) = default;
             StreamWriterBundle operator=(const StreamWriterBundle&) = delete;
             StreamWriterBundle& operator=(StreamWriterBundle&& other) = default;
@@ -111,8 +110,11 @@ namespace CAP {
         
         std::int8_t streamWriterKillThreshold = 100; //number of buffers
         
+        std::mutex circularQueueMutex;
+        
 //        void schedulePostProcess(std::function<void ()> callback);
         CAP::AudioProcessor::Status enqueueSamples(std::int16_t *samples, std::size_t nsamples);
+        void flushCircularQueue(std::size_t flushLimitInSamples);
         
     };
 }

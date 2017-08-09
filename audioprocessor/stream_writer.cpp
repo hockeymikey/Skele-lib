@@ -21,12 +21,13 @@ CAP::StreamWriter::StreamWriter(std::shared_ptr<File> file_, std::shared_ptr<Sig
     stopLoop(new std::atomic_bool()),
     killLoop(new std::atomic_bool()),
     hasError(new std::atomic_bool()),
-    buffersWritten(new std::atomic_size_t()) {
+    buffersWritten(new std::atomic_size_t()),
+    samplesWritten(new std::atomic_size_t()) {
         *stopLoop = false;
         *killLoop = false;
         *hasError = false;
         *buffersWritten = 0;
-        
+        *samplesWritten = 0;
 }
 
 bool CAP::StreamWriter::isWriteable() const {
@@ -48,6 +49,11 @@ void CAP::StreamWriter::enqueue(CAP::AudioBuffer audioBuffer) {
 void CAP::StreamWriter::stop() {
     *stopLoop = true;
     queueConditionVariable->notify_one();
+    if (*killLoop) {
+        if (streamWriterObserver != nullptr) {
+            streamWriterObserver->streamWriterStopped();
+        }
+    }
 }
 
 void CAP::StreamWriter::kill() {
@@ -56,14 +62,13 @@ void CAP::StreamWriter::kill() {
     bufferQueue = {};
     queueLock.unlock();
     queueConditionVariable->notify_one();
-    
 }
 
 std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfBuffersWritten() const {
     return buffersWritten;
 }
 
-std::size_t CAP::StreamWriter::numberOfSamplesWritten() {
+std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfSamplesWritten() const {
     return samplesWritten;
 }
 
@@ -73,6 +78,7 @@ void CAP::StreamWriter::start() {
 }
 
 CAP::StreamWriter::~StreamWriter() {
+    ;
 }
 
 std::size_t CAP::StreamWriter::queueSize() const {
@@ -100,7 +106,7 @@ void CAP::StreamWriter::runLoop() {
                     signalProcessor->finalizeFileAtPath(file->path());
                 }
                 if (streamWriterObserver != nullptr) {
-                    streamWriterObserver->streamWriterStopped();
+                    streamWriterObserver->streamWriterStopped();                    
                 }
                 return;
             }
@@ -135,7 +141,7 @@ void CAP::StreamWriter::runLoop() {
 bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {
     if (file->write(audioBuffer)) {
         *buffersWritten = *buffersWritten + 1;
-        samplesWritten += audioBuffer.size();
+        *samplesWritten += audioBuffer.size();
         return true;
     }
     std::cerr << "error writing to file:" << file->path() << std::endl;

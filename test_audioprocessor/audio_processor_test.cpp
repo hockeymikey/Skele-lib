@@ -28,7 +28,7 @@ void AudioProcessorTest::SetUp() {};
 
 void AudioProcessorTest::TearDown() {};
 
-/*
+
 TEST(AudioProcessorTest, SchedulePostProcess) {
     auto bin = "AudioProcessorTest_SchedulePostProcess.wav";
     auto bin2 = "AudioProcessorTest_SchedulePostProcess2.wav";
@@ -43,33 +43,44 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     auto sw1 = make_shared<StreamWriter>(move(file1), move(pcmProcessor));
     vector<shared_ptr<StreamWriter>> vec;
     vec.push_back(sw1);
-    AudioProcessor ap(vec);
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    sw1->streamWriterObserver = swo1;
+    
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
+    ap.startHighlight(vec, 15);
     int16_t samples[100] = {};
     
-    ap.processBuffer(samples, 100);
+    ap.processSamples(samples, 100);
+    
     auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(10, 44100));
     
-    bool callbackCalled = false;
-//    auto sw1 = ap.getCurrentPriorityStreamWriter();
+
     auto sw2 = make_shared<StreamWriter>(move(file2), move(compressor));
     vector<shared_ptr<StreamWriter>> vec2;
+    auto swo2 = make_shared<TestStreamWriterObserver>();
+    sw2->streamWriterObserver = swo2;
     vec2.push_back(sw2);
     
-    ap.schedulePostProcess(vec2, [&callbackCalled] () {
-        callbackCalled = true;
-    });
+    ap.stopHighlight(false);
+    
+    ap.startHighlight(vec2, 0);
+    
     for (uint8_t i = 0; i < 100; i++) {
         int16_t samples2[100] = {};
-        ap.processBuffer(samples2, 100);
+        ap.processSamples(samples2, 100);
     }
-//    auto sw2 = ap.getCurrentPriorityStreamWriter();
-    
-    ap.stop([] {});
 
-    ASSERT_EQ(1, *(sw1->numberOfBuffersWritten().get()));
-    ASSERT_EQ(100, *(sw2->numberOfBuffersWritten().get()));
-    ASSERT_TRUE(callbackCalled);
+    
+    ap.stopHighlight(false);
+    
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+
+    ASSERT_EQ(0, *(sw1->numberOfBuffersWritten().get()));
+    ASSERT_EQ(101, *(sw2->numberOfBuffersWritten().get()));
 }
+
 
 TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     auto bin = "AudioProcessorTest_StreamFailureCantOpenNonPriorityStreamKillIt.wav";
@@ -87,29 +98,38 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     auto sw1 = make_shared<StreamWriter>(move(binfile), move(pcmProcessor));
     auto sw2 = make_shared<StreamWriter>(move(mp3file), move(pcmProcessor));
     
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto swo2 = make_shared<TestStreamWriterObserver>();
+    
+    sw1->streamWriterObserver = swo1;
+    sw2->streamWriterObserver = swo2;
+
+    
     vector<shared_ptr<StreamWriter>> vec;
     vec.push_back(sw1);
     vec.push_back(sw2);
     
-    AudioProcessor ap(vec);
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
+    ap.startHighlight(vec, 10);
     int i = 0;
     bool nonpriorityError = false;
     while (i < 1000) {
         int16_t t[3000];
-        AudioProcessor::ProcessResult result = ap.processBuffer(t, 3000);
-        if (result == AudioProcessor::ProcessResult::NonPriorityWriterError) {
+        auto result = ap.processSamples(t, 3000);
+        if (result == AudioProcessor::Status::NonPriorityWriterError) {
             nonpriorityError = true;
         }
         i++;
         this_thread::sleep_for(chrono::microseconds(10));
     }
     
-//    auto sw1 = ap.getCurrentPriorityStreamWriter();
-//    auto sw2 = ap.getCurrentPriorityStreamWriter() + 1;
-    ASSERT_TRUE(sw1->isWriteable());
-    ASSERT_FALSE(sw2->isWriteable());
     
-    ap.stop([] {});
+    ap.stopHighlight(true);
+    
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+
     
     ASSERT_EQ(sw1->queueSize(), 0);
     ASSERT_GE(sw2->queueSize(), 0);
@@ -133,16 +153,24 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     auto sw1 = make_shared<StreamWriter>(move(rawfile), move(pcmProcessor));
     auto sw2 = make_shared<StreamWriter>(move(mp3file), move(pcmProcessor2));
     
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto swo2 = make_shared<TestStreamWriterObserver>();
+    
+    sw1->streamWriterObserver = swo1;
+    sw2->streamWriterObserver = swo2;
+    
     vector<shared_ptr<StreamWriter>> vec;
     vec.push_back(sw1);
     vec.push_back(sw2);
     
-    AudioProcessor ap(vec);
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
+    
+    ap.startHighlight(vec, 15);
     
     while (true) {
         int16_t t[3000];
-        auto result = ap.processBuffer(t, 3000);
-        if (result == AudioProcessor::ProcessResult::PriorityWriterError) {
+        auto result = ap.processSamples(t, 3000);
+        if (result == AudioProcessor::Status::PriorityWriterError) {
             break;
         }
 //        int i = 0;
@@ -155,11 +183,14 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
         this_thread::sleep_for(chrono::microseconds(10));
     }
     
-    ASSERT_FALSE(sw1->isWriteable());
-    ASSERT_FALSE(sw2->isWriteable());
+    ap.stopHighlight(true);
     
-    ap.stop([] {});
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
     
+    ASSERT_TRUE(swo1->streamWriterDidKill);
+    ASSERT_TRUE(swo2->streamWriterDidKill);
 }
 
 TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
@@ -182,18 +213,25 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     auto s1 = make_shared<StreamWriter>(move(rawfile), move(pcmProcessor));
     auto s2 = make_shared<StreamWriter>(move(mp3file), move(compressor));
     
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto swo2 = make_shared<TestStreamWriterObserver>();
+    
+    s1->streamWriterObserver = swo1;
+    s2->streamWriterObserver = swo2;
+    
     vector<shared_ptr<StreamWriter>> sw;
     sw.push_back(s1);
     sw.push_back(s2);
     
-    AudioProcessor ap(sw);
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
     
+    ap.startHighlight(sw, 10);
     
     random_device rd;
     mt19937 mt(rd());
     uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
     std::int16_t buffer[4410];
-    int seconds = 11;
+    int seconds = 30;
     int nsamples = seconds * sampleRate;
     bool compressorErrorOccurred = false;
     bool rawWriterErrorOccurred = false;
@@ -203,27 +241,33 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
         buffer[(i - 1) % 4410] = sample;
         
         if (i % (4410) == 0) {
-            auto result = ap.processBuffer(buffer, 4410);
-            if (result == AudioProcessor::ProcessResult::NonPriorityWriterError) {
+            auto result = ap.processSamples(buffer, 4410);
+            if (result == CAP::AudioProcessor::Status::NonPriorityWriterError) {
                 compressorErrorOccurred = true;
-            } else if (result == AudioProcessor::ProcessResult::PriorityWriterError) {
+            } else if (result == CAP::AudioProcessor::Status::PriorityWriterError) {
                 rawWriterErrorOccurred = true;
             }
             this_thread::sleep_for(chrono::microseconds(10));
         }
     }
     
-    ASSERT_TRUE(s1->isWriteable());
-    ASSERT_FALSE(s2->isWriteable());
+    ap.stopHighlight(true);
     
-    ap.stop([] {});
+    
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
+    
+//    ASSERT_TRUE(s1->isWriteable());
+//    ASSERT_FALSE(s2->isWriteable());
+    
     
     ASSERT_EQ(compressorErrorOccurred, true);
     ASSERT_EQ(rawWriterErrorOccurred, false);
     
     
 }
-*/
+
 
 TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     auto sampleRate = 44100;
@@ -250,15 +294,16 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     vec.push_back(sw2);
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
-    ap.startHighlight(vec, 15);
+    ap.startHighlight(vec, 10);
     
     random_device rd;
     mt19937 mt(rd());
     uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
     std::int16_t buffer[4410];
-    int seconds = 30;
+    int seconds = 40;
     int nsamples = seconds * sampleRate;
     int bufferCount = 0;
+    int compressedBufferCount = 0;
     auto priorityError = false;
     auto compressorErrorOccurred = false;
     auto fullBuffer = false;
@@ -272,6 +317,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
             auto status = ap.processSamples(buffer, nsamples);
             if (status == AudioProcessor::Status::NonPriorityWriterError) {
                 compressorErrorOccurred = true;
+                compressedBufferCount += 1;
             } else if (status == AudioProcessor::Status::FullBuffer) {
                 fullBuffer = true;
                 break;
@@ -283,19 +329,15 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
         }
     }
     
-    ap.stopHighlight();
+    ap.stopHighlight(true);
     
-    while (!swo1->streamWriterDidStop && !swo2->streamWriterDidStop) {
-        this_thread::sleep_for(chrono::milliseconds(1));
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
     
-//    ASSERT_TRUE(sw1->isWriteable());
-//    ASSERT_FALSE(sw2->isWriteable());
+    ASSERT_EQ(*(sw1->numberOfBuffersWritten()), bufferCount);
+//    ASSERT_EQ(*(sw2->numberOfBuffersWritten()), 100);
     
-//    ap.wait();
-//    while (true) {
-//        this_thread::sleep_for(chrono::seconds(1));
-//    }
     
     ASSERT_TRUE(compressorErrorOccurred);
     ASSERT_FALSE(fullBuffer);
