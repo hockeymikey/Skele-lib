@@ -13,6 +13,7 @@ set(libap_SRCS
     system_file.cpp	
     pcm_processor.hpp
     pcm_processor.cpp
+    circular_queue.hpp
 )
 
 

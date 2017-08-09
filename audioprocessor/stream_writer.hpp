@@ -23,11 +23,31 @@
 
 namespace CAP {
     
+    class AbstractStreamWriterObserver {
+    public:
+        AbstractStreamWriterObserver(const AbstractStreamWriterObserver& other) = delete;
+        AbstractStreamWriterObserver() = default;
+        AbstractStreamWriterObserver(AbstractStreamWriterObserver&&) = default;
+        
+        virtual void streamWriterStopped() = 0;
+        virtual void streamWriterKilled() = 0;
+        virtual ~AbstractStreamWriterObserver() {
+            
+        };
+
+        //            virtual void operator()() final {
+        //            for(int i = 0; i < 10000; i++)
+        //                std::cout<<"Display Thread Executing"<<std::endl;
+        //            }
+    };
+    
     /**
      Base class for writing raw audio samples to the file specified by the client.
      **/
     class StreamWriter {
     public:
+        
+        std::shared_ptr<AbstractStreamWriterObserver> streamWriterObserver;
         
         /**
          Let compiler generate move assignment operator
@@ -59,18 +79,18 @@ namespace CAP {
         void enqueue(AudioBuffer audioBuffer);
         
         /**
-         Stops processing.
+         Stops processing (async call).
          
          @return future
          **/
-        std::future<void> stop();
+        void stop();
         
         /**
-         Ignores queued buffers, and returns from the thread
+         Ignores queued buffers, and returns from the thread (async call)
          
          @return future
          **/
-        std::future<void> kill();
+        void kill();
         
         
         /**
@@ -102,13 +122,13 @@ namespace CAP {
         /**
          Returns number of samlpes stream writer wrote. Doesnt need to be atomic
          **/
-        std::size_t numberOfSamplesWritten();
+        std::shared_ptr<std::atomic_size_t> numberOfSamplesWritten() const;
         
         /**
          Informs whether writer has been scheduled for stop/kill.
          **/
         bool isWriteable() const;
-        
+                
         /**
          Dont allow copy since the object uses mutexes
          **/
@@ -127,10 +147,7 @@ namespace CAP {
     protected:
     private:
         
-        std::shared_ptr<File> file;
-        
-        std::promise<void> stopPromise;
-        std::promise<void> killPromise;
+        std::shared_ptr<File> file;            
         std::queue<AudioBuffer> bufferQueue;
         
         std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism
@@ -145,7 +162,7 @@ namespace CAP {
         std::unique_ptr<std::atomic_bool> hasError;
         std::shared_ptr<std::atomic_size_t> buffersWritten;
         
-        std::size_t samplesWritten = 0;
+        std::shared_ptr<std::atomic_size_t> samplesWritten;
         
         //private methods
         bool writeAudioBufferToFileStream(const AudioBuffer &audioBuffer);

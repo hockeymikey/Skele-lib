@@ -50,6 +50,10 @@ namespace CAP {
                 buffer[i] = samples_[i];
             }
         };
+        
+        bool isFull() const {
+            return nsamples >= AudioBufferCapacity;
+        };
         /**
          Updates the number of samples buffer has
          

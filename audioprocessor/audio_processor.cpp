@@ -1,114 +1,173 @@
 
 #include "audio_processor.hpp"
-#include <array>
-#include <iostream>
 
-CAP::AudioProcessor::AudioProcessor(std::vector<std::shared_ptr<StreamWriter>> sws) {
-    
-    for(auto &sw: sws) {
-        sw->start();
-    }
-    
-    auto bundle = std::make_shared<StreamWriterBundle>(sws);
-    streamWriterBundles.push_back(bundle);
-    
-    
+CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
     
 }
 
-CAP::AudioProcessor::ProcessResult CAP::AudioProcessor::processBuffer(std::int16_t *samples, std::size_t nsamples) {
+void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint8_t recommendedDelayInSeconds) {
+    for(auto &sw: streamWriters) {
+        sw->start();
+    }
+    auto oldRecommmendedDelay = 0;
+    if (streamWriterBundles.size() > 0) {
+        oldRecommmendedDelay = streamWriterBundles.back()->recommendedDelayInSeconds;
+    }
+    auto bundle = std::make_shared<StreamWriterBundle>(streamWriters, recommendedDelayInSeconds);
+    streamWriterBundles.push_back(bundle);
     
-    auto result = ProcessResult::Success;
+    auto delayInSamples = oldRecommmendedDelay * 44100;
+    
+    flushCircularQueue(delayInSamples);
+}
 
-    for (auto &bundle: streamWriterBundles) {
-        if (bundle->isPostProcessing) {
-            continue;
-        }
+CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *samples, std::size_t nsamples) {
+    
+    auto bundle = streamWriterBundles.back();
+    
+    //bypass circular queue if no delay
+    if (bundle->recommendedDelayInSeconds == 0) {
+        return enqueueSamples(samples, nsamples);
+    }
+    
+    for (std::size_t i = 0; i < nsamples; i++) {
+        std::unique_lock<std::mutex> queueLock(circularQueueMutex);
+        circularQueue->enqueue(samples[i]);
+        queueLock.unlock();
+    }
+    
+    std::unique_lock<std::mutex> queueLock(circularQueueMutex);
+    auto qIsFull = circularQueue->isFull();
+    queueLock.unlock();
+    
+    if (qIsFull) {
+        return Status::FullBuffer;
+    }
+    
+    auto delayInSamples = bundle->recommendedDelayInSeconds * 44100;
+    
+    std::size_t dequeueCount = 0;
+    std::unique_lock<std::mutex> queueLock2(circularQueueMutex);
+    auto qSize = circularQueue->size();
+    queueLock2.unlock();
+    if (qSize > delayInSamples) {
+        ;
+    }
+    while (qSize > delayInSamples && dequeueCount < nsamples) {
+        std::unique_lock<std::mutex> queueLock(circularQueueMutex);
+        auto oldestSample = circularQueue->front();
+        circularQueue->dequeue();
+        queueLock.unlock();
+        samples[dequeueCount] = oldestSample;
+        dequeueCount++;
+    }
+    
+    if (dequeueCount > 0) {
+        return enqueueSamples(samples, dequeueCount);
+    }
+    
+    return Status::Success;
+}
+
+
+
+CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *samples, std::size_t nsamples) {
+    
+    auto result = Status::Success;
+    auto bundle = streamWriterBundles.back();
+    for(auto it = bundle->streamWriters.begin(); it != bundle->streamWriters.end(); ++it) {
+        auto sw = *it;
+        auto qSize = sw->queueSize();
         
-        for(auto it = bundle->streamWriters.begin(); it != bundle->streamWriters.end(); ++it) {
-            auto sw = *it;
-            auto qSize = sw->queueSize();
-        
-            if (it == bundle->streamWriters.begin()) {
-                if (qSize >= streamWriterKillThreshold) {
-                    //priority writer has issues, kill all
-                    result = ProcessResult::PriorityWriterError;
-                    sw->kill().get();
+        if (it == bundle->streamWriters.begin()) {
+            if (qSize >= streamWriterKillThreshold) {
+                //priority writer has issues, kill all
+                result = Status::PriorityWriterError;
+                sw->kill();
+            } else {
+                if (sw->isWriteable()) {
+                    sw->enqueue(AudioBuffer(samples, nsamples));
                 } else {
-                    if (sw->isWriteable()) {
-                        sw->enqueue(AudioBuffer(samples, nsamples));
-                    }
+                    result = Status::PriorityWriterError;
+                }
+            }
+        } else {
+            //non-priority writer has issues, kill it
+            if (qSize >= streamWriterKillThreshold || result == Status::PriorityWriterError) {
+                sw->kill();
+                if (result != Status::PriorityWriterError) {
+                    result = Status::NonPriorityWriterError;
                 }
             } else {
-                //non-priority writer has issues, kill it
-                if (qSize >= streamWriterKillThreshold || result == ProcessResult::PriorityWriterError) {
-                    sw->kill().get();
-                    if (result != ProcessResult::PriorityWriterError) {
-                        result = ProcessResult::NonPriorityWriterError;
-                    }
+                if (sw->isWriteable()) {
+                    sw->enqueue(AudioBuffer(samples, nsamples));
                 } else {
-                    if (sw->isWriteable()) {
-                        sw->enqueue(AudioBuffer(samples, nsamples));
-                    }
+                    result = Status::NonPriorityWriterError;
                 }
             }
         }
-        
     }
-    
-    
     
     return result;
 }
 
-std::future<void> CAP::AudioProcessor::stop(std::function<void ()> callback) {
-    
-    return std::async(std::launch::async, [this, callback] {
-        for (auto &bundle: streamWriterBundles) {
-            if (bundle->isPostProcessing) {
-                continue;
+void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
+    std::int16_t samples[AudioBuffer::AudioBufferCapacity];
+    std::size_t sampleCount = 0;
+    std::size_t flushCount = 0;
+    while (flushCount <= flushLimitInSamples) {
+        if (sampleCount == AudioBuffer::AudioBufferCapacity) {
+            auto status = enqueueSamples(samples, sampleCount);
+            switch (status) {
+                case Status::NonPriorityWriterError:
+                    break;
+                case Status::PriorityWriterError:
+                    break;
+                case Status::Success:
+                    break;
+                default:
+                    break;
             }
-            for (auto &sw: bundle->streamWriters) {
-                sw->stop().get();
+            sampleCount = 0;
+        } else {
+            std::unique_lock<std::mutex> queueLock(circularQueueMutex);
+            auto qSize = circularQueue->size();
+            samples[sampleCount] = circularQueue->front();
+            queueLock.unlock();
+            if (qSize == 1) {
+                auto status = enqueueSamples(samples, sampleCount);
+                switch (status) {
+                    case Status::NonPriorityWriterError:
+                        break;
+                    case Status::PriorityWriterError:
+                        break;
+                    case Status::Success:
+                        break;
+                    default:
+                        break;
+                }
+            } else if (qSize == 0) {
+                break;
+            } else {
+                sampleCount++;
             }
         }
-        callback();
-    });
-}
-
-std::shared_ptr<CAP::StreamWriter> CAP::AudioProcessor::getCurrentPriorityStreamWriter() {
-    auto it = streamWriterBundles.end() - 1;
-    return (*it)->streamWriters.front();
-}
-
-void CAP::AudioProcessor::schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sws, std::function<void ()> callback) {
-    
-    schedulePostProcess(callback);
-    
-    auto bundle = std::make_shared<StreamWriterBundle>(sws);
-    
-    for(auto &sw: bundle->streamWriters) {
-        sw->start();
+        
+        std::unique_lock<std::mutex> queueLock(circularQueueMutex);
+        circularQueue->dequeue();
+        queueLock.unlock();
+        flushCount++;
     }
-    
-    streamWriterBundles.push_back(bundle);
-    
-    
 }
 
-void CAP::AudioProcessor::schedulePostProcess(std::function<void ()> callback) {
-    
-    //retire previous stream writers
-    streamWriterBundles.back()->isPostProcessing = true;
-    
-    auto currentBundle = streamWriterBundles.back();
-
-    auto future = std::async(std::launch::async, [currentBundle, callback] {
-        for( auto &sw: currentBundle->streamWriters) {
-            sw->stop().get();
-        }
-        callback();
-    });
-    
-    
+void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
+    if (flushQueue) {
+        std::unique_lock<std::mutex> queueLock(circularQueueMutex);
+        auto size = circularQueue->size();
+        queueLock.unlock();
+        flushCircularQueue(size);
+    }
+    for (auto &sw: streamWriterBundles.back()->streamWriters) {
+        sw->stop();
+    }
 }

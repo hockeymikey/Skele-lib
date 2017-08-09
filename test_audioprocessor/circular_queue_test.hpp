@@ -1,28 +1,26 @@
 //
-//  StreamWriterTest.hpp
+//  circular_queue_test.hpp
 //  AudioProcessor
 //
-//  Created by Aziz Usmanov on 5/2/17.
+//  Created by Aziz Usmanov on 8/2/17.
 //
 //
 
-#ifndef StreamWriterTest_hpp
-#define StreamWriterTest_hpp
+#ifndef circular_queue_test_hpp
+#define circular_queue_test_hpp
 
 #include "gtest/gtest.h"
-#include "stream_writer.hpp"
 
 // The fixture for testing class Foo.
-class StreamWriterTest : public ::testing::Test {
+class CircularQueueTest : public ::testing::Test {
     
 protected:
     
-    
     // You can do set-up work for each test here.
-    StreamWriterTest();
+    CircularQueueTest();
     
     // You can do clean-up work that doesn't throw exceptions here.
-    virtual ~StreamWriterTest();
+    virtual ~CircularQueueTest();
     
     // If the constructor and destructor are not enough for setting up
     // and cleaning up each test, you can define the following methods:
@@ -39,4 +37,4 @@ protected:
     //    MockBar m_bar;
 };
 
-#endif /* StreamWriterTest_hpp */
+#endif /* circular_queue_test_hpp */
