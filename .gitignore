@@ -1,1 +1,8 @@
 .idea/
+.gradle/
+local.properties
+gradlew.bat
+audioprocessor/.externalNativeBuild/
+build/
+gradle/
+gradlew
