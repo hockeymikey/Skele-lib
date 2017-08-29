@@ -388,12 +388,12 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
 //        if (i % 1050 == 0) {
 //            size_t nsamples = 1050;
 //            ap.processSamples(buffer, nsamples);
-//            ap.enqueueSamples(buffer, nsamples);
-//            this_thread::sleep_for(chrono::milliseconds(1));
+//            
+////            this_thread::sleep_for(chrono::milliseconds(1));
 //        }
 //    }
 //    
-//    ap.stop([] {});
+//    
 //}
 
 
