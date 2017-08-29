@@ -111,6 +111,7 @@ namespace CAP {
         std::int8_t streamWriterKillThreshold = 100; //number of buffers
         
         std::mutex circularQueueMutex;
+        std::mutex bundlesMutex;
         
 //        void schedulePostProcess(std::function<void ()> callback);
         CAP::AudioProcessor::Status enqueueSamples(std::int16_t *samples, std::size_t nsamples);
