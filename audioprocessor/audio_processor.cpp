@@ -30,6 +30,9 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *sa
     
     std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
+    if (streamWriterBundles.empty()) {
+        return Status::NoHighlightError;
+    }
     auto bundle = streamWriterBundles.back();
     bundlesLock.unlock();
     
@@ -180,6 +183,9 @@ void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
         flushCircularQueue(size);
     }
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
+    if (streamWriterBundles.empty()) {
+        return;
+    }
     auto bundle = streamWriterBundles.back();
     bundlesLock.unlock();
     for (auto &sw: bundle->streamWriters) {
