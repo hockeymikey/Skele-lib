@@ -15,7 +15,12 @@ CAP::Mp3Compressor::Mp3Compressor(int compressionQuality, int sampleRate):  CAP:
     if (!lame) {
         throw std::runtime_error("Cannot instantiate lame");
     }
-    if (lame_set_in_samplerate(lame, sampleRate) == -1 || lame_set_quality(lame, compressionQuality) == -1 || lame_init_params(lame) == -1) {
+    
+    if (lame_set_num_channels(lame, 1) == -1 ||
+        lame_set_in_samplerate(lame, sampleRate) == -1 ||
+        lame_set_quality(lame, compressionQuality) == -1 ||
+        lame_init_params(lame) == -1) {
+        
         throw std::runtime_error("Cannot initialize lame");
     }
 }
@@ -30,7 +35,7 @@ void CAP::Mp3Compressor::finalizeFileAtPath(std::string path) {
 
 bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
     auto compressedBuffer = reinterpret_cast<unsigned char *>(processed.getBuffer());    
-    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size() / 2, compressedBuffer, processed.AudioBufferCapacity);
+    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size(), compressedBuffer, processed.AudioBufferCapacity);
  
     switch (output) {
         case -1:
