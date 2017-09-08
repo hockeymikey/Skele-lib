@@ -6,3 +6,4 @@ audioprocessor/.externalNativeBuild/
 build/
 gradle/
 gradlew
+*.iml
