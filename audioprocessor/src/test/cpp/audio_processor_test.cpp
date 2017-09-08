@@ -347,6 +347,67 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
 }
 
 
+TEST(AudioProcessorTest, TestNoHighlightError) {
+    auto sampleRate = 44100;
+    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(9, sampleRate));
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    string raw = "AudioProcessorTest_TestNoHighlightError.wav";
+    string mp3 = "AudioProcessorTest_TestNoHighlightError.mp3";
+    remove(raw.c_str());
+    remove(mp3.c_str());
+    
+    
+    auto rawfile = unique_ptr<File>(new SystemFile(raw));
+    auto mp3file = unique_ptr<File>(new SystemFile(mp3));
+    
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto swo2 = make_shared<TestStreamWriterObserver>();
+    auto sw1 = make_shared<StreamWriter>(move(rawfile), move(pcmProcessor));
+    sw1->streamWriterObserver = swo1;
+    auto sw2 = make_shared<StreamWriter>(move(mp3file), move(compressor));
+    sw2->streamWriterObserver = swo2;
+    
+    vector<shared_ptr<StreamWriter>> vec;
+    vec.push_back(sw1);
+    vec.push_back(sw2);
+    
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
+//    ap.startHighlight(vec, 10);
+    
+    random_device rd;
+    mt19937 mt(rd());
+    uniform_real_distribution<double> dist(INT16_MIN, INT16_MAX);
+    std::int16_t buffer[4410];
+    int seconds = 40;
+    int nsamples = seconds * sampleRate;
+    int bufferCount = 0;
+    
+    auto noHighlightError = false;
+    
+    for (int i = 1; i <= nsamples; i++) {
+        int16_t sample = (int16_t)dist(mt);
+        buffer[(i - 1) % 4410] = sample;
+        
+        if (i % (4410) == 0) {
+            size_t nsamples = 4410;
+            
+            auto status = ap.processSamples(buffer, nsamples);
+            if (status == AudioProcessor::Status::NoHighlightError) {
+                noHighlightError = true;
+                
+            }
+            bufferCount += 1;
+        }
+    }
+    
+    ap.stopHighlight(true);
+    
+    
+    ASSERT_TRUE(noHighlightError);
+    
+}
+
+
 //TEST(AudioProcessorTest, TestStream) {
 //    auto sampleRate = 44100;
 //    auto pcmprocessor = unique_ptr<SignalProcessor>(new PcmProcessor());
@@ -388,12 +449,12 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
 //        if (i % 1050 == 0) {
 //            size_t nsamples = 1050;
 //            ap.processSamples(buffer, nsamples);
-//            ap.enqueueSamples(buffer, nsamples);
-//            this_thread::sleep_for(chrono::milliseconds(1));
+//            
+////            this_thread::sleep_for(chrono::milliseconds(1));
 //        }
 //    }
 //    
-//    ap.stop([] {});
+//    
 //}
 
 
