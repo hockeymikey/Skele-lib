@@ -20,8 +20,7 @@ namespace CAP {
             Success,
             PriorityWriterError,
             NonPriorityWriterError,
-            FullBuffer,
-            NoHighlightError
+            FullBuffer
         };
         
         

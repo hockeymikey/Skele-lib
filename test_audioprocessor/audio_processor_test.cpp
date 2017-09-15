@@ -392,7 +392,7 @@ TEST(AudioProcessorTest, TestNoHighlightError) {
             size_t nsamples = 4410;
             
             auto status = ap.processSamples(buffer, nsamples);
-            if (status == AudioProcessor::Status::NoHighlightError) {
+            if (status == AudioProcessor::Status::Success) {
                 noHighlightError = true;
                 
             }

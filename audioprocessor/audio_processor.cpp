@@ -30,9 +30,17 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *sa
     
     std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
-    if (streamWriterBundles.empty()) {
-        return Status::NoHighlightError;
+    auto noBundles = streamWriterBundles.empty();
+    bundlesLock.unlock();
+    if (noBundles) {
+        queueLock.lock();
+        for (std::size_t i = 0; i < nsamples; i++) {
+            circularQueue->enqueue(samples[i]);
+        }
+        queueLock.unlock();
+        return Status::Success;
     }
+    bundlesLock.lock();
     auto bundle = streamWriterBundles.back();
     bundlesLock.unlock();
     
@@ -41,14 +49,11 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *sa
     if (bundle->recommendedDelayInSeconds == 0) {
         return enqueueSamples(samples, nsamples);
     }
-    
+    queueLock.lock();
     for (std::size_t i = 0; i < nsamples; i++) {
-        queueLock.lock();
         circularQueue->enqueue(samples[i]);
-        queueLock.unlock();
     }
     
-    queueLock.lock();
     auto qIsFull = circularQueue->isFull();
     queueLock.unlock();
     
@@ -130,26 +135,12 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
     std::size_t sampleCount = 0;
     std::size_t flushCount = 0;
     std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
+    std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
+    auto hasBundles = !streamWriterBundles.empty();
+    bundlesLock.unlock();
     while (flushCount <= flushLimitInSamples) {
         if (sampleCount == AudioBuffer::AudioBufferCapacity) {
-            auto status = enqueueSamples(samples, sampleCount);
-            switch (status) {
-                case Status::NonPriorityWriterError:
-                    break;
-                case Status::PriorityWriterError:
-                    break;
-                case Status::Success:
-                    break;
-                default:
-                    break;
-            }
-            sampleCount = 0;
-        } else {
-            queueLock.lock();
-            auto qSize = circularQueue->size();
-            samples[sampleCount] = circularQueue->front();
-            queueLock.unlock();
-            if (qSize == 1) {
+            if (hasBundles) {
                 auto status = enqueueSamples(samples, sampleCount);
                 switch (status) {
                     case Status::NonPriorityWriterError:
@@ -160,6 +151,28 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
                         break;
                     default:
                         break;
+                }
+            }
+            
+            sampleCount = 0;
+        } else {
+            queueLock.lock();
+            auto qSize = circularQueue->size();
+            samples[sampleCount] = circularQueue->front();
+            queueLock.unlock();
+            if (qSize == 1) {
+                if (hasBundles) {
+                    auto status = enqueueSamples(samples, sampleCount);
+                    switch (status) {
+                        case Status::NonPriorityWriterError:
+                            break;
+                        case Status::PriorityWriterError:
+                            break;
+                        case Status::Success:
+                            break;
+                        default:
+                            break;
+                    }
                 }
             } else if (qSize == 0) {
                 break;
