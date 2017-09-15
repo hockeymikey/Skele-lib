@@ -400,9 +400,11 @@ TEST(AudioProcessorTest, TestNoHighlightError) {
         }
     }
     
+    ASSERT_EQ(ap.circularQueueSize(), 31 * 44100);
+    
     ap.stopHighlight(true);
     
-    
+    ASSERT_EQ(0, ap.circularQueueSize());
     ASSERT_TRUE(noHighlightError);
     
 }

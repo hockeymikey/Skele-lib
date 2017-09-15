@@ -26,6 +26,11 @@ void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWrite
     flushCircularQueue(delayInSamples);
 }
 
+std::size_t CAP::AudioProcessor::circularQueueSize() {
+    std::lock_guard<std::mutex> queueLock(circularQueueMutex);
+    return circularQueue->size();
+}
+
 CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *samples, std::size_t nsamples) {
     
     std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
@@ -134,10 +139,11 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
     std::int16_t samples[AudioBuffer::AudioBufferCapacity];
     std::size_t sampleCount = 0;
     std::size_t flushCount = 0;
-    std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
     auto hasBundles = !streamWriterBundles.empty();
     bundlesLock.unlock();
+    std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
+    
     while (flushCount <= flushLimitInSamples) {
         if (sampleCount == AudioBuffer::AudioBufferCapacity) {
             if (hasBundles) {

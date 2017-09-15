@@ -34,8 +34,20 @@ namespace CAP {
          **/
         AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue);
         
-        
+        /**
+         Offloads samples that are in circular queue into streamwriters. ]
+         
+         @param streamWriters
+            List of stream writers
+         @param recommendedDelayInSeconds
+            Wait to write to stream writers until circular queue reaches this paramater
+         **/
         void startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint8_t recommendedDelayInSeconds);
+        
+        /**
+         Since audio processor owns circular queue, publish queue size to outside world
+         **/
+        std::size_t circularQueueSize();
         
         /**
          @param samples
@@ -75,16 +87,7 @@ namespace CAP {
          **/
         AudioProcessor operator=(const AudioProcessor&) = delete;
         
-        /**
-         Redirects audio processing to newly-provided stream writers, calls callback when old streamwriters are caught up
-         
-         @param priority
-            Vector of pointers to stream writers audio processor will be delegating write operation to.
-         
-         @param callback
-            Callback function to call when all stream writers are done
-         **/
-//        void schedulePostProcess(std::vector<std::shared_ptr<StreamWriter>> sw, std::function<void ()> callback);
+       
         
     
         
