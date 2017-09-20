@@ -39,10 +39,10 @@ namespace CAP {
          
          @param streamWriters
             List of stream writers
-         @param recommendedDelayInSeconds
-            Wait to write to stream writers until circular queue reaches this paramater
+         @param recommendedDelayInSamples
+            Wait to write to stream writers until circular queue size reaches recommendedDelayInSamples
          **/
-        void startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint8_t recommendedDelayInSeconds);
+        void startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint32_t recommendedDelayInSamples);
         
         /**
          Since audio processor owns circular queue, publish queue size to outside world
@@ -63,11 +63,10 @@ namespace CAP {
         
         
         /**
-         Stops listening for incoming samples. Blocks while waiting for the queues to be emptied.
-         
-         @param callback
-            Callback function to call when all stream writers are done
-         @return future
+         Stops consuming new samples and passing to the stream writers
+                  
+         @param flushCircularQueue
+            Instructs this object to pass buffered samples to current stream writer bundle
          **/
         void stopHighlight(bool flushCircularQueue);
         
@@ -87,9 +86,7 @@ namespace CAP {
          **/
         AudioProcessor operator=(const AudioProcessor&) = delete;
         
-       
         
-    
         
     protected:
     
@@ -101,9 +98,9 @@ namespace CAP {
             StreamWriterBundle& operator=(StreamWriterBundle&& other) = default;
             StreamWriterBundle(const StreamWriterBundle& other) = delete;
             StreamWriterBundle() = delete;
-            StreamWriterBundle(std::vector<std::shared_ptr<StreamWriter>> sw, std::uint8_t recommendedDelay_): streamWriters(sw), recommendedDelayInSeconds(recommendedDelay_) {}
+            StreamWriterBundle(std::vector<std::shared_ptr<StreamWriter>> sw, std::uint32_t recommendedDelay_): streamWriters(sw), recommendedDelayInSamples(recommendedDelay_) {}
             std::vector<std::shared_ptr<StreamWriter>> streamWriters;
-            std::uint8_t recommendedDelayInSeconds;
+            std::uint32_t recommendedDelayInSamples;
         };
         
         std::vector<std::shared_ptr<StreamWriterBundle>> streamWriterBundles;
@@ -116,10 +113,8 @@ namespace CAP {
         std::mutex circularQueueMutex;
         std::mutex bundlesMutex;
         
-//        void schedulePostProcess(std::function<void ()> callback);
         CAP::AudioProcessor::Status enqueueSamples(std::int16_t *samples, std::size_t nsamples);
         void flushCircularQueue(std::size_t flushLimitInSamples);
-        
     };
 }
 

@@ -47,7 +47,7 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     sw1->streamWriterObserver = swo1;
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
-    ap.startHighlight(vec, 15);
+    ap.startHighlight(vec, 15 * 44100);
     int16_t samples[100] = {};
     
     ap.processSamples(samples, 100);
@@ -71,17 +71,17 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     }
 
     
-    ap.stopHighlight(false);
+    ap.stopHighlight(true);
     
     while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
         this_thread::sleep_for(chrono::milliseconds(10));
     }
 
     ASSERT_EQ(0, *(sw1->numberOfBuffersWritten().get()));
-    ASSERT_EQ(101, *(sw2->numberOfBuffersWritten().get()));
+    ASSERT_EQ(200, *(sw2->numberOfBuffersWritten().get()));
 }
 
-
+/
 TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     auto bin = "AudioProcessorTest_StreamFailureCantOpenNonPriorityStreamKillIt.wav";
     remove(bin);
@@ -110,7 +110,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     vec.push_back(sw2);
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
-    ap.startHighlight(vec, 10);
+    ap.startHighlight(vec, 10 * 44100);
     int i = 0;
     bool nonpriorityError = false;
     while (i < 1000) {
@@ -165,7 +165,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
     
-    ap.startHighlight(vec, 15);
+    ap.startHighlight(vec, 15 * 44100);
     
     while (true) {
         int16_t t[3000];
@@ -225,7 +225,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
     
-    ap.startHighlight(sw, 10);
+    ap.startHighlight(sw, 10 * 44100);
     
     random_device rd;
     mt19937 mt(rd());
@@ -294,7 +294,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     vec.push_back(sw2);
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
-    ap.startHighlight(vec, 10);
+    ap.startHighlight(vec, 10 * 44100);
     
     random_device rd;
     mt19937 mt(rd());
@@ -408,6 +408,76 @@ TEST(AudioProcessorTest, TestNoHighlightError) {
     ASSERT_TRUE(noHighlightError);
     
 }
+
+
+TEST(AudioProcessorTest, TestBeginningOFAudioBeingAppendedToEndOfFile) {
+    
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    string raw = "AudioProcessorTest_TestBeginningOFAudioBeingAppendedToEndOfFile.wav";
+    remove(raw.c_str());
+    
+    
+    auto rawfile = unique_ptr<File>(new SystemFile(raw));
+    
+    
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto sw1 = make_shared<StreamWriter>(move(rawfile), move(pcmProcessor));
+    sw1->streamWriterObserver = swo1;
+    
+    
+    vector<shared_ptr<StreamWriter>> empty;
+    vector<shared_ptr<StreamWriter>> vec;
+    vec.push_back(sw1);
+    
+    
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<10>));
+    ap.startHighlight(empty, 5);
+    
+    
+    int16_t pcm[] = {1,2,3,4,5,6,7};
+    
+    
+    auto status = ap.processSamples(pcm, 7);
+    ASSERT_EQ(status, AudioProcessor::Status::Success);
+    
+    ap.stopHighlight(false);
+    ap.startHighlight(vec, 0);
+    ap.stopHighlight(true);
+    
+    while (!swo1->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+    
+    
+    
+    ifstream file(raw, ifstream::binary | ifstream::in);
+    
+    char byte;
+    ASSERT_TRUE(file.read(&byte, 44));
+    
+    ASSERT_TRUE(file.read(&byte, sizeof(int16_t)));
+    auto sample = reinterpret_cast<int16_t&>(byte);
+    ASSERT_EQ(sample, 3);
+    
+    ASSERT_TRUE(file.read(&byte, sizeof(int16_t)));
+    sample = reinterpret_cast<int16_t&>(byte);
+    ASSERT_EQ(sample, 4);
+    
+    ASSERT_TRUE(file.read(&byte, sizeof(int16_t)));
+    sample = reinterpret_cast<int16_t&>(byte);
+    ASSERT_EQ(sample, 5);
+    
+    ASSERT_TRUE(file.read(&byte, sizeof(int16_t)));
+    sample = reinterpret_cast<int16_t&>(byte);
+    ASSERT_EQ(sample, 6);
+    
+    ASSERT_TRUE(file.read(&byte, sizeof(int16_t)));
+    sample = reinterpret_cast<int16_t&>(byte);
+    ASSERT_EQ(sample, 7);
+    
+    ASSERT_FALSE(file.read(&byte, sizeof(int16_t)));
+}
+
 
 
 //TEST(AudioProcessorTest, TestStream) {

@@ -5,25 +5,37 @@ CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circu
     
 }
 
-void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint8_t recommendedDelayInSeconds) {
-    std::unique_lock<std::mutex> bundlesLock(bundlesMutex, std::defer_lock);
+void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint32_t recommendedDelayInSamples) {
+    
+    std::shared_ptr<StreamWriterBundle> oldBundle = nullptr;
+    auto newBundle = std::make_shared<StreamWriterBundle>(streamWriters, recommendedDelayInSamples);
     
     for(auto &sw: streamWriters) {
         sw->start();
     }
-    auto oldRecommmendedDelay = 0;
     
-    bundlesLock.lock();
-    if (streamWriterBundles.size() > 0) {
-        oldRecommmendedDelay = streamWriterBundles.back()->recommendedDelayInSeconds;
+    std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
+    if (!streamWriterBundles.empty()) {
+        oldBundle = streamWriterBundles.back();
     }
-    auto bundle = std::make_shared<StreamWriterBundle>(streamWriters, recommendedDelayInSeconds);
-    streamWriterBundles.push_back(bundle);
+    streamWriterBundles.push_back(newBundle);
     bundlesLock.unlock();
     
-    auto delayInSamples = oldRecommmendedDelay * 44100;
+    if (oldBundle != nullptr) {
+        recommendedDelayInSamples = oldBundle->recommendedDelayInSamples;
+        if (oldBundle->recommendedDelayInSamples > 0) {
+            auto qSize = circularQueueSize();
+            if (qSize <= oldBundle->recommendedDelayInSamples) {
+                flushCircularQueue(qSize);
+            } else {
+                flushCircularQueue(oldBundle->recommendedDelayInSamples);
+            }
+        }
+        
+    }
     
-    flushCircularQueue(delayInSamples);
+    
+    
 }
 
 std::size_t CAP::AudioProcessor::circularQueueSize() {
@@ -32,53 +44,43 @@ std::size_t CAP::AudioProcessor::circularQueueSize() {
 }
 
 CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *samples, std::size_t nsamples) {
-    
+    std::shared_ptr<StreamWriterBundle> currentBundle = nullptr;
     std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
+    
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
-    auto noBundles = streamWriterBundles.empty();
-    bundlesLock.unlock();
-    if (noBundles) {
-        queueLock.lock();
-        for (std::size_t i = 0; i < nsamples; i++) {
-            circularQueue->enqueue(samples[i]);
-        }
-        queueLock.unlock();
-        return Status::Success;
+    if (!streamWriterBundles.empty()) {
+        currentBundle = streamWriterBundles.back();
     }
-    bundlesLock.lock();
-    auto bundle = streamWriterBundles.back();
     bundlesLock.unlock();
     
-    
-    //bypass circular queue if no delay
-    if (bundle->recommendedDelayInSeconds == 0) {
-        return enqueueSamples(samples, nsamples);
-    }
     queueLock.lock();
     for (std::size_t i = 0; i < nsamples; i++) {
         circularQueue->enqueue(samples[i]);
     }
-    
     auto qIsFull = circularQueue->isFull();
+    auto qSize = circularQueue->size();
     queueLock.unlock();
     
     if (qIsFull) {
         return Status::FullBuffer;
     }
     
-    auto delayInSamples = bundle->recommendedDelayInSeconds * 44100;
+    if (currentBundle == nullptr) {
+        return Status::Success;
+    }
+    
+    
+    
+    auto delayInSamples = currentBundle->recommendedDelayInSamples;
     
     std::size_t dequeueCount = 0;
-    queueLock.lock();
-    auto qSize = circularQueue->size();
-    queueLock.unlock();
-    if (qSize > delayInSamples) {
-        ;
-    }
+    
+    
     while (qSize > delayInSamples && dequeueCount < nsamples) {
         queueLock.lock();
         auto oldestSample = circularQueue->front();
         circularQueue->dequeue();
+        qSize = circularQueue->size();
         queueLock.unlock();
         samples[dequeueCount] = oldestSample;
         dequeueCount++;
@@ -166,7 +168,7 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
             auto qSize = circularQueue->size();
             samples[sampleCount] = circularQueue->front();
             queueLock.unlock();
-            if (qSize == 1) {
+            if (qSize == 0) {
                 if (hasBundles) {
                     auto status = enqueueSamples(samples, sampleCount);
                     switch (status) {
@@ -180,8 +182,6 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
                             break;
                     }
                 }
-            } else if (qSize == 0) {
-                break;
             } else {
                 sampleCount++;
             }
@@ -195,19 +195,31 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
 }
 
 void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
-    if (flushQueue) {
-        std::unique_lock<std::mutex> queueLock(circularQueueMutex);
-        auto size = circularQueue->size();
-        queueLock.unlock();
-        flushCircularQueue(size);
-    }
+    
+    std::shared_ptr<StreamWriterBundle> currentBundle = nullptr;
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
-    if (streamWriterBundles.empty()) {
-        return;
+    if (!streamWriterBundles.empty()) {
+        currentBundle = streamWriterBundles.back();
     }
-    auto bundle = streamWriterBundles.back();
     bundlesLock.unlock();
-    for (auto &sw: bundle->streamWriters) {
-        sw->stop();
+    auto qSize = circularQueueSize();
+    
+    if (currentBundle != nullptr) {
+        if (flushQueue) {
+            if (qSize <= currentBundle->recommendedDelayInSamples) {
+                flushCircularQueue(qSize);
+            } else {
+                flushCircularQueue(currentBundle->recommendedDelayInSamples);
+            }
+        }
+        
+        
+        for (auto &sw: currentBundle->streamWriters) {
+            sw->stop();
+        }
+    } else {
+        if (flushQueue) {
+            flushCircularQueue(qSize);
+        }
     }
 }
