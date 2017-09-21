@@ -139,6 +139,10 @@ void CAP::StreamWriter::runLoop() {
     }
 }
 bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {
+    if (audioBuffer.size() == 0) {
+        *buffersWritten = *buffersWritten + 1;
+        return true;
+    }
     if (file->write(audioBuffer)) {
         *buffersWritten = *buffersWritten + 1;
         *samplesWritten = *samplesWritten + audioBuffer.size();
