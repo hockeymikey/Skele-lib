@@ -52,10 +52,10 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     
     ap.processSamples(samples, 100);
     
-    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(10, 44100));
     
-
-    auto sw2 = make_shared<StreamWriter>(move(file2), move(compressor));
+    
+    pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    auto sw2 = make_shared<StreamWriter>(move(file2), move(pcmProcessor));
     vector<shared_ptr<StreamWriter>> vec2;
     auto swo2 = make_shared<TestStreamWriterObserver>();
     sw2->streamWriterObserver = swo2;
@@ -77,11 +77,11 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
         this_thread::sleep_for(chrono::milliseconds(10));
     }
 
-    ASSERT_EQ(0, *(sw1->numberOfBuffersWritten().get()));
-    ASSERT_EQ(200, *(sw2->numberOfBuffersWritten().get()));
+    ASSERT_EQ(0, *(sw1->numberOfSamplesWritten().get()));
+    ASSERT_EQ(10100, *(sw2->numberOfSamplesWritten().get()));
 }
 
-/
+
 TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     auto bin = "AudioProcessorTest_StreamFailureCantOpenNonPriorityStreamKillIt.wav";
     remove(bin);

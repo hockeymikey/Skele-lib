@@ -1,5 +1,6 @@
 
 #include "audio_processor.hpp"
+#include <iostream>
 
 CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
     
@@ -22,14 +23,16 @@ void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWrite
     bundlesLock.unlock();
     
     if (oldBundle != nullptr) {
-        recommendedDelayInSamples = oldBundle->recommendedDelayInSamples;
         if (oldBundle->recommendedDelayInSamples > 0) {
             auto qSize = circularQueueSize();
-            if (qSize <= oldBundle->recommendedDelayInSamples) {
-                flushCircularQueue(qSize);
-            } else {
-                flushCircularQueue(oldBundle->recommendedDelayInSamples);
+            if (qSize > 0) {
+                if (qSize <= oldBundle->recommendedDelayInSamples) {
+                    flushCircularQueue(qSize);
+                } else {
+                    flushCircularQueue(oldBundle->recommendedDelayInSamples);
+                }
             }
+            
         }
         
     }
@@ -69,12 +72,9 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *sa
         return Status::Success;
     }
     
-    
-    
     auto delayInSamples = currentBundle->recommendedDelayInSamples;
     
     std::size_t dequeueCount = 0;
-    
     
     while (qSize > delayInSamples && dequeueCount < nsamples) {
         queueLock.lock();
@@ -205,7 +205,7 @@ void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
     auto qSize = circularQueueSize();
     
     if (currentBundle != nullptr) {
-        if (flushQueue) {
+        if (flushQueue && qSize > 0) {
             if (qSize <= currentBundle->recommendedDelayInSamples) {
                 flushCircularQueue(qSize);
             } else {
@@ -218,7 +218,7 @@ void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
             sw->stop();
         }
     } else {
-        if (flushQueue) {
+        if (flushQueue && qSize > 0) {
             flushCircularQueue(qSize);
         }
     }
