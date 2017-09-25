@@ -4,7 +4,7 @@ project(AudioProcessor)
 SET(BUILD_SHARED_LIBS OFF)
 
 if(UNIX)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -miphoneos-version-min=9.0")
 endif()
 
 # Download and unpack googletest at configure time
