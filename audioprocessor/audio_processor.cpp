@@ -202,7 +202,6 @@ bool CAP::AudioProcessor::isFileBeingProcessedAtFilepath(std::string filepath) {
     }
     for (auto &bundle: streamWriterBundles) {
         for(auto &sw: bundle->streamWriters) {
-            std::cout << sw->getFilePath() << "---" << filepath << std::endl;
             if (sw->getFilePath() == filepath && sw->isWriteable()) {
                 return true;
             }
