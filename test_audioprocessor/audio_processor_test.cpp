@@ -479,6 +479,44 @@ TEST(AudioProcessorTest, TestBeginningOFAudioBeingAppendedToEndOfFile) {
 }
 
 
+TEST(AudioProcessorTest, TestFileIsOpen) {
+    
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    string raw = "AudioProcessorTest_TestFileIsOpen.wav";
+    remove(raw.c_str());
+    
+    
+    auto rawfile = unique_ptr<File>(new SystemFile(raw));
+    
+    
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto sw1 = make_shared<StreamWriter>(move(rawfile), move(pcmProcessor));
+    sw1->streamWriterObserver = swo1;
+    
+    vector<shared_ptr<StreamWriter>> vec;
+    vec.push_back(sw1);
+    
+    
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<10>));
+    ap.startHighlight(vec, 5);
+    
+    
+    int16_t pcm[] = {1,2,3,4,5,6,7};
+    
+    
+    auto status = ap.processSamples(pcm, 7);
+    ASSERT_EQ(status, AudioProcessor::Status::Success);
+    
+    ASSERT_TRUE(ap.isFileBeingProcessedAtFilepath(raw));
+    
+    ap.stopHighlight(true);
+    
+    while (!swo1->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+    ASSERT_FALSE(ap.isFileBeingProcessedAtFilepath(raw));
+}
+
 
 //TEST(AudioProcessorTest, TestStream) {
 //    auto sampleRate = 44100;

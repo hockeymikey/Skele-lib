@@ -47,7 +47,7 @@ namespace CAP {
     class StreamWriter {
     public:
         
-        std::shared_ptr<AbstractStreamWriterObserver> streamWriterObserver;
+        std::shared_ptr<AbstractStreamWriterObserver> streamWriterObserver;        
         
         /**
          Let compiler generate move assignment operator
@@ -68,6 +68,13 @@ namespace CAP {
             Compressor to use before writing to file
          **/
         StreamWriter(std::shared_ptr<File> file, std::shared_ptr<SignalProcessor> signalProcessor);
+        
+        /**
+         Gets filepath of File that was passed to this object during construction
+         
+         @return string
+         **/
+        std::string getFilePath() const;
         
         
         /**
@@ -124,6 +131,7 @@ namespace CAP {
          **/
         std::shared_ptr<std::atomic_size_t> numberOfSamplesWritten() const;
         
+        
         /**
          Informs whether writer has been scheduled for stop/kill.
          **/
@@ -147,7 +155,7 @@ namespace CAP {
     protected:
     private:
         
-        std::shared_ptr<File> file;            
+        const std::shared_ptr<File> file;
         std::queue<AudioBuffer> bufferQueue;
         
         std::shared_ptr<SignalProcessor> signalProcessor; //pointer used to allow polymorphism

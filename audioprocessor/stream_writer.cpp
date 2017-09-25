@@ -29,7 +29,9 @@ CAP::StreamWriter::StreamWriter(std::shared_ptr<File> file_, std::shared_ptr<Sig
         *buffersWritten = 0;
         *samplesWritten = 0;
 }
-
+std::string CAP::StreamWriter::getFilePath() const {
+    return file->path();
+}
 bool CAP::StreamWriter::isWriteable() const {
     return !(*killLoop || *stopLoop);
 }
@@ -73,7 +75,6 @@ std::shared_ptr<std::atomic_size_t> CAP::StreamWriter::numberOfSamplesWritten() 
 }
 
 void CAP::StreamWriter::start() {
-    auto po = file->path();
     std::thread(&CAP::StreamWriter::runLoop, this).detach();
 }
 

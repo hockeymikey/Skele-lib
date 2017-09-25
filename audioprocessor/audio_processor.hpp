@@ -70,6 +70,15 @@ namespace CAP {
          **/
         void stopHighlight(bool flushCircularQueue);
         
+        /**
+         Needed to see whether post processing can be started on a file with path specified.
+         The file that is open is being processed, caller shoudn't mess with it yet.
+         
+         @param filepath
+             Path to the file of interest
+         **/
+        bool isFileBeingProcessedAtFilepath(std::string filepath);
+        
         
         /**
          No default constructor allowed

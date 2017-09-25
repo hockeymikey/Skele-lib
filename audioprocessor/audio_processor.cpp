@@ -194,6 +194,23 @@ void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
     }
 }
 
+bool CAP::AudioProcessor::isFileBeingProcessedAtFilepath(std::string filepath) {
+    
+    std::lock_guard<std::mutex> bundlesLock(bundlesMutex);
+    if (streamWriterBundles.empty()) {
+        return false;
+    }
+    for (auto &bundle: streamWriterBundles) {
+        for(auto &sw: bundle->streamWriters) {
+            if (sw->getFilePath() == filepath && sw->isWriteable()) {
+                return true;
+            }
+        }
+    }
+    
+    return false;
+}
+
 void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
     
     std::shared_ptr<StreamWriterBundle> currentBundle = nullptr;
