@@ -35,19 +35,24 @@ namespace CAP {
         AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue);
         
         /**
-         Offloads samples that are in circular queue into streamwriters. ]
+         Offloads samples that are in circular queue into streamwriters.
          
          @param streamWriters
             List of stream writers
          @param recommendedDelayInSamples
             Wait to write to stream writers until circular queue size reaches recommendedDelayInSamples
+         @return
+             Number of seconds of buffered audio that will be part of this highlight
          **/
-        void startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint32_t recommendedDelayInSamples);
+        double startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint32_t recommendedDelayInSamples);
+        
+        
         
         /**
-         Since audio processor owns circular queue, publish queue size to outside world
+         Since audio processor owns circular queue, publish queue size in samples to outside world.
          **/
         std::size_t circularQueueSize();
+                
         
         /**
          @param samples
@@ -110,6 +115,7 @@ namespace CAP {
             StreamWriterBundle(std::vector<std::shared_ptr<StreamWriter>> sw, std::uint32_t recommendedDelay_): streamWriters(sw), recommendedDelayInSamples(recommendedDelay_) {}
             std::vector<std::shared_ptr<StreamWriter>> streamWriters;
             std::uint32_t recommendedDelayInSamples;
+            std::chrono::system_clock::time_point startTime = std::chrono::system_clock::now();
         };
         
         std::vector<std::shared_ptr<StreamWriterBundle>> streamWriterBundles;

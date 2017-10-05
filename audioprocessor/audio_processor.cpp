@@ -1,13 +1,13 @@
 
 #include "audio_processor.hpp"
-#include <iostream>
+
 
 CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
-    
+
 }
 
-void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint32_t recommendedDelayInSamples) {
-    
+double CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWriter>> streamWriters, std::uint32_t recommendedDelayInSamples) {
+    double bufferedAudioInSeconds = 0.0;
     std::shared_ptr<StreamWriterBundle> oldBundle = nullptr;
     auto newBundle = std::make_shared<StreamWriterBundle>(streamWriters, recommendedDelayInSamples);
     
@@ -27,18 +27,26 @@ void CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWrite
             auto qSize = circularQueueSize();
             if (qSize > 0) {
                 if (qSize <= oldBundle->recommendedDelayInSamples) {
+//                    bufferedAudioInSeconds = qSize / 44100.0;
                     flushCircularQueue(qSize);
                 } else {
+//                    bufferedAudioInSeconds = oldBundle->recommendedDelayInSamples / 44100.0;
                     flushCircularQueue(oldBundle->recommendedDelayInSamples);
                 }
             }
             
+            std::chrono::duration<double, std::milli> timeSpan = std::chrono::system_clock::now() - oldBundle->startTime;
+            auto recommendedDelayInSeconds = oldBundle->recommendedDelayInSamples / 44100.0;
+            if (timeSpan.count() > recommendedDelayInSeconds * 1000) {
+                bufferedAudioInSeconds = recommendedDelayInSeconds;
+            } else {
+                bufferedAudioInSeconds = timeSpan.count() / 1000;
+            }
         }
         
     }
     
-    
-    
+    return bufferedAudioInSeconds;
 }
 
 std::size_t CAP::AudioProcessor::circularQueueSize() {

@@ -47,7 +47,8 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     sw1->streamWriterObserver = swo1;
     
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
-    ap.startHighlight(vec, 15 * 44100);
+    auto rewind = ap.startHighlight(vec, 15 * 44100);
+    ASSERT_EQ(0, rewind);
     int16_t samples[100] = {};
     
     ap.processSamples(samples, 100);
@@ -62,8 +63,10 @@ TEST(AudioProcessorTest, SchedulePostProcess) {
     vec2.push_back(sw2);
     
     ap.stopHighlight(false);
+    this_thread::sleep_for(chrono::milliseconds(100));
     
-    ap.startHighlight(vec2, 0);
+    rewind = ap.startHighlight(vec2, 0);
+    ASSERT_EQ(0.1, round( rewind * 100.0 ) / 100.0);
     
     for (uint8_t i = 0; i < 100; i++) {
         int16_t samples2[100] = {};
