@@ -35,12 +35,13 @@ double CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWri
                 }
             }
             
-            std::chrono::duration<double, std::milli> timeSpan = std::chrono::system_clock::now() - oldBundle->startTime;
+            auto timeSpan = std::chrono::system_clock::now() - oldBundle->startTime;
+            auto millis = std::chrono::duration_cast<std::chrono::milliseconds>(timeSpan).count();
             auto recommendedDelayInSeconds = oldBundle->recommendedDelayInSamples / 44100.0;
-            if (timeSpan.count() > recommendedDelayInSeconds * 1000) {
+            if (millis > recommendedDelayInSeconds * 1000.0) {
                 bufferedAudioInSeconds = recommendedDelayInSeconds;
             } else {
-                bufferedAudioInSeconds = timeSpan.count() / 1000;
+                bufferedAudioInSeconds = millis / 1000.0;
             }
         }
         
