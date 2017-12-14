@@ -21,9 +21,13 @@ namespace CAP {
          @param boolean
             Always returns true
          **/
-        bool process(const AudioBuffer& in, AudioBuffer& out);
+        bool process(const AudioBuffer& in, AudioBuffer& out) const;
         
-        void finalizeFileAtPath(std::string path);
+        bool process(const AudioBuffer& audioBuffer, unsigned char *rawBuffer, int& nbytes) const;
+        
+        bool usesRawBufferForProcessing() const;
+        
+        void finalizeFileAtPath(std::string path) const;
                 
         PcmProcessor() = default;
         

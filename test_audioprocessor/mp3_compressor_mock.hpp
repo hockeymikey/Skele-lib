@@ -17,8 +17,10 @@
 class Mp3CompressorMock : public CAP::SignalProcessor {
 public:
     
-    MOCK_METHOD2(process, bool (const CAP::AudioBuffer& in, CAP::AudioBuffer& out));
-    MOCK_METHOD1(finalizeFileAtPath, void (std::string path));
+    MOCK_CONST_METHOD2(process, bool (const CAP::AudioBuffer& in, CAP::AudioBuffer& out));
+    MOCK_CONST_METHOD3(process, bool (const CAP::AudioBuffer& audioBuffer, unsigned char *rawBuffer, int& nbytes));
+    MOCK_CONST_METHOD1(finalizeFileAtPath, void (std::string path));
+    MOCK_CONST_METHOD0(usesRawBufferForProcessing, bool());
   
 //    MOCK_METHOD2(do_process, bool (const CAP::AudioBuffer* in, CAP::AudioBuffer* out));
 //    

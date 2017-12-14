@@ -78,7 +78,7 @@ TEST(StreamWriterTest, TestCompressing) {
 
     std::ifstream in(filename, ifstream::ate | ifstream::binary);
 
-    int bitrate = 128000;
+    int bitrate = 128000 / 2;
     int bytesPerSecond = bitrate / 8;
 
     int filesize = seconds * bytesPerSecond;

@@ -133,17 +133,22 @@ void CAP::StreamWriter::runLoop() {
         bufferQueue.pop();
         queueLock.unlock();
         
-        AudioBuffer compressedBuffer;
-        if (!signalProcessor->process(audioBuffer, compressedBuffer) || !writeAudioBufferToFileStream(compressedBuffer)) {
-            *hasError = true;
+        
+        if (signalProcessor->usesRawBufferForProcessing()) {
+            std::int32_t nbytes = AudioBuffer::AudioBufferCapacity * 2;
+            std::uint8_t rawBuffer[nbytes];
+            if (!signalProcessor->process(audioBuffer, rawBuffer, nbytes) || !writeRawBufferToFileStream(rawBuffer, nbytes)) {
+                *hasError = true;
+            }
+        } else {
+            AudioBuffer compressedBuffer;
+            if (!signalProcessor->process(audioBuffer, compressedBuffer) || !writeAudioBufferToFileStream(compressedBuffer)) {
+                *hasError = true;
+            }
         }
     }
 }
 bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuffer) {
-    if (audioBuffer.size() == 0) {
-        *buffersWritten = *buffersWritten + 1;
-        return true;
-    }
     if (file->write(audioBuffer)) {
         *buffersWritten = *buffersWritten + 1;
         *samplesWritten = *samplesWritten + audioBuffer.size();
@@ -153,3 +158,12 @@ bool CAP::StreamWriter::writeAudioBufferToFileStream(const AudioBuffer &audioBuf
     return false;
 }
 
+bool CAP::StreamWriter::writeRawBufferToFileStream(unsigned char *rawBuffer, int nbytes) {
+    if (file->write(rawBuffer, nbytes)) {
+        *buffersWritten = *buffersWritten + 1;
+//        *samplesWritten = *samplesWritten + audioBuffer.size();
+        return true;
+    }
+    std::cerr << "error writing to file:" << file->path() << std::endl;
+    return false;
+}

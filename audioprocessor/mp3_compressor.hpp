@@ -24,10 +24,14 @@ namespace CAP {
          @param out
             Reference to buffer where compressed samples will be stored
          **/
-        bool process(const AudioBuffer& in, AudioBuffer& out);
+        bool process(const AudioBuffer& in, AudioBuffer& out) const;
+        
+        bool process(const AudioBuffer& audioBuffer, unsigned char *rawBuffer, int& nbytes) const;
         
         
-        void finalizeFileAtPath(std::string path);
+        void finalizeFileAtPath(std::string path) const;
+        
+        bool usesRawBufferForProcessing() const;
         
         /**
          Constructor

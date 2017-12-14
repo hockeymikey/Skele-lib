@@ -520,6 +520,69 @@ TEST(AudioProcessorTest, TestFileIsOpen) {
     ASSERT_FALSE(ap.isFileBeingProcessedAtFilepath(raw));
 }
 
+TEST(AudioProcessorTest, TestValidAudioOutput) {
+    
+    auto pcmProcessor = unique_ptr<SignalProcessor>(new PcmProcessor());
+    auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(9, 44100));
+    string raw1 = "AudioProcessorTest_TestValidAudio.wav";
+    string raw2 = "AudioProcessorTest_TestValidAudio.mp3";
+    remove(raw1.c_str());
+    remove(raw2.c_str());
+    
+    
+    auto rawfile = unique_ptr<File>(new SystemFile(raw1));
+    auto mp3file = unique_ptr<File>(new SystemFile(raw2));
+    
+    
+    auto swo1 = make_shared<TestStreamWriterObserver>();
+    auto swo2 = make_shared<TestStreamWriterObserver>();
+    auto sw1 = make_shared<StreamWriter>(move(rawfile), move(pcmProcessor));
+    sw1->streamWriterObserver = swo1;
+    
+    auto sw2 = make_shared<StreamWriter>(move(mp3file), move(compressor));
+    sw2->streamWriterObserver = swo2;
+    
+    vector<shared_ptr<StreamWriter>> vec;
+    vec.push_back(sw1);
+    vec.push_back(sw2);
+    
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<44100>));
+    ap.startHighlight(vec, 0);
+    
+    ifstream instream("test_wave.wav", ifstream::binary | ifstream::in);
+    char output;
+    char header[44];
+    instream.read(header, sizeof(char) * 44);
+    vector<int16_t> pcm;
+    int count = 44;
+    while (instream.read(&output, sizeof(int16_t))) {
+        int16_t outputSample = reinterpret_cast<int16_t&>(output);
+        pcm.push_back(outputSample);
+        count++;
+        if (pcm.size() == 4410) {
+            auto status = ap.processSamples(pcm.data(), pcm.size());
+            ASSERT_EQ(status, AudioProcessor::Status::Success);
+            pcm.clear();
+        }
+    }
+    
+    auto status = ap.processSamples(pcm.data(), pcm.size());
+    ASSERT_EQ(status, AudioProcessor::Status::Success);
+    
+
+    ap.stopHighlight(true);
+    
+    while (!swo1->streamWriterDidStop) {
+        this_thread::sleep_for(chrono::milliseconds(10));
+    }
+    
+    ifstream outputFile(raw1.c_str(), ifstream::binary | ifstream::ate);
+
+    ASSERT_NEAR(count * 2, outputFile.tellg(), 1000);
+}
+
+
+
 
 //TEST(AudioProcessorTest, TestStream) {
 //    auto sampleRate = 44100;

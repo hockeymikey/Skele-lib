@@ -8,6 +8,7 @@
 
 #include "pcm_processor.hpp"
 #include <fstream>
+#include <iostream>
 
 typedef struct wav_header {
     // RIFF Header
@@ -49,8 +50,11 @@ typedef struct wav_header {
 } wav_header;
 
 
+bool CAP::PcmProcessor::process(const AudioBuffer& audioBuffer, unsigned char *rawBuffer, int& nbytes) const {
+    return true;
+}
 
-bool CAP::PcmProcessor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
+bool CAP::PcmProcessor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) const {
     auto original = audioBuffer.getBuffer();
     auto pseudoProcessed = processed.getBuffer();
     
@@ -62,7 +66,11 @@ bool CAP::PcmProcessor::process(const AudioBuffer& audioBuffer, AudioBuffer& pro
     return true;
 };
 
-void CAP::PcmProcessor::finalizeFileAtPath(std::string path) {
+bool CAP::PcmProcessor::usesRawBufferForProcessing() const {
+    return false;
+}
+
+void CAP::PcmProcessor::finalizeFileAtPath(std::string path) const {
     
     std::ifstream originalFile(path, std::ifstream::binary | std::ifstream::ate);
     wav_header header;

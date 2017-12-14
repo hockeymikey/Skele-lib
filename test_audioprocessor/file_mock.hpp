@@ -17,6 +17,7 @@ public:
     MOCK_METHOD0(open, void ());
     MOCK_CONST_METHOD0(isOpen, bool());
     MOCK_METHOD1(write, bool(const CAP::AudioBuffer &audioBuffer));
+    MOCK_METHOD2(write, bool(unsigned char *rawBuffer, int nbytes));
     MOCK_CONST_METHOD0(path, std::string ());
     MOCK_METHOD0(close, void ());
 };

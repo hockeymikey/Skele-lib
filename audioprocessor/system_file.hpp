@@ -42,6 +42,8 @@ namespace CAP {
          **/
         bool write(const CAP::AudioBuffer &audioBuffer);
         
+        bool write(unsigned char *rawBuffer, int nbytes);
+        
         /**
          Getter for filepath
          

@@ -174,6 +174,7 @@ namespace CAP {
         
         //private methods
         bool writeAudioBufferToFileStream(const AudioBuffer &audioBuffer);
+        bool writeRawBufferToFileStream(unsigned char *rawBuffer, int nbytes);
         void runLoop();
     };
 }

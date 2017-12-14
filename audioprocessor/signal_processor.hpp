@@ -26,9 +26,13 @@ namespace CAP {
          
          @return success/failure
          **/
-        virtual bool process(const AudioBuffer& audioBuffer, AudioBuffer& processed) = 0;
+        virtual bool process(const AudioBuffer& audioBuffer, AudioBuffer& processed) const = 0;
         
-        virtual void finalizeFileAtPath(std::string path) = 0;
+        virtual bool process(const AudioBuffer& audioBuffer, unsigned char *rawBuffer, int& nbytes) const = 0;
+        
+        virtual bool usesRawBufferForProcessing() const = 0;
+        
+        virtual void finalizeFileAtPath(std::string path) const = 0;
         
         virtual ~SignalProcessor() {
             

@@ -5,4 +5,4 @@ ADD_EXECUTABLE(${target} mp3_compressor_mock.hpp audio_processor_test.hpp audio_
 
 TARGET_LINK_LIBRARIES(${target} audioprocessor gtest_main gmock)
 
-#file(COPY test_wave.wav DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
+file(COPY test_wave.wav DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)

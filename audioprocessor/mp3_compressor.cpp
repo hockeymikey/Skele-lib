@@ -30,14 +30,14 @@ CAP::Mp3Compressor::~Mp3Compressor() {
     lame_close(lame);
 }
 
-void CAP::Mp3Compressor::finalizeFileAtPath(std::string path) {
+void CAP::Mp3Compressor::finalizeFileAtPath(std::string path) const {
     
 }
 
-bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) {
-    auto compressedBuffer = reinterpret_cast<unsigned char *>(processed.getBuffer());    
-    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), audioBuffer.getBuffer(), audioBuffer.size(), compressedBuffer, processed.AudioBufferCapacity);
- 
+bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, unsigned char *rawBuffer, int& nbytes) const {
+    
+    int output = lame_encode_buffer(lame, audioBuffer.getBuffer(), nullptr, audioBuffer.size(), rawBuffer, nbytes);
+    
     switch (output) {
         case -1:
             std::cerr << "Lame buffer is too small" << std::endl;
@@ -55,6 +55,14 @@ bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& pr
             break;
     }
     
-    processed.setSize(output);
+    nbytes = output;
     return true;
-};
+}
+
+bool CAP::Mp3Compressor::process(const AudioBuffer& audioBuffer, AudioBuffer& processed) const {
+    return true;
+}
+
+bool CAP::Mp3Compressor::usesRawBufferForProcessing() const {
+    return true;
+}

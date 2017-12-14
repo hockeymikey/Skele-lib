@@ -20,6 +20,11 @@ bool CAP::SystemFile::isOpen() const {
     return filestream.is_open();
 }
 
+bool CAP::SystemFile::write(unsigned char *rawBuffer, int nbytes) {
+    filestream.write((char *)rawBuffer, nbytes);
+    return !filestream.bad();
+}
+
 bool CAP::SystemFile::write(const CAP::AudioBuffer &audioBuffer) {
     auto b = reinterpret_cast<const char *>(audioBuffer.getBuffer());
     filestream.write(b, audioBuffer.size() * sizeof(*audioBuffer.getBuffer()));
