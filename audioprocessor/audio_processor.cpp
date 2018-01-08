@@ -1,6 +1,6 @@
 
 #include "audio_processor.hpp"
-
+#include <algorithm>
 
 CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
 
@@ -110,6 +110,7 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *sa
     std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
     auto bundle = streamWriterBundles.back();
     bundlesLock.unlock();
+    std::vector<std::string> nonPriorityStreamWritersToRemove;
     for(auto it = bundle->streamWriters.begin(); it != bundle->streamWriters.end(); ++it) {
         auto sw = *it;
         auto qSize = sw->queueSize();
@@ -133,6 +134,7 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *sa
                 if (result != Status::PriorityWriterError) {
                     result = Status::NonPriorityWriterError;
                 }
+                nonPriorityStreamWritersToRemove.push_back(sw->getFilePath());
             } else {
                 if (sw->isWriteable()) {
                     sw->enqueue(AudioBuffer(samples, nsamples));
@@ -142,6 +144,16 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *sa
             }
         }
     }
+    
+    for(auto it = nonPriorityStreamWritersToRemove.begin(); it != nonPriorityStreamWritersToRemove.end(); ++it) {
+        auto targetFilePath = *it;
+        auto removeItemIfNeeded = std::remove_if(bundle->streamWriters.begin(), bundle->streamWriters.end(), [targetFilePath](std::shared_ptr<StreamWriter> streamWriter){
+            return streamWriter->getFilePath() == targetFilePath;
+        });
+        bundle->streamWriters.erase(removeItemIfNeeded);
+    }
+    
+    
     
     return result;
 }

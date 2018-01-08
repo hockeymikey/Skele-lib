@@ -129,7 +129,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     
     ap.stopHighlight(true);
     
-    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidKill) {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
 
@@ -188,7 +188,7 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     
     ap.stopHighlight(true);
     
-    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+    while (!swo1->streamWriterDidKill || !swo2->streamWriterDidKill) {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
     
@@ -257,7 +257,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
     ap.stopHighlight(true);
     
     
-    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidKill) {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
     
@@ -334,7 +334,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     
     ap.stopHighlight(true);
     
-    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidStop) {
+    while (!swo1->streamWriterDidStop || !swo2->streamWriterDidKill) {
         this_thread::sleep_for(chrono::milliseconds(100));
     }
     
