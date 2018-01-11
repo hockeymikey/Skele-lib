@@ -115,12 +115,15 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
     ap.startHighlight(vec, 10 * 44100);
     int i = 0;
-    bool nonpriorityError = false;
+    bool nonPriorityKilled = false;
+    bool nonPriorityNotRunning = false;
     while (i < 1000) {
         int16_t t[3000];
         auto result = ap.processSamples(t, 3000);
-        if (result == AudioProcessor::Status::NonPriorityWriterError) {
-            nonpriorityError = true;
+        if (result == AudioProcessor::Status::NonPriorityStreamWriterKilledDueToOverflow) {
+            nonPriorityKilled = true;
+        } else if (result == AudioProcessor::Status::NonPriorityStreamWriterNotRunning) {
+            nonPriorityNotRunning = true;
         }
         i++;
         this_thread::sleep_for(chrono::microseconds(10));
@@ -136,7 +139,8 @@ TEST(AudioProcessorTest, StreamFailureCantOpenNonPriorityStreamKillIt) {
     
     ASSERT_EQ(sw1->queueSize(), 0);
     ASSERT_GE(sw2->queueSize(), 0);
-    ASSERT_TRUE(nonpriorityError);
+    ASSERT_TRUE(nonPriorityKilled);
+    ASSERT_TRUE(nonPriorityNotRunning);
     
 }
 
@@ -169,11 +173,15 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
     
     ap.startHighlight(vec, 15 * 44100);
-    
+    bool writersKilled = false;
+    bool notRunningReported = false;
     while (true) {
         int16_t t[3000];
         auto result = ap.processSamples(t, 3000);
-        if (result == AudioProcessor::Status::PriorityWriterError) {
+        if (result == AudioProcessor::Status::PriorityStreamWriterKilledDueToOverflow) {
+            writersKilled = true;
+        } else if (result == AudioProcessor::Status::StreamWritersNotRunning) {
+            notRunningReported = true;
             break;
         }
 //        int i = 0;
@@ -194,6 +202,8 @@ TEST(AudioProcessorTest, StreamFailureCantOpenPriorityFileKillAllStreams) {
     
     ASSERT_TRUE(swo1->streamWriterDidKill);
     ASSERT_TRUE(swo2->streamWriterDidKill);
+    ASSERT_TRUE(writersKilled);
+    ASSERT_TRUE(notRunningReported);
 }
 
 TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
@@ -245,9 +255,9 @@ TEST(AudioProcessorTest, TestKillCompressorDueToLame) {
         
         if (i % (4410) == 0) {
             auto result = ap.processSamples(buffer, 4410);
-            if (result == CAP::AudioProcessor::Status::NonPriorityWriterError) {
+            if (result == CAP::AudioProcessor::Status::NonPriorityStreamWriterKilledDueToOverflow) {
                 compressorErrorOccurred = true;
-            } else if (result == CAP::AudioProcessor::Status::PriorityWriterError) {
+            } else if (result == CAP::AudioProcessor::Status::PriorityStreamWriterKilledDueToOverflow) {
                 rawWriterErrorOccurred = true;
             }
             this_thread::sleep_for(chrono::microseconds(10));
@@ -318,15 +328,15 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
             size_t nsamples = 4410;
             
             auto status = ap.processSamples(buffer, nsamples);
-            if (status == AudioProcessor::Status::NonPriorityWriterError) {
+            if (status == AudioProcessor::Status::NonPriorityStreamWriterKilledDueToOverflow) {
                 compressorErrorOccurred = true;
                 compressedBufferCount += 1;
             } else if (status == AudioProcessor::Status::FullBuffer) {
                 fullBuffer = true;
-                break;
-            } else if (status == AudioProcessor::Status::PriorityWriterError) {
+//                break;
+            } else if (status == AudioProcessor::Status::PriorityStreamWriterKilledDueToOverflow) {
                 priorityError = true;
-                break;
+//                break;
             }
             bufferCount += 1;
         }

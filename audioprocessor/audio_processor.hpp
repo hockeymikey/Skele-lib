@@ -17,10 +17,12 @@ namespace CAP {
     public:
         
         enum class Status {
-            Success,
-            PriorityWriterError,
-            NonPriorityWriterError,
-            FullBuffer
+            Success, //audio processor was able to process samples with no issues
+            FullBuffer, //audio processor buffer is full, can't keep up taking off samples off of buffer
+            PriorityStreamWriterKilledDueToOverflow, //priority writer has issues (can't open file, cant write to file, slow I/O), processor kills it
+            NonPriorityStreamWriterKilledDueToOverflow, //non-priority writer has issues (can't open file, cant write to file, slow I/O, priority writer killed), processor kills it
+            StreamWritersNotRunning, //all writers cant accept new samples because that have been killed
+            NonPriorityStreamWriterNotRunning //can't accept new samples, cause it has been killed
         };
         
         
@@ -60,9 +62,8 @@ namespace CAP {
          @param nsamples
             Number of samples in array
          
-         @return ProcessResult
-            If result is priority writer error, the method will discard the samples.
-            If the result is non-priority writer error, priority will keep writing non-priority samples will be discarded
+         @return Status
+
          **/
         CAP::AudioProcessor::Status processSamples(std::int16_t *samples, std::size_t nsamples);
         
