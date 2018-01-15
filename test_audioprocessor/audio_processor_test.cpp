@@ -359,7 +359,7 @@ TEST(AudioProcessorTest, TestKillCompressorDueToSlow) {
     ASSERT_EQ(bufferCount, nsamples / 4410);
 }
 
-
+/*
 TEST(AudioProcessorTest, TestNoHighlightError) {
     auto sampleRate = 44100;
     auto compressor = unique_ptr<SignalProcessor>(new Mp3Compressor(9, sampleRate));
@@ -421,7 +421,7 @@ TEST(AudioProcessorTest, TestNoHighlightError) {
     ASSERT_TRUE(noHighlightError);
     
 }
-
+*/
 
 TEST(AudioProcessorTest, TestBeginningOFAudioBeingAppendedToEndOfFile) {
     
@@ -455,6 +455,7 @@ TEST(AudioProcessorTest, TestBeginningOFAudioBeingAppendedToEndOfFile) {
     
     ap.stopHighlight(false);
     ap.startHighlight(vec, 0);
+
     ap.stopHighlight(true);
     
     while (!swo1->streamWriterDidStop) {

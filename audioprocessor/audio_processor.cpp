@@ -3,6 +3,10 @@
 #include <algorithm>
 
 CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
+    
+}
+
+CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_, std::uint32_t streamWriterKillThresholdInSamples_): circularQueue(std::move(circularQueue_)), streamWriterKillThreshold(streamWriterKillThresholdInSamples_ / AudioBuffer::AudioBufferCapacity) {
 
 }
 
@@ -28,10 +32,10 @@ double CAP::AudioProcessor::startHighlight(std::vector<std::shared_ptr<StreamWri
             if (qSize > 0) {
                 if (qSize <= oldBundle->recommendedDelayInSamples) {
 //                    bufferedAudioInSeconds = qSize / 44100.0;
-                    flushCircularQueue(qSize);
+                    flushCircularQueue(qSize, newBundle);
                 } else {
 //                    bufferedAudioInSeconds = oldBundle->recommendedDelayInSamples / 44100.0;
-                    flushCircularQueue(oldBundle->recommendedDelayInSamples);
+                    flushCircularQueue(oldBundle->recommendedDelayInSamples, newBundle);
                 }
             }
             
@@ -96,7 +100,7 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *sa
     }
     
     if (dequeueCount > 0) {
-        return enqueueSamples(samples, dequeueCount);
+        return enqueueSamples(samples, dequeueCount, currentBundle);
     }
     
     return Status::Success;
@@ -104,18 +108,15 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::processSamples(std::int16_t *sa
 
 
 
-CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *samples, std::size_t nsamples) {
+CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *samples, std::size_t nsamples, std::shared_ptr<StreamWriterBundle> currentBundle) {
     
     auto result = Status::Success;
-    std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
-    auto bundle = streamWriterBundles.back();
-    bundlesLock.unlock();
     
-    for(auto it = bundle->streamWriters.begin(); it != bundle->streamWriters.end(); ++it) {
+    for(auto it = currentBundle->streamWriters.begin(); it != currentBundle->streamWriters.end(); ++it) {
         auto sw = *it;
         auto qSize = sw->queueSize();
         
-        if (it == bundle->streamWriters.begin()) { //find priority writer
+        if (it == currentBundle->streamWriters.begin()) { //find priority writer
             if (qSize >= streamWriterKillThreshold) {
                 //priority writer has issues, kill all
                 result = Status::PriorityStreamWriterKilledDueToOverflow;
@@ -151,41 +152,29 @@ CAP::AudioProcessor::Status CAP::AudioProcessor::enqueueSamples(std::int16_t *sa
     return result;
 }
 
-void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples) {
+void CAP::AudioProcessor::flushCircularQueue(std::size_t flushLimitInSamples, std::shared_ptr<StreamWriterBundle> bundle) {
     std::int16_t samples[AudioBuffer::AudioBufferCapacity];
     std::size_t sampleCount = 0;
-    std::size_t flushCount = 0;
-    std::unique_lock<std::mutex> bundlesLock(bundlesMutex);
-    auto hasBundles = !streamWriterBundles.empty();
-    bundlesLock.unlock();
     std::unique_lock<std::mutex> queueLock(circularQueueMutex, std::defer_lock);
     
-    while (flushCount <= flushLimitInSamples) {
-        if (sampleCount == AudioBuffer::AudioBufferCapacity) {
-            if (hasBundles) {
-                enqueueSamples(samples, sampleCount);
-            }
-            
-            sampleCount = 0;
-        } else {
-            queueLock.lock();
-            auto qSize = circularQueue->size();
-            samples[sampleCount] = circularQueue->front();
-            queueLock.unlock();
-            if (qSize == 0) {
-                if (hasBundles) {
-                    enqueueSamples(samples, sampleCount);                    
-                }
-            } else {
-                sampleCount++;
-            }
-        }
+    while (flushLimitInSamples > 0) {
         
         queueLock.lock();
+        samples[sampleCount] = circularQueue->front();
         circularQueue->dequeue();
         queueLock.unlock();
-        flushCount++;
+        sampleCount++;
+        
+        
+        if (sampleCount == AudioBuffer::AudioBufferCapacity || flushLimitInSamples - 1 == 0) {
+            enqueueSamples(samples, sampleCount, bundle);
+            sampleCount = 0;
+        }
+        
+        flushLimitInSamples--;
+        
     }
+    
 }
 
 bool CAP::AudioProcessor::isFileBeingProcessedAtFilepath(std::string filepath) {
@@ -213,24 +202,20 @@ void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
         currentBundle = streamWriterBundles.back();
     }
     bundlesLock.unlock();
+    
     auto qSize = circularQueueSize();
     
-    if (currentBundle != nullptr) {
-        if (flushQueue && qSize > 0) {
-            if (qSize <= currentBundle->recommendedDelayInSamples) {
-                flushCircularQueue(qSize);
-            } else {
-                flushCircularQueue(currentBundle->recommendedDelayInSamples);
-            }
+    if (flushQueue && qSize > 0) {
+        auto currentRecommendedDelayInSamples = currentBundle->recommendedDelayInSamples;
+        if (qSize <= currentRecommendedDelayInSamples) {
+            flushCircularQueue(qSize, currentBundle);
+        } else {
+            flushCircularQueue(currentRecommendedDelayInSamples, currentBundle);
         }
-        
-        
-        for (auto &sw: currentBundle->streamWriters) {
-            sw->stop();
-        }
-    } else {
-        if (flushQueue && qSize > 0) {
-            flushCircularQueue(qSize);
-        }
+    }
+    
+    
+    for (auto &sw: currentBundle->streamWriters) {
+        sw->stop();
     }
 }

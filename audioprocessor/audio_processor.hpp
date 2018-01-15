@@ -21,7 +21,7 @@ namespace CAP {
             FullBuffer, //audio processor buffer is full, can't keep up taking off samples off of buffer
             PriorityStreamWriterKilledDueToOverflow, //priority writer has issues (can't open file, cant write to file, slow I/O), processor kills it
             NonPriorityStreamWriterKilledDueToOverflow, //non-priority writer has issues (can't open file, cant write to file, slow I/O, priority writer killed), processor kills it
-            StreamWritersNotRunning, //all writers cant accept new samples because that have been killed
+            StreamWritersNotRunning, //none of the writers can accept new samples because that have been killed/stoppped
             NonPriorityStreamWriterNotRunning //can't accept new samples, cause it has been killed
         };
         
@@ -33,8 +33,13 @@ namespace CAP {
             Pointer to cicrular queue
          @param recommendedDelay
             Processing delay
+         @param streamWriterKillThresholdInSamples
+            how many samples should be queued up waiting to be processed before processor decides to kill it
          **/
+        AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue, std::uint32_t streamWriterKillThresholdInSamples);
+        
         AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue);
+        
         
         /**
          Offloads samples that are in circular queue into streamwriters.
@@ -129,8 +134,8 @@ namespace CAP {
         std::mutex circularQueueMutex;
         std::mutex bundlesMutex;
         
-        CAP::AudioProcessor::Status enqueueSamples(std::int16_t *samples, std::size_t nsamples);
-        void flushCircularQueue(std::size_t flushLimitInSamples);
+        CAP::AudioProcessor::Status enqueueSamples(std::int16_t *samples, std::size_t nsamples, std::shared_ptr<StreamWriterBundle> currentBundle);
+        void flushCircularQueue(std::size_t flushLimitInSamples, std::shared_ptr<StreamWriterBundle> bundle);
     };
 }
 
