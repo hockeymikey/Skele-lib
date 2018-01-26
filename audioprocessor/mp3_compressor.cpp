@@ -9,6 +9,7 @@
 #include "mp3_compressor.hpp"
 #include <cstdlib>
 #include <iostream>
+#include "lame.h"
 
 CAP::Mp3Compressor::Mp3Compressor(int compressionQuality, int sampleRate):  CAP::SignalProcessor() {
     lame = lame_init();

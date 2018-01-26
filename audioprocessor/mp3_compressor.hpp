@@ -10,7 +10,11 @@
 #define Mp3Compressor_hpp
 
 #include "signal_processor.hpp"
-#include "lame.h"
+
+struct lame_global_struct;
+typedef struct lame_global_struct lame_global_flags;
+typedef lame_global_flags *lame_t;
+
 
 namespace CAP {
     class Mp3Compressor: public SignalProcessor {
