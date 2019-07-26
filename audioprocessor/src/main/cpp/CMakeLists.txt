@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
-set(target audioprocessor)
+project(cogi_audioprocessor)
+set(target cogi_audioprocessor)
 set(libap_SRCS
     audio_processor.hpp
     audio_processor.cpp
@@ -19,7 +20,7 @@ set(libap_SRCS
 
 
 # Declare the library
-add_library(${target} STATIC ${libap_SRCS})
+add_library(${target} SHARED ${libap_SRCS})
 
 
 # Specify here the include directories exported

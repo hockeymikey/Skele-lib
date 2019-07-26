@@ -15,6 +15,6 @@ ADD_EXECUTABLE(${target}
     test_stream_writer_observer.hpp)
 
 
-TARGET_LINK_LIBRARIES(${target} audioprocessor gtest_main gmock)
+TARGET_LINK_LIBRARIES(${target} cogi_audioprocessor gtest_main gmock)
 
 #file(COPY test_wave.wav DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/Debug)
