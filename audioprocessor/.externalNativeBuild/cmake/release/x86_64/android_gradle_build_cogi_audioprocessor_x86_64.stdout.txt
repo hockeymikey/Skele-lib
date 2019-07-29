@@ -1,0 +1,39 @@
+[1/6] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/audio_processor.cpp.o
+[2/6] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/mp3_compressor.cpp.o
+[3/6] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/stream_writer.cpp.o
+[4/6] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/system_file.cpp.o
+[5/6] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/pcm_processor.cpp.o
+In file included from C:\Users\hockeymikey\Steeple\Cogi\cogi-audio-processor\audioprocessor\src\main\cpp\audio_processor.cpp:2:
+In file included from ../../../../src/main/cpp/audio_processor.hpp:5:
+In file included from ../../../../src/main/cpp/stream_writer.hpp:12:
+In file included from ../../../../src/main/cpp/audio_buffer.hpp:12:
+In file included from C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\string:505:
+In file included from C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\string_view:176:
+In file included from C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\__string:57:
+In file included from C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\algorithm:644:
+C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\memory:2339:5: warning: delete called on 'CAP::AbstractCircularQueue' that is abstract but has non-virtual destructor [-Wdelete-non-virtual-dtor]
+    delete __ptr;
+    ^
+C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\memory:2652:7: note: in instantiation of member function 'std::__ndk1::default_delete<CAP::AbstractCircularQueue>::operator()' requested here
+      __ptr_.second()(__tmp);
+      ^
+C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1\memory:2606:19: note: in instantiation of member function 'std::__ndk1::unique_ptr<CAP::AbstractCircularQueue, std::__ndk1::default_delete<CAP::AbstractCircularQueue> >::reset' requested here
+  ~unique_ptr() { reset(); }
+                  ^
+C:\Users\hockeymikey\Steeple\Cogi\cogi-audio-processor\audioprocessor\src\main\cpp\audio_processor.cpp:4:22: note: in instantiation of member function 'std::__ndk1::unique_ptr<CAP::AbstractCircularQueue, std::__ndk1::default_delete<CAP::AbstractCircularQueue> >::~unique_ptr' requested here
+CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
+                     ^
+1 warning generated.
+C:\Users\hockeymikey\Steeple\Cogi\cogi-audio-processor\audioprocessor\src\main\cpp\mp3_compressor.cpp:84:20: warning: using the result of an assignment as a condition without parentheses [-Wparentheses]
+    while (nb_read = read_samples(input_file, input)) {
+           ~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\Users\hockeymikey\Steeple\Cogi\cogi-audio-processor\audioprocessor\src\main\cpp\mp3_compressor.cpp:84:20: note: place parentheses around the assignment to silence this warning
+    while (nb_read = read_samples(input_file, input)) {
+                   ^
+           (                                        )
+C:\Users\hockeymikey\Steeple\Cogi\cogi-audio-processor\audioprocessor\src\main\cpp\mp3_compressor.cpp:84:20: note: use '==' to turn this assignment into an equality comparison
+    while (nb_read = read_samples(input_file, input)) {
+                   ^
+                   ==
+1 warning generated.
+[6/6] Linking CXX static library src\main\cpp\libcogi_audioprocessor.a

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Gradle: javazoom:jlayer:1.0.1@jar">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/repository/javazoom/jlayer/1.0.1/jlayer-1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

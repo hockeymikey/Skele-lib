@@ -1,0 +1,23 @@
+-- Check for working C compiler: C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe
+-- Check for working C compiler: C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang.exe -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe
+-- Check for working CXX compiler: C:/Users/hockeymikey/AppData/Local/Android/sdk/ndk-bundle/toolchains/llvm/prebuilt/windows-x86_64/bin/clang++.exe -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found PythonInterp: C:/Python27/python.exe (found version "2.7.14") 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Looking for pthread_create
+-- Looking for pthread_create - found
+-- Found Threads: TRUE  
+-- Found Java: C:/Program Files/Java/jdk1.8.0_101/bin/java.exe (found version "1.8.0.101") 
+-- Found JNI: NotNeeded  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/hockeymikey/Steeple/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86

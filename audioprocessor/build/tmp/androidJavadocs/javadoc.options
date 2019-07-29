@@ -1,0 +1,12 @@
+-classpath 'C:\\Users\\hockeymikey\\AppData\\Local\\Android\\Sdk\\platforms\\android-28\\android.jar;C:\\Users\\hockeymikey\\.m2\\repository\\javazoom\\jlayer\\1.0.1\\jlayer-1.0.1.jar;C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\build\\intermediates\\compile_only_not_namespaced_r_class_jar\\release\\generateReleaseRFile\\R.jar'
+-d 'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\build\\docs\\javadoc'
+-doctitle 'audioprocessor 3.10.2 API'
+-quiet 
+-windowtitle 'audioprocessor 3.10.2 API'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\AudioProcessor.java'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\Mp3Encoder.java'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\Mp3PcmStream.java'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\PcmStream.java'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\SampleEnergyStream.java'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\WaveformVector.java'
+'C:\\Users\\hockeymikey\\Steeple\\Cogi\\cogi-audio-processor\\audioprocessor\\src\\main\\java\\com\\cogi\\audioprocessor\\WavPcmStream.java'
