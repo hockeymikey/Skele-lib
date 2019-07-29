@@ -20,7 +20,7 @@ set(libap_SRCS
 
 
 # Declare the library
-add_library(${target} SHARED ${libap_SRCS})
+add_library(${target} STATIC ${libap_SRCS})
 
 
 # Specify here the include directories exported

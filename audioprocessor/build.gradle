@@ -9,7 +9,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
-        group = "com.cogi.audioprocessor"
+        group = "com.cogi.android"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.*'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -93,7 +93,7 @@ project.afterEvaluate {
                 artifact bundleReleaseAar
             }
         }
-
+        //gradlew publish
         repositories {
             maven {
                 credentials {
