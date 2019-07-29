@@ -78,38 +78,37 @@ task androidSourcesJar(type: Jar) {
     classifier = 'sources'
     from android.sourceSets.main.java.srcDirs
 }
-publishing {
-    repositories {
-        maven {
-            credentials {
-                /*
-                create or edit a file at $userhome/.gradle/gradle.properties and set:
-                    cogiNexusUsername=yourusername
-                    cogiNexusPassword=yourpassword
-                */
-                username cogiNexusUsername
-                password cogiNexusPassword
-            }
-            if (version.toString().contains('SNAPSHOT'))
-                url 'https://nexus.cogi.com/repository/cogi-maven-snapshots/'
-            else
-                url 'https://nexus.cogi.com/repository/cogi-maven-releases/'
-        }
-    }
-}
 
 //gradlew publishToMavenLocal
 project.afterEvaluate {
     publishing {
         publications {
             maven(MavenPublication) {
-                setGroupId  'com.cogi.audioprocessor'
+                setGroupId  'com.cogi.android'
                 version android.defaultConfig.versionName
                 setArtifactId 'audioprocessor'
                 
                 artifact androidJavadocsJar
                 artifact androidSourcesJar
                 artifact bundleReleaseAar
+            }
+        }
+
+        repositories {
+            maven {
+                credentials {
+                    /*
+                    create or edit a file at $userhome/.gradle/gradle.properties and set:
+                        cogiNexusUsername=yourusername
+                        cogiNexusPassword=yourpassword
+                    */
+                    username cogiNexusUsername
+                    password cogiNexusPassword
+                }
+                if (version.toString().contains('SNAPSHOT'))
+                    url 'https://nexus.cogi.com/repository/cogi-maven-snapshots/'
+                else
+                    url 'https://nexus.cogi.com/repository/cogi-maven-releases/'
             }
         }
     }
