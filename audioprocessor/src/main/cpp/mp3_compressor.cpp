@@ -20,7 +20,7 @@ CAP::Mp3Compressor::Mp3Compressor(int compressionQuality, int sampleRate):  CAP:
     if (!lame) {
         throw std::runtime_error("Cannot instantiate lame");
     }
-    
+
     if (lame_set_mode(lame, MPEG_mode::MONO) == -1 ||
         lame_set_num_channels(lame, 1) == -1 ||
         lame_set_in_samplerate(lame, sampleRate) == -1 ||
@@ -56,18 +56,6 @@ CAP::Mp3Compressor::~Mp3Compressor() {
 void CAP::Mp3Compressor::finalizeFileAtPath(std::string path) {
     
 }
-int CAP::Mp3Compressor::read_samples(FILE *input_file, short *input) {
-    int nb_read;
-    nb_read = fread(input, 1, sizeof(short), input_file) / sizeof(short);
-
-    int i = 0;
-    while (i < nb_read) {
-        input[i] = be_short(input[i]);
-        i++;
-    }
-
-    return nb_read;
-}
 
 void CAP::Mp3Compressor::encodeFile(std::string sourcePath, std::string targetPath) {
 
@@ -75,22 +63,24 @@ void CAP::Mp3Compressor::encodeFile(std::string sourcePath, std::string targetPa
     input_file = fopen(sourcePath.c_str(), "rb");
     output_file = fopen(targetPath.c_str(), "wb");
 
-    short input[BUFFER_SIZE];
-    char output[BUFFER_SIZE];
-    int nb_read = 0;
-    int nb_write = 0;
-    int nb_total = 0;
+    int PCM_SIZE = BUFFER_SIZE*3;
+    int MP3_SIZE = BUFFER_SIZE*3;
 
-    while (nb_read = read_samples(input_file, input)) {
-        nb_write = lame_encode_buffer(lame, input, input, nb_read,
-                                      reinterpret_cast<unsigned char *>(output),
-                                      BUFFER_SIZE);
-        fwrite(output, nb_write, 1, output_file);
-        nb_total += nb_write;
-    }
+    short input[PCM_SIZE];
+    unsigned char output[MP3_SIZE];
 
-    nb_write = lame_encode_flush(lame, reinterpret_cast<unsigned char *>(output), BUFFER_SIZE);
-    fwrite(output, nb_write, 1, output_file);
+    int read, write;
+
+    do {
+        read = fread(input, sizeof(short int), PCM_SIZE, input_file);
+
+        if (read == 0) {
+            write = lame_encode_flush(lame,output, MP3_SIZE);
+        } else {
+            write = lame_encode_buffer(lame, input, input, read, output, MP3_SIZE);
+        }
+        fwrite(output, write, 1, output_file);
+    } while (read != 0);
 
     fclose(input_file);
     fclose(output_file);
