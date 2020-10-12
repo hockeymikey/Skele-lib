@@ -1,28 +1,22 @@
-set(target audioprocessor)
-set(libap_SRCS
-    audio_processor.hpp
-    audio_processor.cpp
-    stream_writer.hpp
-    stream_writer.cpp
-    signal_processor.hpp
-    mp3_compressor.hpp
-    mp3_compressor.cpp
-    audio_buffer.hpp
-    file.hpp
-    system_file.hpp
-    system_file.cpp	
-    pcm_processor.hpp
-    pcm_processor.cpp
-    circular_queue.hpp
-)
+cmake_minimum_required(VERSION 3.6 FATAL_ERROR)
+project(AudioProcessor)
 
+SET(BUILD_SHARED_LIBS ON)
 
-# Declare the library
-add_library(${target} STATIC ${libap_SRCS})
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DANDROID_STL=c++_shared")
+add_compile_options(-Wno-sign-conversion)
 
+# Google Test checked out from https://github.com/google/googletest
+add_subdirectory(libs/googletest)
+# Prevent overriding the parent project's compiler/linker
+# settings on Windows
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+enable_testing()
 
-# Specify here the include directories exported
-# by this library
-target_include_directories(${target} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+# LAME-CMAKE checked out from https://github.com/Iunusov/libmp3lame-CMAKE
+add_subdirectory(libs/libmp3lame)
 
-target_link_libraries(${target} mp3lame)
+add_subdirectory(src/main/cpp)
+add_subdirectory(src/test/cpp)
+add_subdirectory(src/main/jni)
