@@ -152,14 +152,14 @@ public class Mp3Encoder implements Callable<File> {
 									int shorts = shortBuffer.remaining();
 									shortBuffer.get(inputSamples, 0, shorts);
 									
-									bytesEncoded = AudioProcessor.encode(lamePointer, inputSamples, mp3Buf, inputSamples.length);
+									bytesEncoded = Mp3Compressor.encode(lamePointer, inputSamples, mp3Buf, inputSamples.length);
 									
 									if (bytesEncoded > 0) {
 										fos.write(mp3Buf, 0, bytesEncoded);
 										fos.flush();
 									}
 								} else {
-									bytesEncoded = AudioProcessor.flush(lamePointer, mp3Buf);
+									bytesEncoded = Mp3Compressor.flush(lamePointer, mp3Buf);
 									if (bytesEncoded > 0) {
 										fos.write(bytesEncoded);
 										fos.flush();

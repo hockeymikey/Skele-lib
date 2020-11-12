@@ -16,6 +16,8 @@ set(libap_SRCS
     pcm_processor.hpp
     pcm_processor.cpp
     circular_queue.hpp
+    stream_writer_observer.cpp
+        audio_processor_bridge.cpp
 )
 
 

@@ -17,8 +17,10 @@ set(target cogi_jni_audioprocessor)
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(jni_SRCS
-        wrapper.cpp
-        wrapper.hpp)
+        mp3_compressor_wrapper.cpp
+        mp3_compressor_wrapper.hpp
+        audio_processor_wrapper.cpp
+        audio_processor_wrapper.hpp)
 
 add_library(${target} SHARED ${jni_SRCS})
 

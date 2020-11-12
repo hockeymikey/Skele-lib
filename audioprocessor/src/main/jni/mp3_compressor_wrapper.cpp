@@ -1,14 +1,14 @@
-#include "wrapper.hpp"
+#include "mp3_compressor_wrapper.hpp"
 
 using namespace CAP;
 
-extern "C" JNIEXPORT jlong JNICALL Java_com_cogi_audioprocessor_AudioProcessor_init(JNIEnv* env, jclass cls, jint sampleRate, jint quality) {
+extern "C" JNIEXPORT jlong JNICALL Java_com_cogi_audioprocessor_Mp3Compressor_init(JNIEnv* env, jclass cls, jint sampleRate, jint quality) {
     Mp3Compressor *compressor = new Mp3Compressor(quality, sampleRate);
 
     return (jlong) compressor;
 }
 
-extern "C" JNIEXPORT jint JNICALL Java_com_cogi_audioprocessor_AudioProcessor_encode(JNIEnv* env, jclass cls, jlong pointer, jshortArray inputBuff, jbyteArray mp3buff, jint samples) {
+extern "C" JNIEXPORT jint JNICALL Java_com_cogi_audioprocessor_Mp3Compressor_encode(JNIEnv* env, jclass cls, jlong pointer, jshortArray inputBuff, jbyteArray mp3buff, jint samples) {
     Mp3Compressor *compressor = (Mp3Compressor*) pointer;
     jboolean isCopy = false;
     jshort *bufferIn = env->GetShortArrayElements(inputBuff, &isCopy);
@@ -23,7 +23,7 @@ extern "C" JNIEXPORT jint JNICALL Java_com_cogi_audioprocessor_AudioProcessor_en
     return result;
 }
 
-extern "C" JNIEXPORT jint JNICALL Java_com_cogi_audioprocessor_AudioProcessor_flush(JNIEnv* env, jclass cls, jlong pointer, jbyteArray outputBuff) {
+extern "C" JNIEXPORT jint JNICALL Java_com_cogi_audioprocessor_Mp3Compressor_flush(JNIEnv* env, jclass cls, jlong pointer, jbyteArray outputBuff) {
     jboolean isCopy = false;
     jbyte *mp3buff = env->GetByteArrayElements(outputBuff, &isCopy);
     Mp3Compressor *compressor = (Mp3Compressor*) pointer;
@@ -33,12 +33,12 @@ extern "C" JNIEXPORT jint JNICALL Java_com_cogi_audioprocessor_AudioProcessor_fl
     return result;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_cogi_audioprocessor_AudioProcessor_close(JNIEnv* env, jclass cls, jlong pointer) {
+extern "C" JNIEXPORT void JNICALL Java_com_cogi_audioprocessor_Mp3Compressor_close(JNIEnv* env, jclass cls, jlong pointer) {
     Mp3Compressor *compressor = (Mp3Compressor*) pointer;
     delete compressor;
 }
 
-extern "C" JNIEXPORT void JNICALL Java_com_cogi_audioprocessor_AudioProcessor_encodeFile(JNIEnv *env, jclass jcls, jlong pointer, jstring in_source_path, jstring in_target_path) {
+extern "C" JNIEXPORT void JNICALL Java_com_cogi_audioprocessor_Mp3Compressor_encodeFile(JNIEnv *env, jclass jcls, jlong pointer, jstring in_source_path, jstring in_target_path) {
     Mp3Compressor *compressor = (Mp3Compressor*) pointer;
 
     jboolean isCopy = false;

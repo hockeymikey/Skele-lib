@@ -192,3 +192,7 @@ void CAP::AudioProcessor::stopHighlight(bool flushQueue) {
         sw->stop();
     }
 }
+
+double CAP::AudioProcessor::circularQueueSize() {
+    return circularQueue->size();
+}
