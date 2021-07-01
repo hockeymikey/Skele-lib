@@ -1,0 +1,7 @@
+Executable : /home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja
+arguments : 
+-C
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a
+cogi_jni_skele
+jvmArgs : 
+

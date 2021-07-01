@@ -1,0 +1,8 @@
+[1/1] Re-running CMake...
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/arm64-v8a
+[1/4] Building CXX object libs/googletest/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o
+[2/4] Linking CXX shared library lib/libgtest.so
+[3/4] Building CXX object libs/googletest/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o
+[4/4] Linking CXX shared library lib/libgtest_main.so

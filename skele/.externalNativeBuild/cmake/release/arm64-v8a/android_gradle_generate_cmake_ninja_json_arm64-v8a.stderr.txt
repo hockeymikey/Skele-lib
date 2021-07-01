@@ -1,0 +1,10 @@
+CMake Error at src/main/cpp/CMakeLists.txt:25 (add_library):
+  Cannot find source file:
+
+    audio_processor_bridge.cpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .m .M .mm .h .hh .h++ .hm .hpp
+  .hxx .in .txx
+
+
+CMake Error: CMake can not determine linker language for target: cogi_audioprocessor

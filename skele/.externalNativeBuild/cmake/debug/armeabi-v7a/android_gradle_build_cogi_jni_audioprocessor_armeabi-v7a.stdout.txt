@@ -1,0 +1,222 @@
+[1/1] Re-running CMake...
+-- Found PythonInterp: /usr/bin/python (found version "2.7.18") 
+-- Found Java: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java (found version "1.8.0.265") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/armeabi-v7a
+[1/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/vbrquantize.c.o
+[2/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/util.c.o
+[3/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/fft.c.o
+[4/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/lame.c.o
+[5/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/presets.c.o
+[6/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/id3tag.c.o
+[7/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/newmdct.c.o
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:170:5: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+    SET_OPTION(quant_comp, set->quant_comp, -1);
+    ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:36:16: note: expanded from macro 'SET_OPTION'
+    else if (!(fabs(lame_get_##opt(gfp) - def) > 0)) \
+               ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:171:5: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+    SET_OPTION(quant_comp_short, set->quant_comp_s, -1);
+    ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:36:16: note: expanded from macro 'SET_OPTION'
+    else if (!(fabs(lame_get_##opt(gfp) - def) > 0)) \
+               ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:280:5: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+    SET_OPTION(quant_comp, abr_switch_map[r].quant_comp, -1);
+    ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:36:16: note: expanded from macro 'SET_OPTION'
+    else if (!(fabs(lame_get_##opt(gfp) - def) > 0)) \
+               ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:281:5: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+    SET_OPTION(quant_comp_short, abr_switch_map[r].quant_comp_s, -1);
+    ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c:36:16: note: expanded from macro 'SET_OPTION'
+    else if (!(fabs(lame_get_##opt(gfp) - def) > 0)) \
+               ^
+4 warnings generated.
+[8/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/set_get.c.o
+[9/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/quantize.c.o
+[10/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/quantize_pvt.c.o
+[11/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/version.c.o
+[12/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/gain_analysis.c.o
+[13/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/takehiro.c.o
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/lame.c:628:13: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+        if (EQ(gfp->compression_ratio, 0))
+            ^
+../../../../libs/libmp3lame/libmp3lame/machine.h:168:12: note: expanded from macro 'EQ'
+(fabs(a) > fabs(b)) \
+           ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/lame.c:628:13: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+../../../../libs/libmp3lame/libmp3lame/machine.h:170:23: note: expanded from macro 'EQ'
+ : (fabs((a)-(b)) <= (fabs(b) * 1e-6f)))
+                      ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/lame.c:1596:13: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+        if (NEQ(RadioGain, GAIN_NOT_ENOUGH_SAMPLES)) {
+            ^
+../../../../libs/libmp3lame/libmp3lame/machine.h:175:20: note: expanded from macro 'NEQ'
+#define NEQ(a,b) (!EQ(a,b))
+                   ^
+../../../../libs/libmp3lame/libmp3lame/machine.h:168:12: note: expanded from macro 'EQ'
+(fabs(a) > fabs(b)) \
+           ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/lame.c:1596:13: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+../../../../libs/libmp3lame/libmp3lame/machine.h:175:20: note: expanded from macro 'NEQ'
+#define NEQ(a,b) (!EQ(a,b))
+                   ^
+../../../../libs/libmp3lame/libmp3lame/machine.h:170:23: note: expanded from macro 'EQ'
+ : (fabs((a)-(b)) <= (fabs(b) * 1e-6f)))
+                      ^
+4 warnings generated.
+[14/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/encoder.c.o
+[15/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/VbrTag.c.o
+[16/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/reservoir.c.o
+[17/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/mpglib_interface.c.o
+[18/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/tables.c.o
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/set_get.c:1719:72: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+        assert((0 <= gfp->interChRatio && gfp->interChRatio <= 1.0) || EQ(gfp->interChRatio, -1));
+                                                                       ^
+../../../../libs/libmp3lame/libmp3lame/machine.h:168:12: note: expanded from macro 'EQ'
+(fabs(a) > fabs(b)) \
+           ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/set_get.c:1719:72: warning: using floating point absolute value function 'fabs' when argument is of integer type [-Wabsolute-value]
+../../../../libs/libmp3lame/libmp3lame/machine.h:170:23: note: expanded from macro 'EQ'
+ : (fabs((a)-(b)) <= (fabs(b) * 1e-6f)))
+                      ^
+2 warnings generated.
+[19/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/psymodel.c.o
+[20/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/vector/xmm_quantize_sub.c.o
+[21/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/libmp3lame/bitstream.c.o
+[22/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/tabinit.c.o
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:263:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[0], 8u, 0xffu);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:265:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[1], 3u, 7);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:266:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[1], 1u, (cfg->samplerate_out < 16000) ? 0 : 1);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:267:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[1], 1u, cfg->version);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:268:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[1], 2u, 4 - 3);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:269:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[1], 1u, (!cfg->error_protection) ? 1 : 0);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:271:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[2], 4u, eov->bitrate_index);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:272:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[2], 2u, cfg->samplerate_index);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:273:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[2], 1u, 0);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:274:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[2], 1u, cfg->extension);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:276:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[3], 2u, cfg->mode);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:277:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[3], 2u, eov->mode_ext);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:278:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[3], 1u, cfg->copyright);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:279:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[3], 1u, cfg->original);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:280:5: warning: shifting a negative signed value is undefined [-Wshift-negative-value]
+    SHIFT_IN_BITS_VALUE(buffer[3], 2u, cfg->emphasis);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:254:68: note: expanded from macro 'SHIFT_IN_BITS_VALUE'
+#define SHIFT_IN_BITS_VALUE(x,n,v) ( x = (x << (n)) | ( (v) & ~(-1 << (n)) ) )
+                                                                ~~ ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c:430:23: warning: comparison of array 'pTagData->toc' not equal to a null pointer is always true [-Wtautological-pointer-compare]
+        if (pTagData->toc != NULL) {
+            ~~~~~~~~~~^~~    ~~~~
+16 warnings generated.
+[23/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/layer3.c.o
+[24/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/common.c.o
+[25/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/dct64_i386.c.o
+[26/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/layer2.c.o
+[27/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/decode_i386.c.o
+[28/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/layer1.c.o
+[29/38] Building C object libs/libmp3lame/CMakeFiles/mp3lame.dir/mpglib/interface.c.o
+[30/38] Linking C static library libs/libmp3lame/libmp3lame.a
+[31/38] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/pcm_processor.cpp.o
+[32/38] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/system_file.cpp.o
+[33/38] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/mp3_compressor.cpp.o
+[34/38] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/stream_writer.cpp.o
+[35/38] Building CXX object src/main/cpp/CMakeFiles/cogi_audioprocessor.dir/audio_processor.cpp.o
+In file included from /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/audio_processor.cpp:2:
+In file included from ../../../../src/main/cpp/audio_processor.hpp:5:
+In file included from ../../../../src/main/cpp/stream_writer.hpp:12:
+In file included from ../../../../src/main/cpp/audio_buffer.hpp:12:
+In file included from /home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/string:504:
+In file included from /home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/string_view:175:
+In file included from /home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/__string:56:
+In file included from /home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/algorithm:643:
+/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/memory:2338:5: warning: delete called on 'CAP::AbstractCircularQueue' that is abstract but has non-virtual destructor [-Wdelete-abstract-non-virtual-dtor]
+    delete __ptr;
+    ^
+/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/memory:2593:7: note: in instantiation of member function 'std::__ndk1::default_delete<CAP::AbstractCircularQueue>::operator()' requested here
+      __ptr_.second()(__tmp);
+      ^
+/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/memory:2547:19: note: in instantiation of member function 'std::__ndk1::unique_ptr<CAP::AbstractCircularQueue, std::__ndk1::default_delete<CAP::AbstractCircularQueue> >::reset' requested here
+  ~unique_ptr() { reset(); }
+                  ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/audio_processor.cpp:4:22: note: in instantiation of member function 'std::__ndk1::unique_ptr<CAP::AbstractCircularQueue, std::__ndk1::default_delete<CAP::AbstractCircularQueue> >::~unique_ptr' requested here
+CAP::AudioProcessor::AudioProcessor(std::unique_ptr<AbstractCircularQueue> circularQueue_): circularQueue(std::move(circularQueue_)) {
+                     ^
+1 warning generated.
+[36/38] Linking CXX static library src/main/cpp/libcogi_audioprocessor.a
+[37/38] Building CXX object src/main/jni/CMakeFiles/cogi_jni_audioprocessor.dir/mp3_compressor_wrapper.cpp.o
+[38/38] Linking CXX shared library ../../../../build/intermediates/cmake/debug/obj/armeabi-v7a/libcogi_jni_audioprocessor.so

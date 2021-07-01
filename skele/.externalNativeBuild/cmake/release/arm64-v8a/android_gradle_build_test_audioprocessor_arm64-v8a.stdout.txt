@@ -1,0 +1,25 @@
+[1/8] Building CXX object libs/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+[2/8] Linking CXX shared library lib/libgmock.so
+[3/8] Building CXX object src/test/cpp/CMakeFiles/test_audioprocessor.dir/stream_writer_test.cpp.o
+[4/8] Building CXX object src/test/cpp/CMakeFiles/test_audioprocessor.dir/audio_processor_test.cpp.o
+[5/8] Building CXX object src/test/cpp/CMakeFiles/test_audioprocessor.dir/audio_buffer_test.cpp.o
+[6/8] Building CXX object src/test/cpp/CMakeFiles/test_audioprocessor.dir/mp3_compressor_test.cpp.o
+[7/8] Building CXX object src/test/cpp/CMakeFiles/test_audioprocessor.dir/circular_queue_test.cpp.o
+In file included from /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/audio_processor_test.cpp:1:
+In file included from ../../../../libs/googletest/googlemock/include/gmock/gmock.h:59:
+In file included from ../../../../libs/googletest/googlemock/include/gmock/gmock-actions.h:44:
+In file included from /home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/algorithm:643:
+/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/memory:2338:5: warning: delete called on 'CAP::AbstractCircularQueue' that is abstract but has non-virtual destructor [-Wdelete-abstract-non-virtual-dtor]
+    delete __ptr;
+    ^
+/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/memory:2593:7: note: in instantiation of member function 'std::__ndk1::default_delete<CAP::AbstractCircularQueue>::operator()' requested here
+      __ptr_.second()(__tmp);
+      ^
+/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include/c++/v1/memory:2547:19: note: in instantiation of member function 'std::__ndk1::unique_ptr<CAP::AbstractCircularQueue, std::__ndk1::default_delete<CAP::AbstractCircularQueue> >::reset' requested here
+  ~unique_ptr() { reset(); }
+                  ^
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/audio_processor_test.cpp:49:23: note: in instantiation of member function 'std::__ndk1::unique_ptr<CAP::AbstractCircularQueue, std::__ndk1::default_delete<CAP::AbstractCircularQueue> >::~unique_ptr' requested here
+    AudioProcessor ap(unique_ptr<AbstractCircularQueue>(new CircularQueue<31 * 44100>));
+                      ^
+1 warning generated.
+[8/8] Linking CXX executable src/test/cpp/test_audioprocessor

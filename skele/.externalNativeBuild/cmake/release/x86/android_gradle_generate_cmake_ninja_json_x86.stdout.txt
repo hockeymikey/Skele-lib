@@ -1,0 +1,5 @@
+-- Found PythonInterp: /usr/bin/python (found version "2.7.18") 
+-- Found Java: /usr/lib/jvm/java-1.8.0-openjdk-amd64/bin/java (found version "1.8.0.272") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/x86

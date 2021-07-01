@@ -1,0 +1,4 @@
+[1/4] Building CXX object libs/googletest/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o
+[2/4] Linking CXX shared library lib/libgmockd.so
+[3/4] Building CXX object libs/googletest/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o
+[4/4] Linking CXX shared library lib/libgmock_maind.so

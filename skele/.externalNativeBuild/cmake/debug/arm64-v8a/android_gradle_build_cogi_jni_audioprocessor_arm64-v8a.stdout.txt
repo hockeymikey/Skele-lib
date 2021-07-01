@@ -1,0 +1,2 @@
+[1/2] Building CXX object src/main/jni/CMakeFiles/cogi_jni_audioprocessor.dir/mp3_compressor_wrapper.cpp.o
+[2/2] Linking CXX shared library ../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libcogi_jni_audioprocessor.so

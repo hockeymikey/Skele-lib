@@ -1,0 +1,8 @@
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/CMakeFiles/edit_cache.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp/CMakeFiles/rebuild_cache.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp/CMakeFiles/edit_cache.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp/CMakeFiles/cogi_skele.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/jni/CMakeFiles/rebuild_cache.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/jni/CMakeFiles/edit_cache.dir
+/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/jni/CMakeFiles/cogi_jni_skele.dir

@@ -1,0 +1,65 @@
+{
+  "buildFiles": [
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googlemock/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googletest/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target clean"
+  ],
+  "libraries": {
+    "test_audioprocessor-Debug-x86": {
+      "artifactName": "test_audioprocessor",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target test_audioprocessor",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/src/test/cpp/test_audioprocessor"
+    },
+    "gtest-Debug-x86": {
+      "artifactName": "gtest",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target gtest",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/lib/libgtestd.so"
+    },
+    "gmock-Debug-x86": {
+      "artifactName": "gmock",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target gmock",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/lib/libgmockd.so"
+    },
+    "gmock_main-Debug-x86": {
+      "artifactName": "gmock_main",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target gmock_main",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/lib/libgmock_maind.so"
+    },
+    "mp3lame-Debug-x86": {
+      "artifactName": "mp3lame",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target mp3lame",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/libs/libmp3lame/libmp3lame.a"
+    },
+    "cogi_jni_audioprocessor-Debug-x86": {
+      "artifactName": "cogi_jni_audioprocessor",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target cogi_jni_audioprocessor",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/build/intermediates/cmake/debug/obj/x86/libcogi_jni_audioprocessor.so"
+    },
+    "cogi_audioprocessor-Debug-x86": {
+      "artifactName": "cogi_audioprocessor",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target cogi_audioprocessor",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/src/main/cpp/libcogi_audioprocessor.a"
+    },
+    "gtest_main-Debug-x86": {
+      "artifactName": "gtest_main",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86 --target gtest_main",
+      "abi": "x86",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/x86/lib/libgtest_maind.so"
+    }
+  }
+}

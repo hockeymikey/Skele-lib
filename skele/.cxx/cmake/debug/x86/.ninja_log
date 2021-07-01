@@ -1,0 +1,10 @@
+# ninja log v5
+0	7	0	clean	e69bdba5f6bb1fd8
+0	5	0	clean	e69bdba5f6bb1fd8
+0	5	0	clean	e69bdba5f6bb1fd8
+0	75	1614705185	build.ninja	d63a85c068c92f4d
+0	4	0	clean	e69bdba5f6bb1fd8
+0	246	1614727923	src/main/cpp/CMakeFiles/cogi_skele.dir/skele.cpp.o	ebad37385ee969d0
+1	248	1614727923	src/main/jni/CMakeFiles/cogi_jni_skele.dir/skele_wrapper.cpp.o	5c519259361290ec
+247	258	1614727923	src/main/cpp/libcogi_skele.a	ccc3aad4ff24b55f
+258	309	1614727923	../../../../build/intermediates/cmake/debug/obj/x86/libcogi_jni_skele.so	edc5d2a07d7c86ff

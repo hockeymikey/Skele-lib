@@ -1,0 +1,266 @@
+[
+  {
+    "level": "INFO",
+    "message": "Start JSON generation. Platform version: 26 min SDK version: arm64-v8a",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "No CMake version was specified in build.gradle. Using default version 3.10.2.",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "Trying to locate CMake in local SDK repository.",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "- CMake found in SDK at \u0027/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404\u0027 had version \u00273.10.2\u0027",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "CMake \u00273.18.1\u0027 found in SDK did not match requested version \u00273.10.2\u0027.",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "rebuilding JSON /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/android_gradle_build.json due to:",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "- a dependent build file changed",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "  - /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "keeping json folder \u0027/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a\u0027 but regenerating project",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "executing cmake Executable : /home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/cmake\narguments : \n-H/home/hockeymikey/Work/RivieraNexus/skele-lib/skele\n-DCMAKE_CXX_FLAGS\u003d-std\u003dc++11 -fexceptions\n-DCMAKE_FIND_ROOT_PATH\u003d/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/prefab/arm64-v8a/prefab\n-DCMAKE_BUILD_TYPE\u003dRelease\n-DCMAKE_TOOLCHAIN_FILE\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake\n-DANDROID_ABI\u003darm64-v8a\n-DANDROID_NDK\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448\n-DANDROID_PLATFORM\u003dandroid-26\n-DCMAKE_ANDROID_ARCH_ABI\u003darm64-v8a\n-DCMAKE_ANDROID_NDK\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/release/obj/arm64-v8a\n-DCMAKE_MAKE_PROGRAM\u003d/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_SYSTEM_VERSION\u003d26\n-B/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a\n-GNinja\njvmArgs : \n\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "[\u003d\u003d \"CMake Server\" \u003d\u003d[\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"supportedProtocolVersions\":[{\"isExperimental\":true,\"major\":1,\"minor\":1}],\"type\":\"hello\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "]\u003d\u003d \"CMake Server\" \u003d\u003d]\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\n  \"type\": \"handshake\",\n  \"cookie\": \"gradle-cmake-cookie\",\n  \"protocolVersion\": {\n    \"isExperimental\": true,\n    \"major\": 1,\n    \"minor\": 1\n  },\n  \"sourceDirectory\": \"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele\",\n  \"buildDirectory\": \"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a\",\n  \"generator\": \"Ninja\"\n}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"gradle-cmake-cookie\",\"inReplyTo\":\"handshake\",\"type\":\"reply\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\n  \"type\": \"configure\",\n  \"cacheArguments\": [\n    \"\",\n    \"-DCMAKE_CXX_FLAGS\\u003d-std\\u003dc++11 -fexceptions\",\n    \"-DCMAKE_FIND_ROOT_PATH\\u003d/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/prefab/arm64-v8a/prefab\",\n    \"-DCMAKE_BUILD_TYPE\\u003dRelease\",\n    \"-DCMAKE_TOOLCHAIN_FILE\\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake\",\n    \"-DANDROID_ABI\\u003darm64-v8a\",\n    \"-DANDROID_NDK\\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448\",\n    \"-DANDROID_PLATFORM\\u003dandroid-26\",\n    \"-DCMAKE_ANDROID_ARCH_ABI\\u003darm64-v8a\",\n    \"-DCMAKE_ANDROID_NDK\\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448\",\n    \"-DCMAKE_EXPORT_COMPILE_COMMANDS\\u003dON\",\n    \"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\\u003d/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/release/obj/arm64-v8a\",\n    \"-DCMAKE_MAKE_PROGRAM\\u003d/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja\",\n    \"-DCMAKE_SYSTEM_NAME\\u003dAndroid\",\n    \"-DCMAKE_SYSTEM_VERSION\\u003d26\"\n  ]\n}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\\n  An old version of CMake is being used that cannot automatically detect\\n  compiler attributes.  Compiler identification is being bypassed.  Some\\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\\n  CMake\u0027s built-in compiler identification.\\nCall Stack (most recent call first):\\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\\n  .cxx/cmake/release/arm64-v8a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\\n  CMakeLists.txt:2 (project)\\n\\n\",\"title\":\"Warning\",\"type\":\"message\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "WARN",
+    "message": "CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake\u0027s built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  .cxx/cmake/release/arm64-v8a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  CMakeLists.txt:2 (project)\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":599,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":899,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Found Java: /usr/lib/jvm/java-8-openjdk/bin/java (found version \\\"1.8.0_292\\\") \",\"type\":\"message\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "Found Java: /usr/lib/jvm/java-8-openjdk/bin/java (found version \"1.8.0_292\") ",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":933,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":966,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"progressCurrent\":1000,\"progressMaximum\":1000,\"progressMessage\":\"Configuring\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"message\":\"Configuring done\",\"type\":\"message\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "Configuring done",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"configure\",\"type\":\"reply\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"type\":\"compute\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"progressCurrent\":333,\"progressMaximum\":1000,\"progressMessage\":\"Generating\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"progressCurrent\":666,\"progressMaximum\":1000,\"progressMessage\":\"Generating\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"progressCurrent\":1000,\"progressMaximum\":1000,\"progressMessage\":\"Generating\",\"progressMinimum\":0,\"type\":\"progress\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"message\":\"Generating done\",\"type\":\"message\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "Generating done",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"cookie\":\"\",\"inReplyTo\":\"compute\",\"type\":\"reply\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"type\":\"cmakeInputs\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"buildFiles\":[{\"isCMake\":true,\"isTemporary\":false,\"sources\":[\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindJava.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindJavaCommon.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindJNI.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindJavaCommon.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake\",\"../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake\"]},{\"isCMake\":false,\"isTemporary\":false,\"sources\":[\"CMakeLists.txt\",\"../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake\",\"../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake\",\"../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/platforms.cmake\",\"../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/compiler_id.cmake\",\"src/main/cpp/CMakeLists.txt\",\"src/main/jni/CMakeLists.txt\"]},{\"isCMake\":false,\"isTemporary\":true,\"sources\":[\".cxx/cmake/release/arm64-v8a/CMakeFiles/3.10.2/CMakeSystem.cmake\",\".cxx/cmake/release/arm64-v8a/CMakeFiles/3.10.2/CMakeCCompiler.cmake\",\".cxx/cmake/release/arm64-v8a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake\"]}],\"cmakeRootDirectory\":\"/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10\",\"cookie\":\"\",\"inReplyTo\":\"cmakeInputs\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele\",\"type\":\"reply\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"type\":\"codemodel\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "{\"configurations\":[{\"name\":\"Release\",\"projects\":[{\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a\",\"name\":\"Skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele\",\"targets\":[{\"artifacts\":[\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/release/obj/arm64-v8a/libcogi_jni_skele.so\"],\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/jni\",\"fileGroups\":[{\"isGenerated\":false,\"sources\":[\"skele_wrapper.hpp\"]},{\"compileFlags\":\"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE\u003d2 -Wformat -Werror\u003dformat-security  -std\u003dc++11 -fexceptions -O2 -DNDEBUG  -fPIC  \",\"defines\":[\"cogi_jni_skele_EXPORTS\"],\"includePath\":[{\"path\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni\"},{\"path\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\"}],\"isGenerated\":false,\"language\":\"CXX\",\"sources\":[\"skele_wrapper.cpp\"]}],\"fullName\":\"libcogi_jni_skele.so\",\"linkFlags\":\"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id\u003dsha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments\",\"linkLibraries\":\"../cpp/libcogi_skele.a -llog -latomic -lm\",\"linkerLanguage\":\"CXX\",\"name\":\"cogi_jni_skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni\",\"sysroot\":\"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot\",\"type\":\"SHARED_LIBRARY\"},{\"artifacts\":[\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp/libcogi_skele.a\"],\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp\",\"fileGroups\":[{\"compileFlags\":\"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE\u003d2 -Wformat -Werror\u003dformat-security  -std\u003dc++11 -fexceptions -O2 -DNDEBUG  -fPIC  \",\"includePath\":[{\"path\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\"}],\"isGenerated\":false,\"language\":\"CXX\",\"sources\":[\"skele.cpp\"]},{\"isGenerated\":false,\"sources\":[\"skele.hpp\"]}],\"fullName\":\"libcogi_skele.a\",\"linkerLanguage\":\"CXX\",\"name\":\"cogi_skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\",\"sysroot\":\"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot\",\"type\":\"STATIC_LIBRARY\"}]},{\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/jni\",\"name\":\"cogi_jni_skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni\",\"targets\":[{\"artifacts\":[\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/release/obj/arm64-v8a/libcogi_jni_skele.so\"],\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/jni\",\"fileGroups\":[{\"isGenerated\":false,\"sources\":[\"skele_wrapper.hpp\"]},{\"compileFlags\":\"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE\u003d2 -Wformat -Werror\u003dformat-security  -std\u003dc++11 -fexceptions -O2 -DNDEBUG  -fPIC  \",\"defines\":[\"cogi_jni_skele_EXPORTS\"],\"includePath\":[{\"path\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni\"},{\"path\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\"}],\"isGenerated\":false,\"language\":\"CXX\",\"sources\":[\"skele_wrapper.cpp\"]}],\"fullName\":\"libcogi_jni_skele.so\",\"linkFlags\":\"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id\u003dsha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--no-undefined -Qunused-arguments\",\"linkLibraries\":\"../cpp/libcogi_skele.a -llog -latomic -lm\",\"linkerLanguage\":\"CXX\",\"name\":\"cogi_jni_skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni\",\"sysroot\":\"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot\",\"type\":\"SHARED_LIBRARY\"}]},{\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp\",\"name\":\"cogi_skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\",\"targets\":[{\"artifacts\":[\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp/libcogi_skele.a\"],\"buildDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/src/main/cpp\",\"fileGroups\":[{\"compileFlags\":\"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE\u003d2 -Wformat -Werror\u003dformat-security  -std\u003dc++11 -fexceptions -O2 -DNDEBUG  -fPIC  \",\"includePath\":[{\"path\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\"}],\"isGenerated\":false,\"language\":\"CXX\",\"sources\":[\"skele.cpp\"]},{\"isGenerated\":false,\"sources\":[\"skele.hpp\"]}],\"fullName\":\"libcogi_skele.a\",\"linkerLanguage\":\"CXX\",\"name\":\"cogi_skele\",\"sourceDirectory\":\"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp\",\"sysroot\":\"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot\",\"type\":\"STATIC_LIBRARY\"}]}]}],\"cookie\":\"\",\"inReplyTo\":\"codemodel\",\"type\":\"reply\"}\n",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "done executing cmake",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "write build output /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/build_output.txt",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "write command file /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/arm64-v8a/build_command.txt",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  },
+  {
+    "level": "INFO",
+    "message": "JSON generation completed without problems",
+    "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "tag": "release|arm64-v8a"
+  }
+]

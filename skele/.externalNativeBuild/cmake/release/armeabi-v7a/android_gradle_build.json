@@ -1,0 +1,409 @@
+
+{
+	"buildFiles" : 
+	[
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googlemock/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googletest/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/CMakeLists.txt",
+		"/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/jni/CMakeLists.txt"
+	],
+	"cFileExtensions" : [ "c" ],
+	"cleanCommands" : 
+	[
+		"/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target clean"
+	],
+	"cppFileExtensions" : [ "cc", "cpp" ],
+	"libraries" : 
+	{
+		"cogi_audioprocessor-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "cogi_audioprocessor",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target cogi_audioprocessor",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/audio_processor.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/stream_writer.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/mp3_compressor.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/system_file.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/pcm_processor.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/stream_writer_observer.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/audio_processor_bridge.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/src/main/cpp/libcogi_audioprocessor.a",
+			"toolchain" : "13866925869506533229"
+		},
+		"cogi_jni_audioprocessor-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "cogi_jni_audioprocessor",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target cogi_jni_audioprocessor",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dcogi_jni_audioprocessor_EXPORTS -I../../../../src/main/jni -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -std=c++11 -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/jni/mp3_compressor_wrapper.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dcogi_jni_audioprocessor_EXPORTS -I../../../../src/main/jni -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -std=c++11 -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/jni/audio_processor_wrapper.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/build/intermediates/cmake/release/obj/armeabi-v7a/libcogi_jni_audioprocessor.so",
+			"toolchain" : "13866925869506533229"
+		},
+		"gmock-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "gmock",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gmock",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_EXPORTS -I../../../../libs/googletest/googlemock/include -I../../../../libs/googletest/googlemock -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wall -Wshadow -Werror -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -Wno-sign-conversion -std=c++11  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googlemock/src/gmock-all.cc",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgmock.so",
+			"toolchain" : "13866925869506533229"
+		},
+		"gmock_main-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "gmock_main",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gmock_main",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgmock_main_EXPORTS -isystem ../../../../libs/googletest/googlemock/include -isystem ../../../../libs/googletest/googlemock -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wall -Wshadow -Werror -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -Wno-sign-conversion -std=c++11  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googlemock/src/gmock_main.cc",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgmock_main.so",
+			"toolchain" : "13866925869506533229"
+		},
+		"gtest-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "gtest",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gtest",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_EXPORTS -I../../../../libs/googletest/googletest/include -I../../../../libs/googletest/googletest  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wall -Wshadow -Werror -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -Wno-sign-conversion -std=c++11  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googletest/src/gtest-all.cc",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgtest.so",
+			"toolchain" : "13866925869506533229"
+		},
+		"gtest_main-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "gtest_main",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gtest_main",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -DGTEST_CREATE_SHARED_LIBRARY=1 -Dgtest_main_EXPORTS -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIC   -Wall -Wshadow -Werror -Wconversion -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Wchar-subscripts -Winline -Wredundant-decls -Wno-sign-conversion -std=c++11  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googletest/src/gtest_main.cc",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgtest_main.so",
+			"toolchain" : "13866925869506533229"
+		},
+		"mp3lame-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "mp3lame",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target mp3lame",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/util.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/fft.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/presets.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/vbrquantize.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/newmdct.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/set_get.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/quantize.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/lame.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/version.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/id3tag.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/takehiro.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/encoder.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/gain_analysis.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/reservoir.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/quantize_pvt.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/mpglib_interface.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/psymodel.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/VbrTag.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/bitstream.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/tables.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/libmp3lame/vector/xmm_quantize_sub.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/layer3.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/common.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/dct64_i386.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/layer2.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/decode_i386.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/tabinit.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/layer1.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot -DDECODE_ON_THE_FLY -DHAVE_MPGLIB -DHAVE_STDINT_H -DSTDC_HEADERS -DTAKEHIRO_IEEE754_HACK -DUSE_FAST_LOG -Dieee754_float32_t=float -I../../../../libs/libmp3lame/include -I../../../../libs/libmp3lame -I../../../../libs/libmp3lame/libmp3lame -I../../../../libs/libmp3lame/mpglib -Ilibs/libmp3lame  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -Wno-sign-conversion    -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/mpglib/interface.c",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/libs/libmp3lame/libmp3lame.a",
+			"toolchain" : "13866925869506533229"
+		},
+		"test_audioprocessor-Release-armeabi-v7a" : 
+		{
+			"abi" : "armeabi-v7a",
+			"artifactName" : "test_audioprocessor",
+			"buildCommand" : "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target test_audioprocessor",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest -isystem ../../../../libs/googletest/googlemock/include -isystem ../../../../libs/googletest/googlemock  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIE   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/audio_processor_test.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest -isystem ../../../../libs/googletest/googlemock/include -isystem ../../../../libs/googletest/googlemock  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIE   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/stream_writer_test.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest -isystem ../../../../libs/googletest/googlemock/include -isystem ../../../../libs/googletest/googlemock  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIE   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/mp3_compressor_test.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest -isystem ../../../../libs/googletest/googlemock/include -isystem ../../../../libs/googletest/googlemock  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIE   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/audio_buffer_test.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				},
+				
+				{
+					"flags" : "  --target=armv7-none-linux-androideabi16 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp -I../../../../libs/libmp3lame/include -isystem ../../../../libs/googletest/googletest/include -isystem ../../../../libs/googletest/googletest -isystem ../../../../libs/googletest/googlemock/include -isystem ../../../../libs/googletest/googlemock  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -frtti -fexceptions -DANDROID_STL=c++_shared -Oz -DNDEBUG  -fPIE   -Wno-sign-conversion  -c ",
+					"src" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/circular_queue_test.cpp",
+					"workingDirectory" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a"
+				}
+			],
+			"output" : "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/src/test/cpp/test_audioprocessor",
+			"toolchain" : "13866925869506533229"
+		}
+	},
+	"toolchains" : 
+	{
+		"13866925869506533229" : 
+		{
+			"cCompilerExecutable" : "/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang",
+			"cppCompilerExecutable" : "/home/hockeymikey/Android/Sdk/ndk-bundle/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+		}
+	}
+}

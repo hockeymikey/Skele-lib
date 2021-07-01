@@ -1,0 +1,74 @@
+{
+  "stringTable": {
+    "0": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86",
+    "1": "--target=i686-none-linux-android26 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot -I../../../../src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c++11 -fexceptions -O2 -DNDEBUG -fPIC",
+    "2": "--target=i686-none-linux-android26 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dcogi_jni_skele_EXPORTS -I../../../../src/main/jni -I../../../../src/main/cpp -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -std=c++11 -fexceptions -O2 -DNDEBUG -fPIC"
+  },
+  "buildFiles": [
+    "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/CMakeLists.txt",
+    "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake",
+    "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake",
+    "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/platforms.cmake",
+    "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/compiler_id.cmake",
+    "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp/CMakeLists.txt",
+    "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86\" clean"
+  ],
+  "buildTargetsCommand": "/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja  -C \"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86\" {LIST_OF_TARGETS_TO_BUILD}",
+  "libraries": {
+    "cogi_jni_skele-Release-x86": {
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86\" cogi_jni_skele",
+      "buildType": "release",
+      "toolchain": "1025444227",
+      "abi": "x86",
+      "artifactName": "cogi_jni_skele",
+      "files": [
+        {
+          "src": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni/skele_wrapper.cpp",
+          "flagsOrdinal": 2,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [
+        {
+          "header": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni/skele_wrapper.hpp",
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "output": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/release/obj/x86/libcogi_jni_skele.so",
+      "runtimeFiles": []
+    },
+    "cogi_skele-Release-x86": {
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja -C \"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86\" cogi_skele",
+      "buildType": "release",
+      "toolchain": "1025444227",
+      "abi": "x86",
+      "artifactName": "cogi_skele",
+      "files": [
+        {
+          "src": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp/skele.cpp",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [
+        {
+          "header": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp/skele.hpp",
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "output": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86/src/main/cpp/libcogi_skele.a"
+    }
+  },
+  "toolchains": {
+    "1025444227": {
+      "cppCompilerExecutable": "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

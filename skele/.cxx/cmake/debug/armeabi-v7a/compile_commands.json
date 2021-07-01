@@ -1,0 +1,13 @@
+[
+{
+  "directory": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi26 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot   -I../../../../src/main/cpp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -fexceptions -std=c++11 -DANDROID_STL=c++static -O0 -fno-limit-debug-info  -fPIC   -Wno-sign-conversion -o src/main/cpp/CMakeFiles/cogi_skele.dir/skele.cpp.o -c /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp/skele.cpp",
+  "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp/skele.cpp"
+},
+
+{
+  "directory": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a",
+  "command": "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=armv7-none-linux-androideabi26 --gcc-toolchain=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dcogi_jni_skele_EXPORTS -I../../../../src/main/jni -I../../../../src/main/cpp  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -fexceptions -std=c++11 -DANDROID_STL=c++static -O0 -fno-limit-debug-info  -fPIC   -Wno-sign-conversion -o src/main/jni/CMakeFiles/cogi_jni_skele.dir/skele_wrapper.cpp.o -c /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni/skele_wrapper.cpp",
+  "file": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni/skele_wrapper.cpp"
+}
+]

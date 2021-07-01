@@ -1,0 +1,3 @@
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/x86_64

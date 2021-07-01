@@ -1,0 +1,65 @@
+{
+  "buildFiles": [
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googlemock/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/googletest/googletest/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/libs/libmp3lame/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/cpp/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/test/cpp/CMakeLists.txt",
+    "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target clean"
+  ],
+  "libraries": {
+    "cogi_audioprocessor-Release-armeabi-v7a": {
+      "artifactName": "cogi_audioprocessor",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target cogi_audioprocessor",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/src/main/cpp/libcogi_audioprocessor.a"
+    },
+    "gtest-Release-armeabi-v7a": {
+      "artifactName": "gtest",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gtest",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgtest.so"
+    },
+    "gmock-Release-armeabi-v7a": {
+      "artifactName": "gmock",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gmock",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgmock.so"
+    },
+    "mp3lame-Release-armeabi-v7a": {
+      "artifactName": "mp3lame",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target mp3lame",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/libs/libmp3lame/libmp3lame.a"
+    },
+    "cogi_jni_audioprocessor-Release-armeabi-v7a": {
+      "artifactName": "cogi_jni_audioprocessor",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target cogi_jni_audioprocessor",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/build/intermediates/cmake/release/obj/armeabi-v7a/libcogi_jni_audioprocessor.so"
+    },
+    "gtest_main-Release-armeabi-v7a": {
+      "artifactName": "gtest_main",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gtest_main",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgtest_main.so"
+    },
+    "gmock_main-Release-armeabi-v7a": {
+      "artifactName": "gmock_main",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target gmock_main",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/lib/libgmock_main.so"
+    },
+    "test_audioprocessor-Release-armeabi-v7a": {
+      "artifactName": "test_audioprocessor",
+      "buildCommand": "/home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake --build /home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a --target test_audioprocessor",
+      "abi": "armeabi-v7a",
+      "output": "/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/release/armeabi-v7a/src/test/cpp/test_audioprocessor"
+    }
+  }
+}

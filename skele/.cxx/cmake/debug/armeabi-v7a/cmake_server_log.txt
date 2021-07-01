@@ -1,0 +1,755 @@
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"supportedProtocolVersions":[{"isExperimental":true,"major":1,"minor":1}],"type":"hello"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {
+  "type": "handshake",
+  "cookie": "gradle-cmake-cookie",
+  "protocolVersion": {
+    "isExperimental": true,
+    "major": 1,
+    "minor": 1
+  },
+  "sourceDirectory": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele",
+  "buildDirectory": "/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a",
+  "generator": "Ninja"
+}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"gradle-cmake-cookie","inReplyTo":"handshake","type":"reply"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {
+  "type": "configure",
+  "cacheArguments": [
+    "",
+    "-DCMAKE_CXX_FLAGS\u003d-std\u003dc++11 -fexceptions",
+    "-DCMAKE_FIND_ROOT_PATH\u003d/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/prefab/armeabi-v7a/prefab",
+    "-DCMAKE_BUILD_TYPE\u003dDebug",
+    "-DCMAKE_TOOLCHAIN_FILE\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake",
+    "-DANDROID_ABI\u003darmeabi-v7a",
+    "-DANDROID_NDK\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448",
+    "-DANDROID_PLATFORM\u003dandroid-26",
+    "-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a",
+    "-DCMAKE_ANDROID_NDK\u003d/home/hockeymikey/Android/Sdk/ndk/23.0.7123448",
+    "-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON",
+    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/debug/obj/armeabi-v7a",
+    "-DCMAKE_MAKE_PROGRAM\u003d/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/bin/ninja",
+    "-DCMAKE_SYSTEM_NAME\u003dAndroid",
+    "-DCMAKE_SYSTEM_VERSION\u003d26"
+  ]
+}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake:94 (include)\n  CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake:94 (include)
+  CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake:94 (include)
+  CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Check for working C compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Check for working C compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
+CMAKE SERVER: Check for working C compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":33,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Check for working C compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang -- works","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Check for working C compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang -- works
+CMAKE SERVER: Check for working C compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang -- works
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting C compiler ABI info","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting C compiler ABI info
+CMAKE SERVER: Detecting C compiler ABI info
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":65,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting C compiler ABI info - done","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting C compiler ABI info - done
+CMAKE SERVER: Detecting C compiler ABI info - done
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting C compile features","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting C compile features
+CMAKE SERVER: Detecting C compile features
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":96,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":126,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":155,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting C compile features - done","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting C compile features - done
+CMAKE SERVER: Detecting C compile features - done
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Check for working CXX compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Check for working CXX compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++
+CMAKE SERVER: Check for working CXX compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":184,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Check for working CXX compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ -- works","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Check for working CXX compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ -- works
+CMAKE SERVER: Check for working CXX compiler: /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ -- works
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting CXX compiler ABI info","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting CXX compiler ABI info
+CMAKE SERVER: Detecting CXX compiler ABI info
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":211,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting CXX compiler ABI info - done","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting CXX compiler ABI info - done
+CMAKE SERVER: Detecting CXX compiler ABI info - done
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting CXX compile features","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting CXX compile features
+CMAKE SERVER: Detecting CXX compile features
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":237,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":262,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":287,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):\n  An old version of CMake is being used that cannot automatically detect\n  compiler attributes.  Compiler identification is being bypassed.  Some\n  values may be wrong or missing.  Update to CMake 3.19 or newer to use\n  CMake's built-in compiler identification.\nCall Stack (most recent call first):\n  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)\n  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)\n\n","title":"Warning","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: CMake Warning at /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake:427 (message):
+  An old version of CMake is being used that cannot automatically detect
+  compiler attributes.  Compiler identification is being bypassed.  Some
+  values may be wrong or missing.  Update to CMake 3.19 or newer to use
+  CMake's built-in compiler identification.
+Call Stack (most recent call first):
+  /home/hockeymikey/Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake:55 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake:6 (include)
+  /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/CMakeFiles/CMakeTmp/CMakeLists.txt:2 (project)
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":311,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Detecting CXX compile features - done","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Detecting CXX compile features - done
+CMAKE SERVER: Detecting CXX compile features - done
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":334,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":356,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Found Java: /usr/lib/jvm/java-8-openjdk/bin/java (found version \"1.8.0_282\") ","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Found Java: /usr/lib/jvm/java-8-openjdk/bin/java (found version "1.8.0_282") 
+CMAKE SERVER: Found Java: /usr/lib/jvm/java-8-openjdk/bin/java (found version "1.8.0_282") 
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Found JNI: NotNeeded  ","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Found JNI: NotNeeded  
+CMAKE SERVER: Found JNI: NotNeeded  
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":933,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":966,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","progressCurrent":1000,"progressMaximum":1000,"progressMessage":"Configuring","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","message":"Configuring done","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Configuring done
+CMAKE SERVER: Configuring done
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"configure","type":"reply"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"type":"compute"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"compute","progressCurrent":333,"progressMaximum":1000,"progressMessage":"Generating","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"compute","progressCurrent":666,"progressMaximum":1000,"progressMessage":"Generating","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"compute","progressCurrent":1000,"progressMaximum":1000,"progressMessage":"Generating","progressMinimum":0,"type":"progress"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"compute","message":"Generating done","type":"message"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: Generating done
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"cookie":"","inReplyTo":"compute","type":"reply"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"type":"cmakeInputs"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"buildFiles":[{"isCMake":true,"isTemporary":false,"sources":["../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineSystem.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystem.cmake.in","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInitialize.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Initialize.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCCompiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-C.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCXXCompiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Determine-CXX.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android/Determine-Compiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindBinUtils.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-FindBinUtils.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeSystemSpecificInformation.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeGenericSystem.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Linux.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/UnixPaths.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCInformation.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/GNU.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/CMakeCommonCompilerMacros.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-C.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCCompiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompilerABI.c","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-C-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCCompiler.cmake.in","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXInformation.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeLanguageInformation.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang-CXX.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Platform/Android-Clang.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCommonLanguageInclude.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCXXCompiler.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeTestCompilerCommon.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompilerABI.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeParseImplicitLinkInfo.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompilerABI.cpp","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeDetermineCompileFeatures.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Internal/FeatureTesting.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-FeatureTests.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/Compiler/Clang-CXX-TestableFeatures.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeCXXCompiler.cmake.in","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindJava.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindJavaCommon.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindJNI.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/CMakeFindJavaCommon.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageHandleStandardArgs.cmake","../../../../Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10/Modules/FindPackageMessage.cmake"]},{"isCMake":false,"isTemporary":false,"sources":["CMakeLists.txt","../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake","../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/android-legacy.toolchain.cmake","../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/platforms.cmake","../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/compiler_id.cmake","../../../../Android/Sdk/ndk/23.0.7123448/build/cmake/android.toolchain.cmake","src/main/cpp/CMakeLists.txt","src/main/jni/CMakeLists.txt"]},{"isCMake":false,"isTemporary":true,"sources":[".cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeSystem.cmake",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeCCompiler.cmake",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.c",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.c",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.c",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeCCompiler.cmake",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.cxx",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.cxx",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.cxx",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/feature_tests.cxx",".cxx/cmake/debug/armeabi-v7a/CMakeFiles/3.10.2/CMakeCXXCompiler.cmake"]}],"cmakeRootDirectory":"/home/hockeymikey/Android/Sdk/cmake/3.10.2.4988404/share/cmake-3.10","cookie":"","inReplyTo":"cmakeInputs","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele","type":"reply"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"type":"codemodel"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+
+CMAKE SERVER: 
+
+CMAKE SERVER: [== "CMake Server" ==[
+
+CMAKE SERVER: {"configurations":[{"name":"Debug","projects":[{"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a","name":"Skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele","targets":[{"artifacts":["/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/cpp/libcogi_skele.a"],"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/cpp","fileGroups":[{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -fexceptions -std=c++11 -DANDROID_STL=c++static -O0 -fno-limit-debug-info  -fPIC   -Wno-sign-conversion","includePath":[{"path":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp"}],"isGenerated":false,"language":"CXX","sources":["skele.cpp"]},{"isGenerated":false,"sources":["skele.hpp"]}],"fullName":"libcogi_skele.a","linkerLanguage":"CXX","name":"cogi_skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp","sysroot":"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot","type":"STATIC_LIBRARY"},{"artifacts":["/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/debug/obj/armeabi-v7a/libcogi_jni_skele.so"],"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/jni","fileGroups":[{"isGenerated":false,"sources":["skele_wrapper.hpp"]},{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -fexceptions -std=c++11 -DANDROID_STL=c++static -O0 -fno-limit-debug-info  -fPIC   -Wno-sign-conversion","defines":["cogi_jni_skele_EXPORTS"],"includePath":[{"path":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni"},{"path":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp"}],"isGenerated":false,"language":"CXX","sources":["skele_wrapper.cpp"]}],"fullName":"libcogi_jni_skele.so","linkFlags":"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--exclude-libs,libunwind.a -Wl,--no-undefined -Qunused-arguments","linkLibraries":"../cpp/libcogi_skele.a -llog -latomic -lm","linkerLanguage":"CXX","name":"cogi_jni_skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni","sysroot":"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot","type":"SHARED_LIBRARY"}]},{"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/jni","name":"cogi_jni_skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni","targets":[{"artifacts":["/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/build/intermediates/cmake/debug/obj/armeabi-v7a/libcogi_jni_skele.so"],"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/jni","fileGroups":[{"isGenerated":false,"sources":["skele_wrapper.hpp"]},{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -fexceptions -std=c++11 -DANDROID_STL=c++static -O0 -fno-limit-debug-info  -fPIC   -Wno-sign-conversion","defines":["cogi_jni_skele_EXPORTS"],"includePath":[{"path":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni"},{"path":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp"}],"isGenerated":false,"language":"CXX","sources":["skele_wrapper.cpp"]}],"fullName":"libcogi_jni_skele.so","linkFlags":"-Wl,--exclude-libs,libgcc.a -Wl,--exclude-libs,libgcc_real.a -Wl,--exclude-libs,libatomic.a -static-libstdc++ -Wl,--build-id=sha1 -Wl,--no-rosegment -Wl,--fatal-warnings -Wl,--exclude-libs,libunwind.a -Wl,--no-undefined -Qunused-arguments","linkLibraries":"../cpp/libcogi_skele.a -llog -latomic -lm","linkerLanguage":"CXX","name":"cogi_jni_skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/jni","sysroot":"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot","type":"SHARED_LIBRARY"}]},{"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/cpp","name":"cogi_skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp","targets":[{"artifacts":["/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/cpp/libcogi_skele.a"],"buildDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/debug/armeabi-v7a/src/main/cpp","fileGroups":[{"compileFlags":"-g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -std=c++11 -fexceptions -std=c++11 -DANDROID_STL=c++static -O0 -fno-limit-debug-info  -fPIC   -Wno-sign-conversion","includePath":[{"path":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp"}],"isGenerated":false,"language":"CXX","sources":["skele.cpp"]},{"isGenerated":false,"sources":["skele.hpp"]}],"fullName":"libcogi_skele.a","linkerLanguage":"CXX","name":"cogi_skele","sourceDirectory":"/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/src/main/cpp","sysroot":"/home/hockeymikey/Android/Sdk/ndk/23.0.7123448/toolchains/llvm/prebuilt/linux-x86_64/sysroot","type":"STATIC_LIBRARY"}]}]}],"cookie":"","inReplyTo":"codemodel","type":"reply"}
+
+CMAKE SERVER: ]== "CMake Server" ==]
+

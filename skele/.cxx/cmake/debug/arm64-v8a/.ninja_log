@@ -1,0 +1,5 @@
+# ninja log v5
+0	234	1614727923	src/main/cpp/CMakeFiles/cogi_skele.dir/skele.cpp.o	ac2901663e6c3ce0
+234	243	1614727923	src/main/cpp/libcogi_skele.a	ccc3aad4ff24b55f
+0	279	1614727923	src/main/jni/CMakeFiles/cogi_jni_skele.dir/skele_wrapper.cpp.o	5149a3142f4201dc
+280	329	1614727923	../../../../build/intermediates/cmake/debug/obj/arm64-v8a/libcogi_jni_skele.so	e8e146f6d0f98275

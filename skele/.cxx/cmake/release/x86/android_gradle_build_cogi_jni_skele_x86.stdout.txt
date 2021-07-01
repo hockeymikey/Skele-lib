@@ -1,0 +1,13 @@
+ninja: Entering directory `/home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86'
+[0/1] Re-running CMake...
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/hockeymikey/Work/RivieraNexus/skele-lib/skele/.cxx/cmake/release/x86
+[1/4] Building CXX object src/main/jni/CMakeFiles/cogi_jni_skele.dir/skele_wrapper.cpp.o
+../../../../src/main/jni/skele_wrapper.cpp:12:1: warning: non-void function does not return a value [-Wreturn-type]
+}
+^
+1 warning generated.
+[2/4] Building CXX object src/main/cpp/CMakeFiles/cogi_skele.dir/skele.cpp.o
+[3/4] Linking CXX static library src/main/cpp/libcogi_skele.a
+[4/4] Linking CXX shared library ../../../../build/intermediates/cmake/release/obj/x86/libcogi_jni_skele.so

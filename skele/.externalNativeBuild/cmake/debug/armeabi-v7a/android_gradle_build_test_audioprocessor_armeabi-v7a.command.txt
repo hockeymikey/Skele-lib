@@ -1,0 +1,8 @@
+Executable : /home/hockeymikey/Android/Sdk/cmake/3.6.4111459/bin/cmake
+arguments : 
+--build
+/home/hockeymikey/Work/Cogi/cogi-audio-processor/audioprocessor/.externalNativeBuild/cmake/debug/armeabi-v7a
+--target
+test_audioprocessor
+jvmArgs : 
+

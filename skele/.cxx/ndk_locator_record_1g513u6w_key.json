@@ -1,0 +1,10 @@
+{
+  "ndkVersionFromDsl": "23.0.7123448",
+  "ndkDirProperty": "/home/hockeymikey/Android/Sdk/ndk/23.0.7123448",
+  "sdkFolder": "/home/hockeymikey/Android/Sdk",
+  "sideBySideNdkFolderNames": [
+    "21.0.6113669",
+    "23.0.7123448",
+    "21.1.6352462"
+  ]
+}
